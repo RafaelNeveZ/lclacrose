@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#F26221</color>
+    <color name="colorPrimaryDark">#C25A19</color>
+    <color name="colorAccent">#F26221</color>
+    <color name="border_edit_login_text">#bdbabb</color>
+</resources>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:gravity="center|top"
+    android:background="@android:color/white"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_marginTop="35dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/lclacrose_logo" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp">
+
+        <TextView
+            android:id="@+id/user_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/user_edit_text"
+            android:layout_marginTop="15dp"
+            android:text="@string/user_edit_box"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/user_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/user_text_view"
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="100dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/rounded_orange_edit_text"
+            android:inputType="textEmailAddress"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        >
+
+        <TextView
+            android:id="@+id/pass_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/pass_edit_text"
+            android:text="@string/pass_edit_box"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/pass_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/pass_text_view"
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="100dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/rounded_orange_edit_text"
+            android:inputType="textPassword"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/pass_forgot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/pass_forgot"
+            android:textColor="@color/border_edit_login_text"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_below="@+id/pass_edit_text"
+            android:layout_alignEnd="@+id/pass_edit_text"
+            android:onClick="forgotPass"/>
+    </RelativeLayout>
+
+        <Button
+            android:id="@+id/login_bt"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginStart="50dp"
+            android:text="@string/log_in_button"
+            android:textSize="18sp"
+            android:textColor="@drawable/selector_white_text_button"
+            android:background="@drawable/selector_orange_button"
+            android:onClick="login"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+    </View>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+    <TextView
+        android:id="@+id/about"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/about"
+        android:textColor="@color/border_edit_login_text"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:onClick="about"
+        />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1">
+        </View>
+        <TextView
+            android:id="@+id/terms_of_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/terms_of_user"
+            android:textColor="@color/border_edit_login_text"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            android:onClick="terms"
+            />
+    </LinearLayout>
+
+</LinearLayout>

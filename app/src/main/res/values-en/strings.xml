@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">LC LACROSE</string>
+
+    <!--Login Screen-->
+    <string name="user_edit_box">User</string>
+    <string name="pass_edit_box">Password</string>
+    <string name="pass_forgot"><u>Forgot my password</u></string>
+    <string name="log_in_button">Login</string>
+    <string name="about"><u>About</u></string>
+    <string name="terms_of_user"><u>Terms of user</u></string>
+
+    <!--CÓDIGO-->
+    <string name="empty_field_error">This field must not be empty.</string>
+    <string name="loging">Loging...</string>
+    <string name="credential_wrong">User or password is invalid</string>
+    <string name="user_invalid">Invalid user</string>
+    <string name="server_error">Server error</string>
+    <string name="dialog_forgot_pass_title">Type an e-mail to reset the password</string>
+    <string name="cancel">Cancel</string>
+    <string name="send_email">Send</string>
+    <string name="email_miss">Type an e-mail</string>
+    <string name="email_sent">E-mail sent!</string>
+
+    <!--#########################################################################################-->
+    <!--About Screen-->
+
+    <!--INTERFACE-->
+    <string name="about_title">Sobre</string>
+
+
+    <!--Terms of User Screen-->
+
+    <!--INTERFACE-->
+    <string name="terms_of_user_title">Termos de uso</string>
+    <!--#########################################################################################-->
+
+    <!--WORK SCREEN-->
+    <string name="log_off">Log off</string>
+    <string name="work">Work</string>
+    <string name="dialog_logout_title">Deseja realmente sair do seu usário</string>
+    <string name="user_tag">Users</string>
+    <string name="work_tag">Obras</string>
+    <string name="id_tag">Id</string>
+
+</resources>

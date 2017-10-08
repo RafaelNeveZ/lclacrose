@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1065174956410",
+    "firebase_url": "https://lacrose-55e5c.firebaseio.com",
+    "project_id": "lacrose-55e5c",
+    "storage_bucket": "lacrose-55e5c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1065174956410:android:bc0dac4b94616ddf",
+        "android_client_info": {
+          "package_name": "com.lacrose.lc.lclacrose"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1065174956410-l627klk1biecgiiuh4s25cvupo6ps33s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lacrose.lc.lclacrose",
+            "certificate_hash": "8a93027db5dac5a03095dd52202c3387d2a8b585"
+          }
+        },
+        {
+          "client_id": "1065174956410-p2pnmcqjr9q3sieurgno0dfna9gnnrha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2oJzKIGRbH9ZJmbSp4udQCSxCZSonFMo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1065174956410-p2pnmcqjr9q3sieurgno0dfna9gnnrha.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
