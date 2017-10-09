@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#C25A19</color>
     <color name="colorAccent">#F26221</color>
     <color name="border_edit_login_text">#bdbabb</color>
+    <color name="back_gray">#e2ddde</color>
+    <color name="white">#FFFFFF</color>
 </resources>

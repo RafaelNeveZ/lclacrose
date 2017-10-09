@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center|top"
+    android:background="@color/back_gray"
+    tools:context="com.lacrose.lc.lclacrose.HomeActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_background"
+        android:orientation="vertical">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="30dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_orange_button"
+            android:text="@string/buttom_mold"
+            android:textColor="@drawable/selector_white_text_button"
+            android:textSize="18sp"
+            android:onClick="moldButton"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="30dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_orange_button"
+            android:text="@string/buttom_ruptura"
+            android:textColor="@drawable/selector_white_text_button"
+            android:padding="5dp"
+            android:textSize="18sp"
+            android:onClick="scanButton"/>
+        </LinearLayout>
+</LinearLayout>

@@ -41,5 +41,10 @@
     <string name="user_tag">Users</string>
     <string name="work_tag">Obras</string>
     <string name="id_tag">Id</string>
+    <string name="buttom_mold">MOLDADAGEM: Cadastro de lote</string>
+    <string name="permission_granted">Permissões concedidas</string>
+    <string name="permission_denied">Permissão não concedida</string>
+    <string name="dialog_permission">Você precisa permitir o acesso a camera para continuar.</string>
+    <string name="ok">OK</string>
 
 </resources>

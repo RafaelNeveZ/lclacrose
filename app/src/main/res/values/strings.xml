@@ -44,4 +44,12 @@
     <string name="work_tag">Obras</string>
     <string name="id_tag">Id</string>
 
+    <!--HOME SCREEN-->
+    <string name="buttom_mold">MOLDADAGEM:\n Cadastro de lote</string>
+    <string name="buttom_ruptura">RUPTURA:\n Ruptura de corpos de prova</string>
+    <string name="permission_granted">Permissões concedidas</string>
+    <string name="permission_denied">Permissão não concedida</string>
+    <string name="dialog_permission">Você precisa permitir o acesso a camera para continuar.</string>
+    <string name="ok">OK</string>
+
 </resources>

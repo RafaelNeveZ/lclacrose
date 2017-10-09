@@ -16,7 +16,8 @@ import static android.graphics.Color.YELLOW;
 
 public class ScanActivity extends AppCompatActivity implements ZBarScannerView.ResultHandler {
     private ZBarScannerView mScannerView;
-
+    public final String TAG_CÓDIGO ="LIDO";
+    public final String TAG_TIPO="TIPO";
     //camera permission is needed.
 
     @Override
@@ -42,14 +43,11 @@ public class ScanActivity extends AppCompatActivity implements ZBarScannerView.R
 
     @Override
     public void handleResult(me.dm7.barcodescanner.zbar.Result result) {
-        // Do something with the result here
-        Log.v("kkkk", result.getContents()); // Prints scan results
-        Log.v("uuuu", result.getBarcodeFormat().getName()); // Prints the scan format (qrcode, pdf417 etc.)
+        Log.e(TAG_CÓDIGO, result.getContents()); // Prints scan results
+        Log.e(TAG_TIPO, result.getBarcodeFormat().getName()); // Prints the scan format (qrcode, pdf417 etc.)
 
       //TODO: Adicionar um estatico na activity responsavel  LoginActivity.tvresult.setText(result.getContents());
         onBackPressed();
 
-        // If you would like to resume scanning, call this method below:
-        //mScannerView.resumeCameraPreview(this);
     }
 }

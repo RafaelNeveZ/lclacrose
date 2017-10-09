@@ -38,9 +38,14 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/terms_of_user_title"
             android:parentActivityName=".LoginActivity" />
-        <activity android:name=".WorkActivity"
-            android:label="@string/work"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"/>
+        <activity
+            android:name=".WorkActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/work" />
+        <activity
+            android:name=".HomeActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            />
     </application>
 
 </manifest>

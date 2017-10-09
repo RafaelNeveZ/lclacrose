@@ -48,7 +48,7 @@ public class WorkActivity extends AppCompatActivity {
                         ArrayList<Integer> teste = (ArrayList<Integer>) dataSnapshot.getValue();
                         Log.e(TAG," "+ teste);
                         DatabaseReference works_ref;
-                        works_ref = database.getReference("Obras").equalTo();
+                   //     works_ref = database.getReference("Obras").equalTo();
                       //  showIds((Map<String,Object>) dataSnapshot.getValue());
 
                     }
