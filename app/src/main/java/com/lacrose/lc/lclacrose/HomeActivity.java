@@ -42,7 +42,8 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
     public void moldButton(View view) {
-
+        Intent intent = new Intent(HomeActivity.this, MoldActivity.class);
+        startActivity(intent);
     }
 
     //PERMISSIONS===============================================================

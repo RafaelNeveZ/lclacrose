@@ -44,7 +44,22 @@
             android:label="@string/work" />
         <activity
             android:name=".HomeActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation" />
+        <activity
+            android:name=".MoldActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/mold"
+            android:parentActivityName=".HomeActivity" />
+        <activity
+            android:name=".LoteActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/lotes"
+            android:parentActivityName=".HomeActivity" />
+        <activity
+            android:name=".RulpturaActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/rulptura"
+            android:parentActivityName=".LoteActivity"
             />
     </application>
 

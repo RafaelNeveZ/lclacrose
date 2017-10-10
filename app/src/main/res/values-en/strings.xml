@@ -46,5 +46,28 @@
     <string name="permission_denied">Permissão não concedida</string>
     <string name="dialog_permission">Você precisa permitir o acesso a camera para continuar.</string>
     <string name="ok">OK</string>
+    <string name="mold">Moldagem</string>
+    <string name="lotes">Lotes</string>
+    <string name="lote_code">Código do lote</string>
+    <string name="default_lote">0000</string>
+    <string name="not_info">Não informado pelo cliente.</string>
+    <string name="material_text">Material cimenticio</string>
+    <string name="dimenssion_text">Dimenssões nominais</string>
+    <string name="constru_text">Concreteira</string>
+    <string name="nota_text">Nota fiscal</string>
+    <string name="volume_text">Volume do caminhão</string>
+    <string name="fck_text">FCK</string>
+    <string name="slump_text">Slump</string>
+    <string name="slump_flow_text">Slump flow</string>
+    <string name="data_text">Data</string>
+    <string name="date_default">DATA</string>
+    <string name="local_text">Local concretado</string>
+    <string name="lote_create">CRIAR LOTE</string>
+    <string name="rulptura">Rulptura</string>
+    <string name="body_code">Código do corpo de prova</string>
+    <string name="carga_text">Carga</string>
+    <string name="type_text">Tipo</string>
+    <string name="save_continue">Salvar e continuar</string>
+    <string name="save_finish">Salvar e finalizar</string>
 
 </resources>

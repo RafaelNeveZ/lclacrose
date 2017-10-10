@@ -1,4 +1,5 @@
 package com.lacrose.lc.lclacrose;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,9 +46,9 @@ public class ScanActivity extends AppCompatActivity implements ZBarScannerView.R
     public void handleResult(me.dm7.barcodescanner.zbar.Result result) {
         Log.e(TAG_CÓDIGO, result.getContents()); // Prints scan results
         Log.e(TAG_TIPO, result.getBarcodeFormat().getName()); // Prints the scan format (qrcode, pdf417 etc.)
-
-      //TODO: Adicionar um estatico na activity responsavel  LoginActivity.tvresult.setText(result.getContents());
-        onBackPressed();
+        RulpturaActivity.CODE = result.getContents();
+        Intent intent = new Intent(ScanActivity.this, RulpturaActivity.class);
+        startActivity(intent);
 
     }
 }
