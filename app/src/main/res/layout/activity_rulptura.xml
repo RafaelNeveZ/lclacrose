@@ -9,18 +9,16 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/code_text_view"
@@ -43,12 +41,13 @@
                     android:layout_marginEnd="50dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/rounded_full_white_edit_text"
-                    android:textColor="@color/colorPrimary"
+                    android:paddingTop="10dp"
                     android:text="@string/default_lote"
                     android:textAlignment="center"
-                    android:paddingTop="10dp"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="18sp" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -80,64 +79,90 @@
                     android:textColor="@android:color/black" />
 
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                >
+                android:layout_marginTop="15dp">
 
                 <TextView
                     android:id="@+id/type_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:layout_alignStart="@+id/type_spinner"
-                    android:layout_marginTop="15dp"
+                    android:layout_alignStart="@+id/type_spinner_relative"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="25dp"
                     android:text="@string/type_text"
                     android:textColor="@color/colorPrimary"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
-                <Spinner
-                    android:id="@+id/type_spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                <RelativeLayout
+                    android:id="@+id/type_spinner_relative"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/type_text_view"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginEnd="50dp"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@android:color/black"
-                    android:prompt="@string/type_prompt"
-                    android:entries="@array/type_arrays"
-                    android:paddingLeft="20dp" />
+                    android:layout_centerHorizontal="true">
 
-                <Button
-                    android:id="@+id/save_continue_buttom"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_below="@+id/type_spinner"
-                    android:layout_marginBottom="15dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_alignEnd="@+id/type_spinner"
-                    android:layout_marginTop="15dp"
-                    android:layout_alignStart="@+id/type_spinner"
-                    android:background="@drawable/selector_orange_button"
-                    android:textColor="@drawable/selector_white_text_button"
-                    android:text="@string/save_continue"
-                    android:onClick="saveContinue"/>
-                <Button
-                    android:id="@+id/save_finish_buttom"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_below="@+id/save_continue_buttom"
-                    android:layout_marginBottom="15dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_alignEnd="@+id/save_continue_buttom"
-                    android:layout_marginTop="5dp"
-                    android:layout_alignStart="@+id/save_continue_buttom"
-                    android:background="@drawable/selector_orange_button"
-                    android:textColor="@drawable/selector_white_text_button"
-                    android:text="@string/save_finish"
-                    android:onClick="saveFinish"/>
+                    <Spinner
+                        android:id="@+id/type_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginEnd="50dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/rounded_gray_edit_text"
+                        android:entries="@array/type_arrays"
+                        android:prompt="@string/type_prompt"
+                        android:text="@string/type_prompt"
+                        android:paddingLeft="20dp"
+                        android:textColor="@android:color/black" />
+
+                    <ImageView
+                        android:id="@+id/ic_dropdown"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="11dp"
+                        android:paddingTop="8dp"
+                        android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+                        android:layout_alignTop="@+id/type_spinner"
+                        android:layout_alignEnd="@+id/type_spinner" />
+
+                    <Button
+                        android:id="@+id/save_continue_buttom"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_alignEnd="@+id/type_spinner"
+                        android:layout_alignStart="@+id/type_spinner"
+                        android:layout_below="@+id/ic_dropdown"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="40dp"
+                        android:background="@drawable/selector_orange_button"
+                        android:onClick="saveContinue"
+                        android:text="@string/save_continue"
+                        android:textColor="@drawable/selector_white_text_button" />
+
+                    <Button
+                        android:id="@+id/save_finish_buttom"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_alignEnd="@+id/save_continue_buttom"
+                        android:layout_alignStart="@+id/save_continue_buttom"
+                        android:layout_below="@+id/save_continue_buttom"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/selector_orange_button"
+                        android:onClick="saveFinish"
+                        android:text="@string/save_finish"
+                        android:textColor="@drawable/selector_white_text_button" />
+
+                </RelativeLayout>
+
+
             </RelativeLayout>
 
 

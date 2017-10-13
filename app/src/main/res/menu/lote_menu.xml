@@ -9,11 +9,4 @@
         android:onClick="update"
         app:showAsAction="ifRoom"/>
 
-    <item android:id="@+id/logout"
-        android:icon="@drawable/ic_power_settings_new_white_24dp"
-        android:title="@string/log_off"
-        android:onClick="logOut"
-        />
-
-
 </menu>

@@ -38,11 +38,12 @@
 
     <!--WORK SCREEN-->
     <string name="log_off">Sair</string>
-    <string name="work">Obras</string>
+    <string name="works">OBRAS</string>
+    <string name="work">OBRA</string>
     <string name="dialog_logout_title">Deseja realmente sair do seu usário?</string>
-    <string name="user_tag">Users</string>
-    <string name="work_tag">Obras</string>
-    <string name="id_tag">Id</string>
+    <string name="user_tag">users</string>
+    <string name="work_tag">obras</string>
+    <string name="id_tag">id</string>
 
     <!--HOME SCREEN-->
     <string name="buttom_mold">MOLDADAGEM:\n Cadastro de lote</string>
@@ -51,8 +52,8 @@
     <string name="permission_denied">Permissão não concedida</string>
     <string name="dialog_permission">Você precisa permitir o acesso a camera para continuar.</string>
     <string name="ok">OK</string>
-    <string name="mold">Moldagem</string>
-    <string name="lotes">Lotes</string>
+    <string name="mold">MOLDAGEM</string>
+    <string name="lotes">LOTES</string>
     <string name="lote_code">Código do lote</string>
     <string name="default_lote">0000</string>
 
@@ -67,7 +68,7 @@
     </string-array>
     <string name="dimenssion_prompt">Selecione as dimenssões</string>
     <string-array name="dimenssion_arrays">
-       <item>Selecione as dimenssões</item>
+        <item>Selecione as dimenssões</item>
         <item>100x200</item>
         <item>150x300</item>
         <item>50x100</item>
@@ -85,7 +86,7 @@
     <string name="date_default">DATA</string>
     <string name="local_text">Local concretado</string>
     <string name="lote_create">CRIAR LOTE</string>
-    <string name="rulptura">Rulptura</string>
+    <string name="rulptura">RULPTURA</string>
     <string name="body_code">Código do corpo de prova</string>
     <string name="construc_prompt">Selecione a construtora</string>
     <string-array name="construc_arrays">
@@ -101,6 +102,14 @@
     <string name="save_finish">Salvar e finalizar</string>
     <string name="concreto">Concreto</string>
     <string name="type_prompt">Selecione o tipo</string>
+    <string name="date_notput_error">Coloque a data</string>
+    <string name="date_before_error">Data inválida</string>
+    <string name="default_work">Obra</string>
+    <string name="work_empyt">NÃO POSSUI OBRAS DISPONIVEIS</string>
+    <string name="lote_tag">lotes</string>
+    <string name="update">Atualizar</string>
+    <string name="lote">Lote</string>
+    <string name="corpos">corpos</string>
     <string-array name="type_arrays">
         <item>Selecione o tipo</item>
         <item>A</item>

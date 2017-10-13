@@ -41,25 +41,25 @@
         <activity
             android:name=".WorkActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/work" />
+            android:label="@string/works" />
         <activity
             android:name=".HomeActivity"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation" />
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:parentActivityName=".WorkActivity" />
         <activity
             android:name=".MoldActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/mold"
             android:parentActivityName=".HomeActivity" />
         <activity
-            android:name=".LoteActivity"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/lotes"
-            android:parentActivityName=".HomeActivity" />
-        <activity
             android:name=".RulpturaActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/rulptura"
-            android:parentActivityName=".LoteActivity"
+            android:parentActivityName=".LotesActivity" />
+        <activity android:name=".LotesActivity"
+            android:label="@string/lote_tag"
+            android:parentActivityName=".HomeActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             />
     </application>
 

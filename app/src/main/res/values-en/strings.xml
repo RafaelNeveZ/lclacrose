@@ -36,11 +36,11 @@
 
     <!--WORK SCREEN-->
     <string name="log_off">Log off</string>
-    <string name="work">Work</string>
+    <string name="works">Work</string>
     <string name="dialog_logout_title">Deseja realmente sair do seu usário</string>
-    <string name="user_tag">Users</string>
-    <string name="work_tag">Obras</string>
-    <string name="id_tag">Id</string>
+    <string name="user_tag">users</string>
+    <string name="work_tag">obras</string>
+    <string name="id_tag">id</string>
     <string name="buttom_mold">MOLDADAGEM: Cadastro de lote</string>
     <string name="permission_granted">Permissões concedidas</string>
     <string name="permission_denied">Permissão não concedida</string>
@@ -69,5 +69,13 @@
     <string name="type_text">Tipo</string>
     <string name="save_continue">Salvar e continuar</string>
     <string name="save_finish">Salvar e finalizar</string>
+    <string name="date_notput_error">Coloque a data</string>
+    <string name="date_before_error">Data inválida</string>
+    <string name="default_work">Obra</string>
+    <string name="work_empyt">NÃO POSSUI OBRAS DISPONIVEIS</string>
+    <string name="lote_tag">lotes</string>
+    <string name="update">Atualizar</string>
+    <string name="lote">Lote</string>
+    <string name="corpos">corpos</string>
 
 </resources>

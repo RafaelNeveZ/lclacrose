@@ -49,6 +49,7 @@ public class ScanActivity extends AppCompatActivity implements ZBarScannerView.R
         RulpturaActivity.CODE = result.getContents();
         Intent intent = new Intent(ScanActivity.this, RulpturaActivity.class);
         startActivity(intent);
+        finish();
 
     }
 }

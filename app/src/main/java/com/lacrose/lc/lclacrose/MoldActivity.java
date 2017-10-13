@@ -1,30 +1,99 @@
 package com.lacrose.lc.lclacrose;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
-public class MoldActivity extends AppCompatActivity {
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.FirebaseNetworkException;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.lacrose.lc.lclacrose.Model.Lotes;
+import com.lacrose.lc.lclacrose.Model.Obras;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+public class MoldActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
+
+    private static final String TAG = "ERRO";
+    public static  String WorkId;
+    public static Obras thisObra;
+    private FirebaseAuth Auth;
+    private final Context context = this;
+    DatabaseReference lote_ref, ref_lote;
+    FirebaseDatabase database;
     CheckBox check_material,check_dimenssion,check_construc,check_nota,check_volume,check_fck,check_slump,check_slump_flow,check_date,check_local;
     Spinner spinner_material,spinner_dimenssion,spinner_contruc;
     EditText edit_nota,edit_volume,edit_fck,edit_slump,edit_slump_flow,edit_local;
     Button button_date;
     TextView tv_code,tv_slump,tv_slump_flow;
-    private final Context context=this;
+    Calendar refCalendar,tempCalendar,finalCalendar;
+    Lotes newLote;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mold);
+        refCalendar = Calendar.getInstance();
+        tempCalendar = Calendar.getInstance();
+        finalCalendar = Calendar.getInstance();
+        Auth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
         initiateViews();
+        getLoteNumber();
     }
+
+    private void getLoteNumber() {
+        final List<String> codeList = new ArrayList<>();
+        lote_ref = database.getReference(getString(R.string.work_tag)).child(WorkId+"").child(getString(R.string.lote_tag));
+        lote_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for(DataSnapshot d : dataSnapshot.getChildren()) {
+                        codeList.add(d.getKey());
+                    }
+                    int last =  codeList.size();
+                    tv_code.setText(last+"");
+                    Log.e(TAG,"TENHO");
+                }else{
+                    Log.e(TAG,"NAO TENHO");
+                    int last =  0;
+                    tv_code.setText(last+"");
+
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 
     public void initiateViews(){
         //CHECKBOX
@@ -56,24 +125,72 @@ public class MoldActivity extends AppCompatActivity {
         button_date = (Button) findViewById(R.id.date_buttom);
 
         //TEXTVIEW
-        tv_code = (TextView) findViewById(R.id.code_text_view);
+        tv_code = (TextView) findViewById(R.id.code_edit_text);
         tv_slump = (TextView) findViewById(R.id.slump_text_view);
         tv_slump_flow = (TextView) findViewById(R.id.slump_flow_text_view);
 
     }
 
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        tempCalendar.set(year,month,dayOfMonth);
+        if(tempCalendar.getTime().getTime()>= refCalendar.getTime().getTime()){
+            SimpleDateFormat fmtOut = new SimpleDateFormat("dd/MM/yyyy");
+            button_date.setText(fmtOut.format(tempCalendar.getTime()));
+            finalCalendar = tempCalendar;
+        }else{
+            tempCalendar = Calendar.getInstance();
+            Toast.makeText(context,getString(R.string.date_before_error),Toast.LENGTH_SHORT).show();
+        }
+    }
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+    }
+
     public void dataChamge(View view) {
+        DatePickerDialog dpd = new DatePickerDialog(context, this, tempCalendar.get(Calendar.YEAR), tempCalendar.get(Calendar.MONTH), tempCalendar.get(Calendar.DAY_OF_MONTH));
+        dpd.show();
     }
 
 
+
     public void loteCreate(View view) {
-        validateFields();
+        if(validateFields()){
+            ref_lote = database.getReference(getString(R.string.work_tag)).child(WorkId+"").child(getString(R.string.lote_tag));
+            newLote = new Lotes();
+            newLote.setCodigo(Integer.parseInt(tv_code.getText().toString()));
+            newLote.setMaterial(String.valueOf(spinner_material.getSelectedItem()));
+            newLote.setDimenssoes_nominais(String.valueOf(spinner_dimenssion.getSelectedItem()));
+            newLote.setConcreteira(String.valueOf(spinner_contruc.getSelectedItem()));
+            newLote.setNotaFiscal(Integer.parseInt(edit_nota.getText().toString()));
+            newLote.setVolume_do_caminhão(Float.parseFloat(edit_volume.getText().toString()));
+            newLote.setFCK(Integer.parseInt(edit_nota.getText().toString()));
+            newLote.setSlump(Integer.parseInt(edit_nota.getText().toString()));
+            newLote.setSlumFlow(Float.parseFloat(edit_volume.getText().toString()));
+            newLote.setData(finalCalendar.getTime());
+            newLote.setLocal_concretado(edit_local.getText().toString());
+            ref_lote.push().setValue(newLote).addOnCompleteListener(this,new OnCompleteListener(){
+                @Override
+                public void onComplete(@NonNull Task task) {
+                    finish();
+                }
+            });
+
+        }
     }
 
     private boolean validateFields() {
 
-        if(String.valueOf(spinner_material.getSelectedItem()).equals(R.string.material_prompt) && !check_material.isChecked()){
+        if(String.valueOf(spinner_material.getSelectedItem()).equals(getString(R.string.material_prompt)) && !check_material.isChecked()){
             Toast.makeText(context,getString(R.string.material_prompt),Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.dimenssion_prompt)) && !check_dimenssion.isChecked()){
+            Toast.makeText(context,getString(R.string.dimenssion_prompt),Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(String.valueOf(spinner_contruc.getSelectedItem()).equals(getString(R.string.construc_prompt)) && !check_construc.isChecked()){
+            Toast.makeText(context,getString(R.string.construc_prompt),Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -97,6 +214,11 @@ public class MoldActivity extends AppCompatActivity {
             editTextError(edit_slump_flow);
             return false;
         }
+        if(button_date.getText().toString().isEmpty() && !check_date.isChecked()){
+            Toast.makeText(context,getString(R.string.date_notput_error),Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
         if(edit_local.getText().toString().isEmpty() && !check_local.isChecked()){
             editTextError(edit_local);
             return false;
@@ -104,7 +226,10 @@ public class MoldActivity extends AppCompatActivity {
 
         return true;
     }
+
     public void editTextError(final EditText edittext){
         edittext.setError(getString(R.string.empty_field_error));
     }
+
+
 }

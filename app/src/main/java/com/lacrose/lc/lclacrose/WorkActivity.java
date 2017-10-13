@@ -10,6 +10,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -17,8 +20,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.lacrose.lc.lclacrose.Adapter.WorkAdapter;
+import com.lacrose.lc.lclacrose.Model.Obras;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class WorkActivity extends AppCompatActivity {
@@ -26,6 +32,9 @@ public class WorkActivity extends AppCompatActivity {
     private final Context context = this;
     FirebaseDatabase database;
     DatabaseReference user_works_ref;
+    private ProgressBar spinner;
+    public TextView textEmpty;
+
     private final String TAG = "LOG";
 
 
@@ -33,47 +42,45 @@ public class WorkActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_work);
+        spinner=(ProgressBar)findViewById(R.id.progressBar);
+        textEmpty=(TextView) findViewById(R.id.empyt_text);
         Auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         showListOfWorks();
+
     }
 
     private void showListOfWorks() {
-       // user_works_ref = database.getReference(getString(R.string.user_tag));
-        user_works_ref = database.getReference(getString(R.string.user_tag)).child(Auth.getCurrentUser().getUid()).child("Obras");
-        user_works_ref.addValueEventListener(new ValueEventListener() {
+        textEmpty.setVisibility(View.GONE);
+        spinner.setVisibility(View.VISIBLE);
+        final List<Obras> worksList = new ArrayList<>();
+        final ListView workListView = (ListView) findViewById(R.id.work_list);
+        workListView.setDivider(null);
+        final WorkAdapter workAdapter = new WorkAdapter(this, R.layout.item_work, worksList);
+        workListView.setAdapter(workAdapter);
+        user_works_ref = database.getReference(getString(R.string.work_tag));
+        user_works_ref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        ArrayList<Integer> teste = (ArrayList<Integer>) dataSnapshot.getValue();
-                        Log.e(TAG," "+ teste);
-                        DatabaseReference works_ref;
-                   //     works_ref = database.getReference("Obras").equalTo();
-                      //  showIds((Map<String,Object>) dataSnapshot.getValue());
-
+                        if (dataSnapshot.exists()) {
+                            spinner.setVisibility(View.GONE);
+                            for(DataSnapshot d : dataSnapshot.getChildren()) {
+                                Obras obras = d.getValue(Obras.class);
+                                obras.setId(d.getKey());
+                                worksList.add(obras);
+                            }
+                           workAdapter.notifyDataSetChanged();
+                        }else{
+                            workAdapter.notifyDataSetChanged();
+                            textEmpty.setVisibility(View.VISIBLE);
+                            spinner.setVisibility(View.GONE);
+                        }
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        //handle databaseError
+                            spinner.setVisibility(View.GONE);
                     }
                 });
-
-    }
-    private void showIds(Map<String,Object> users) {
-
-        ArrayList<ArrayList<Integer>> ids = new ArrayList<>();
-        int i=0;
-        //iterate through each user, ignoring their UID
-        for (Map.Entry<String, Object> entry : users.entrySet()){
-            //Get user map
-            Map singleUser = (Map) entry.getValue();
-            //Get phone field and append to list
-            ids.add((ArrayList<Integer>) singleUser.get("Obras"));
-            Log.e(TAG,"entrei " +i);
-            i++;
-        }
-
-        Log.e(TAG,ids.toString());
     }
 
 
@@ -108,4 +115,7 @@ public class WorkActivity extends AppCompatActivity {
         });
     }
 
+    public void update(MenuItem item) {
+        showListOfWorks();
+    }
 }

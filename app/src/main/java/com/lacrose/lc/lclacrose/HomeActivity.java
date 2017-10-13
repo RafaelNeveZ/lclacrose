@@ -20,21 +20,19 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 public class HomeActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CODE = 7;
     public static String label;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        //TODO Pega o nome da obra
-        label = "Obra";
         setTitle(label);
-        ///////////////////////////
     }
 
     public void scanButton(View view) {
         int currentapiVersion = android.os.Build.VERSION.SDK_INT;
         if (currentapiVersion >= android.os.Build.VERSION_CODES.M) {
             if (checkPermission()) {
-                Intent intent = new Intent(HomeActivity.this, ScanActivity.class);
+                Intent intent = new Intent(HomeActivity.this, LotesActivity.class);
                 startActivity(intent);
             } else {
                 requestPermission();
@@ -54,7 +52,6 @@ public class HomeActivity extends AppCompatActivity {
     private void requestPermission() {
         ActivityCompat.requestPermissions(this, new String[]{/*WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE,*/CAMERA}, PERMISSION_REQUEST_CODE);
     }
-
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case PERMISSION_REQUEST_CODE:
