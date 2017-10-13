@@ -40,7 +40,7 @@ public class RulpturaActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
 
     }
-
+//tesa
     public void saveFinish(View view) {
         if(validateFields()){
             corpo_ref = database.getReference(getString(R.string.work_tag)).child(MoldActivity.WorkId+"").child(getString(R.string.lote_tag)).child(LOTE_ID);
