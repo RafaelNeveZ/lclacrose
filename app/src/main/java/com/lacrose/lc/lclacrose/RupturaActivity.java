@@ -3,7 +3,6 @@ package com.lacrose.lc.lclacrose;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -16,9 +15,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.lacrose.lc.lclacrose.Model.Corpos;
-import com.lacrose.lc.lclacrose.Model.Lotes;
+import com.lacrose.lc.lclacrose.Util.MainActivity;
 
-public class RulpturaActivity extends AppCompatActivity {
+public class RupturaActivity extends MainActivity {
     public static String CODE, LOTE_ID;
     public TextView code_ET;
     private final Context context = this;
@@ -42,6 +41,7 @@ public class RulpturaActivity extends AppCompatActivity {
     }
 //tesa
     public void saveFinish(View view) {
+        showProgress(getString(R.string.create_body));
         if(validateFields()){
             corpo_ref = database.getReference(getString(R.string.work_tag)).child(MoldActivity.WorkId+"").child(getString(R.string.lote_tag)).child(LOTE_ID);
             newCorpo = new Corpos();
@@ -51,15 +51,19 @@ public class RulpturaActivity extends AppCompatActivity {
             corpo_ref.child(getString(R.string.corpos)).push().setValue(newCorpo).addOnCompleteListener(this,new OnCompleteListener(){
                 @Override
                 public void onComplete(@NonNull Task task) {
-                    Intent intent = new Intent(RulpturaActivity.this, HomeActivity.class);
+                    dismissProgress();
+                    Intent intent = new Intent(RupturaActivity.this, HomeActivity.class);
                     startActivity(intent);
                     finish();
                 }
             });
+        }else{
+            dismissProgress();
         }
     }
 
     public void saveContinue(View view) {
+        showProgress(getString(R.string.create_body));
         if(validateFields()){
             corpo_ref = database.getReference(getString(R.string.work_tag)).child(MoldActivity.WorkId+"").child(getString(R.string.lote_tag)).child(LOTE_ID);
             newCorpo = new Corpos();
@@ -69,12 +73,15 @@ public class RulpturaActivity extends AppCompatActivity {
             corpo_ref.child(getString(R.string.corpos)).push().setValue(newCorpo).addOnCompleteListener(this,new OnCompleteListener(){
                 @Override
                 public void onComplete(@NonNull Task task) {
-                    Intent intent = new Intent(RulpturaActivity.this, ScanActivity.class);
+                    dismissProgress();
+                    Intent intent = new Intent(RupturaActivity.this, ScanActivity.class);
                     startActivity(intent);
                     finish();
                 }
             });
 
+        }else{
+            dismissProgress();
         }
     }
 

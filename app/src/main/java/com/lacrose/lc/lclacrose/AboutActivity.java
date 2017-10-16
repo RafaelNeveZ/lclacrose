@@ -3,7 +3,9 @@ package com.lacrose.lc.lclacrose;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class AboutActivity extends AppCompatActivity {
+import com.lacrose.lc.lclacrose.Util.MainActivity;
+
+public class AboutActivity extends MainActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,9 +32,10 @@ public class WorkActivity extends AppCompatActivity {
     private FirebaseAuth Auth;
     private final Context context = this;
     FirebaseDatabase database;
-    DatabaseReference user_works_ref;
+    DatabaseReference user_works_ref ,works_ref;
     private ProgressBar spinner;
     public TextView textEmpty;
+
 
     private final String TAG = "LOG";
 
@@ -58,8 +60,67 @@ public class WorkActivity extends AppCompatActivity {
         workListView.setDivider(null);
         final WorkAdapter workAdapter = new WorkAdapter(this, R.layout.item_work, worksList);
         workListView.setAdapter(workAdapter);
-        user_works_ref = database.getReference(getString(R.string.work_tag));
-        user_works_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        user_works_ref = database.getReference(getString(R.string.user_tag)).child(Auth.getCurrentUser().getUid()).child(getString(R.string.work_tag));
+        works_ref = database.getReference(getString(R.string.work_tag));
+        Log.e(TAG,"before");
+        user_works_ref.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Log.e(TAG,"added");
+                works_ref.child(dataSnapshot.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Log.e(TAG,"not existis");
+                        if (dataSnapshot.exists()) {
+                            //    for(DataSnapshot d : dataSnapshot.getChildren()) {
+                                    Obras obras = dataSnapshot.getValue(Obras.class);
+                                    obras.setId(dataSnapshot.getKey());
+                                    worksList.add(obras);
+                                    Log.e(TAG,"foreach");
+                           //     }
+                                        Log.e(TAG,"sai do foreach");
+                                    spinner.setVisibility(View.GONE);
+                                    workAdapter.notifyDataSetChanged();
+                            }else{
+                                workAdapter.notifyDataSetChanged();
+                                textEmpty.setVisibility(View.VISIBLE);
+                                spinner.setVisibility(View.GONE);
+                            }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        spinner.setVisibility(View.GONE);
+                    }
+                });
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                //Add the corresponding code for this case
+                workAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                //Add the corresponding code for this case
+                workAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                //Add the corresponding code for this case
+                workAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                spinner.setVisibility(View.GONE);
+            }
+        });
+
+
+        /*user_works_ref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
@@ -80,7 +141,7 @@ public class WorkActivity extends AppCompatActivity {
                     public void onCancelled(DatabaseError databaseError) {
                             spinner.setVisibility(View.GONE);
                     }
-                });
+                });*/
     }
 
 

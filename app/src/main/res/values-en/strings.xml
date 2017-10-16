@@ -11,7 +11,7 @@
 
     <!--CÓDIGO-->
     <string name="empty_field_error">This field must not be empty.</string>
-    <string name="loging">Loging...</string>
+    <string name="loging">Loging</string>
     <string name="credential_wrong">User or password is invalid</string>
     <string name="user_invalid">Invalid user</string>
     <string name="server_error">Server error</string>
@@ -50,7 +50,7 @@
     <string name="lotes">Lotes</string>
     <string name="lote_code">Código do lote</string>
     <string name="default_lote">0000</string>
-    <string name="not_info">Não informado pelo cliente.</string>
+    <string name="not_info">Não fornecido pelo cliente.</string>
     <string name="material_text">Material cimenticio</string>
     <string name="dimenssion_text">Dimenssões nominais</string>
     <string name="constru_text">Concreteira</string>
@@ -63,7 +63,7 @@
     <string name="date_default">DATA</string>
     <string name="local_text">Local concretado</string>
     <string name="lote_create">CRIAR LOTE</string>
-    <string name="rulptura">Rulptura</string>
+    <string name="ruptura">Ruptura</string>
     <string name="body_code">Código do corpo de prova</string>
     <string name="carga_text">Carga</string>
     <string name="type_text">Tipo</string>
@@ -76,6 +76,10 @@
     <string name="lote_tag">lotes</string>
     <string name="update">Atualizar</string>
     <string name="lote">Lote</string>
+    <string name="lote_label">LOTES</string>
     <string name="corpos">corpos</string>
+    <string name="getting_lote_number">Carregando...</string>
+    <string name="create_body">Registrando corpo de prova...</string>
+    <string name="create_lote">Criando lote...</string>
 
 </resources>

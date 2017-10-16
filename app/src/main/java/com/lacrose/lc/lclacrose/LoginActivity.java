@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.UiThread;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.ActionMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,9 +23,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
+import com.lacrose.lc.lclacrose.Util.MainActivity;
 
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends MainActivity {
     private FirebaseAuth Auth;
     private FirebaseAuth.AuthStateListener AuthListener;
     private final Context context = this;
@@ -48,6 +50,8 @@ public class LoginActivity extends AppCompatActivity {
         loginListener();
 
     }
+
+
     //=================================LOGIN=======================================================\\
     public void loginListener(){
         AuthListener = new FirebaseAuth.AuthStateListener() {
@@ -93,35 +97,20 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean validateFields() {
         if(et_user.getText().toString().isEmpty()){
-            editTextError(et_user);
+            et_user.setError(getString(R.string.empty_field_error));
             return false;
         }
         if(et_pass.getText().toString().isEmpty()){
-            editTextError(et_pass);
+            et_pass.setError(getString(R.string.empty_field_error));
             return false;
         }
         return true;
     }
 
-    public void editTextError(final EditText edittext){
-        edittext.setError(getString(R.string.empty_field_error));
-    }
-
-    @UiThread
-    public void showProgress(String text) {
-        progressDialog = ProgressDialog.show(this, "", text, true, false);
-    }
-
-    @UiThread
-    public void dismissProgress() {
-        if (progressDialog != null) {
-            progressDialog.dismiss();
-        }
-    }
-
     @Override
     public void onStart() {
         super.onStart();
+
         if(Auth!=null) {
             Auth.addAuthStateListener(AuthListener);
         }

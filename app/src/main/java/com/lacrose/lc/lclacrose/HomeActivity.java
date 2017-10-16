@@ -12,12 +12,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.lacrose.lc.lclacrose.Util.MainActivity;
+
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.GET_ACCOUNTS;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends MainActivity {
     private static final int PERMISSION_REQUEST_CODE = 7;
     public static String label;
 

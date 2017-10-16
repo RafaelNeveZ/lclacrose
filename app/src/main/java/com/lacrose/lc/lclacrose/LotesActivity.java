@@ -24,11 +24,12 @@ import com.lacrose.lc.lclacrose.Adapter.WorkAdapter;
 import com.lacrose.lc.lclacrose.Model.Lotes;
 import com.lacrose.lc.lclacrose.Model.Obras;
 import com.lacrose.lc.lclacrose.R;
+import com.lacrose.lc.lclacrose.Util.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LotesActivity extends AppCompatActivity {
+public class LotesActivity extends MainActivity {
     private FirebaseAuth Auth;
     private final Context context = this;
     FirebaseDatabase database;

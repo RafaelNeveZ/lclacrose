@@ -1,9 +1,11 @@
 package com.lacrose.lc.lclacrose;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.UiThread;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,13 +33,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.lacrose.lc.lclacrose.Model.Lotes;
 import com.lacrose.lc.lclacrose.Model.Obras;
+import com.lacrose.lc.lclacrose.Util.MainActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class MoldActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
+public class MoldActivity extends MainActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
 
     private static final String TAG = "ERRO";
     public static  String WorkId;
@@ -53,6 +56,7 @@ public class MoldActivity extends AppCompatActivity implements DatePickerDialog.
     TextView tv_code,tv_slump,tv_slump_flow;
     Calendar refCalendar,tempCalendar,finalCalendar;
     Lotes newLote;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,32 +68,43 @@ public class MoldActivity extends AppCompatActivity implements DatePickerDialog.
         Auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         initiateViews();
+        showProgress(getString(R.string.getting_lote_number));
         getLoteNumber();
     }
 
     private void getLoteNumber() {
-        final List<String> codeList = new ArrayList<>();
+        final List<Lotes> loteList = new ArrayList<>();
         lote_ref = database.getReference(getString(R.string.work_tag)).child(WorkId+"").child(getString(R.string.lote_tag));
         lote_ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     for(DataSnapshot d : dataSnapshot.getChildren()) {
-                        codeList.add(d.getKey());
+                        Lotes lotes = d.getValue(Lotes.class);
+                        lotes.setId(d.getKey());
+                        loteList.add(lotes);
                     }
-                    int last =  codeList.size();
-                    tv_code.setText(last+"");
+                    int last =  loteList.get(loteList.size()-1).getCodigo()+1;
+                    if(last<10)
+                    tv_code.setText("000"+last);
+                    else  if(last<100)
+                        tv_code.setText("00"+last);
+                    else  if(last<1000)
+                            tv_code.setText("0"+last);
+                    else  if(last<1000)
+                                tv_code.setText(""+last);
+                    dismissProgress();
                     Log.e(TAG,"TENHO");
                 }else{
+                    dismissProgress();
                     Log.e(TAG,"NAO TENHO");
                     int last =  0;
                     tv_code.setText(last+"");
-
                 }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                dismissProgress();
             }
         });
     }
@@ -155,7 +170,9 @@ public class MoldActivity extends AppCompatActivity implements DatePickerDialog.
 
 
     public void loteCreate(View view) {
+        showProgress(getString(R.string.create_lote));
         if(validateFields()){
+            //TODO VERIFICAR SE PODE COLOCAR OU NAO E MSG DE ERRO
             ref_lote = database.getReference(getString(R.string.work_tag)).child(WorkId+"").child(getString(R.string.lote_tag));
             newLote = new Lotes();
             newLote.setCodigo(Integer.parseInt(tv_code.getText().toString()));
@@ -172,10 +189,13 @@ public class MoldActivity extends AppCompatActivity implements DatePickerDialog.
             ref_lote.push().setValue(newLote).addOnCompleteListener(this,new OnCompleteListener(){
                 @Override
                 public void onComplete(@NonNull Task task) {
+                    dismissProgress();
                     finish();
                 }
             });
 
+        }else{
+            dismissProgress();
         }
     }
 
@@ -195,23 +215,23 @@ public class MoldActivity extends AppCompatActivity implements DatePickerDialog.
         }
 
         if(edit_nota.getText().toString().isEmpty() && !check_nota.isChecked()){
-            editTextError(edit_nota);
+            edit_nota.setError(getString(R.string.empty_field_error));
             return false;
         }
         if(edit_volume.getText().toString().isEmpty() && !check_volume.isChecked()){
-            editTextError(edit_volume);
+            edit_volume.setError(getString(R.string.empty_field_error));
             return false;
         }
         if(edit_fck.getText().toString().isEmpty() && !check_fck.isChecked()){
-            editTextError(edit_fck);
+            edit_fck.setError(getString(R.string.empty_field_error));
             return false;
         }
         if(edit_slump.getText().toString().isEmpty() && !check_slump.isChecked() && String.valueOf(spinner_material.getSelectedItem()).equals(getString(R.string.concreto))){
-            editTextError(edit_slump);
+            edit_slump.setError(getString(R.string.empty_field_error));
             return false;
         }
         if(edit_slump_flow.getText().toString().isEmpty() && !check_slump_flow.isChecked() && String.valueOf(spinner_material.getSelectedItem()).equals(getString(R.string.concreto))){
-            editTextError(edit_slump_flow);
+            edit_slump_flow.setError(getString(R.string.empty_field_error));
             return false;
         }
         if(button_date.getText().toString().isEmpty() && !check_date.isChecked()){
@@ -220,7 +240,7 @@ public class MoldActivity extends AppCompatActivity implements DatePickerDialog.
         }
 
         if(edit_local.getText().toString().isEmpty() && !check_local.isChecked()){
-            editTextError(edit_local);
+            edit_local.setError(getString(R.string.empty_field_error));
             return false;
         }
 
@@ -230,6 +250,5 @@ public class MoldActivity extends AppCompatActivity implements DatePickerDialog.
     public void editTextError(final EditText edittext){
         edittext.setError(getString(R.string.empty_field_error));
     }
-
-
+    
 }

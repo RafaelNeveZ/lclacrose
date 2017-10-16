@@ -52,15 +52,16 @@
             android:label="@string/mold"
             android:parentActivityName=".HomeActivity" />
         <activity
-            android:name=".RulpturaActivity"
+            android:name=".RupturaActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/rulptura"
+            android:label="@string/ruptura"
             android:parentActivityName=".LotesActivity" />
-        <activity android:name=".LotesActivity"
-            android:label="@string/lote_tag"
-            android:parentActivityName=".HomeActivity"
+        <activity
+            android:name=".LotesActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            />
+            android:label="@string/lote_label"
+            android:parentActivityName=".HomeActivity" />
+        <activity android:name=".Util.MainActivity"></activity>
     </application>
 
 </manifest>
