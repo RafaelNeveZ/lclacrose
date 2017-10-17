@@ -9,11 +9,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.lacrose.lc.lclacrose.Model.Corpos;
 import com.lacrose.lc.lclacrose.Model.Lotes;
 import com.lacrose.lc.lclacrose.R;
 import com.lacrose.lc.lclacrose.RupturaActivity;
+import com.lacrose.lc.lclacrose.RupturaListActivity;
 import com.lacrose.lc.lclacrose.ScanActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -54,6 +57,7 @@ public class LoteAdapter extends ArrayAdapter<Lotes> {
                 public void onClick(View v) {
                     Intent intent = new Intent(context, ScanActivity.class);
                     RupturaActivity.LOTE_ID = lotes.getId();
+                    RupturaListActivity.CorposList = new ArrayList<Corpos>();
                     context.startActivity(intent);
                 }
             });

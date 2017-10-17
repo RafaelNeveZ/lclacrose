@@ -1,5 +1,7 @@
 package com.lacrose.lc.lclacrose.Model;
 
+import java.util.Date;
+
 /**
  * Created by rafae on 13/10/2017.
  */
@@ -8,6 +10,15 @@ public class Corpos {
     private String codigo;
     private float carga;
     private String tipo;
+    private Date data;
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
 
     public String getCodigo() {
         return codigo;

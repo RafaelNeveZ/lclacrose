@@ -114,6 +114,8 @@
     <string name="getting_lote_number">Carregando...</string>
     <string name="create_body">Registrando corpo de prova...</string>
     <string name="create_lote">Criando lote...</string>
+    <string name="list_ruptura_label">Corpos de prova</string>
+    <string name="code">Código</string>
     <string-array name="type_arrays">
         <item>Selecione o tipo</item>
         <item>A</item>

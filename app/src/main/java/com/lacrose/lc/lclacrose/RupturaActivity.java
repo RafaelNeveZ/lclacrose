@@ -11,7 +11,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.lacrose.lc.lclacrose.Model.Corpos;
@@ -41,49 +45,45 @@ public class RupturaActivity extends MainActivity {
     }
 //tesa
     public void saveFinish(View view) {
-        showProgress(getString(R.string.create_body));
-        if(validateFields()){
-            corpo_ref = database.getReference(getString(R.string.work_tag)).child(MoldActivity.WorkId+"").child(getString(R.string.lote_tag)).child(LOTE_ID);
-            newCorpo = new Corpos();
-            newCorpo.setCodigo(code_ET.getText().toString());
-            newCorpo.setCarga(Float.parseFloat(edit_carga.getText().toString()));
-            newCorpo.setTipo(String.valueOf(spinner_type.getSelectedItem()));
-            corpo_ref.child(getString(R.string.corpos)).push().setValue(newCorpo).addOnCompleteListener(this,new OnCompleteListener(){
-                @Override
-                public void onComplete(@NonNull Task task) {
-                    dismissProgress();
-                    Intent intent = new Intent(RupturaActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-            });
-        }else{
-            dismissProgress();
-        }
+    saveResults(false);
     }
 
     public void saveContinue(View view) {
+        saveResults(true);
+    }
+    public void saveResults(final boolean Continue){
         showProgress(getString(R.string.create_body));
         if(validateFields()){
-            corpo_ref = database.getReference(getString(R.string.work_tag)).child(MoldActivity.WorkId+"").child(getString(R.string.lote_tag)).child(LOTE_ID);
+            //corpo_ref = database.getReference(getString(R.string.work_tag)).child(MoldActivity.WorkId+"").child(getString(R.string.lote_tag)).child(LOTE_ID);
             newCorpo = new Corpos();
             newCorpo.setCodigo(code_ET.getText().toString());
             newCorpo.setCarga(Float.parseFloat(edit_carga.getText().toString()));
             newCorpo.setTipo(String.valueOf(spinner_type.getSelectedItem()));
-            corpo_ref.child(getString(R.string.corpos)).push().setValue(newCorpo).addOnCompleteListener(this,new OnCompleteListener(){
+            RupturaListActivity.CorposList.add(newCorpo);
+            dismissProgress();
+            Intent intent = new Intent(RupturaActivity.this, Continue ? ScanActivity.class : RupturaListActivity.class);
+            startActivity(intent);
+            finish();
+            /*corpo_ref.child(getString(R.string.corpos)).push().setValue(newCorpo,new DatabaseReference.CompletionListener(){
                 @Override
-                public void onComplete(@NonNull Task task) {
+                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                     dismissProgress();
-                    Intent intent = new Intent(RupturaActivity.this, ScanActivity.class);
-                    startActivity(intent);
-                    finish();
+                    if(databaseError==null) {
+                        Intent intent = new Intent(RupturaActivity.this, Continue ? ScanActivity.class : HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }else{
+                        System.out.println("Value was set. Error = "+databaseError);
+                    }
                 }
-            });
+            });*/
 
         }else{
             dismissProgress();
         }
     }
+
+
 
     private boolean validateFields() {
 

@@ -61,7 +61,12 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/lote_label"
             android:parentActivityName=".HomeActivity" />
-        <activity android:name=".Util.MainActivity"></activity>
+        <activity android:name=".Util.MainActivity" />
+        <activity
+            android:name=".RupturaListActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/list_ruptura_label"
+            android:parentActivityName=".HomeActivity" />
     </application>
 
 </manifest>

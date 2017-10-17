@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
 
@@ -59,6 +60,7 @@ public class LoginActivity extends MainActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
+                    FirebaseDatabase.getInstance().setPersistenceEnabled(true);
                     Intent intent = new Intent(context,WorkActivity.class);
                     context.startActivity(intent);
                     finish();

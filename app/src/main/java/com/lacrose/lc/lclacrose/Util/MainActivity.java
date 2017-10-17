@@ -10,7 +10,7 @@ import com.lacrose.lc.lclacrose.R;
 public class MainActivity extends AppCompatActivity {
 
     public ProgressDialog progressDialog;
-
+    public static String TAG="TAG";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
