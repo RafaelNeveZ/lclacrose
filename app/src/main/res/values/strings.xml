@@ -133,6 +133,13 @@
     <string name="dialog_cancel_ruptura">Deseja realmente cancelar? (Os dados serão perdidos)</string>
     <string name="yes">SIM</string>
     <string name="saving">Salvando</string>
+    <string name="more_text">Observações</string>
+    <string name="largura">largura</string>
+    <string name="altura">altura</string>
+    <string name="lote_create_sucess">Lote criado com sucesso</string>
+    <string name="age_text">Idade</string>
+    <string name="rupturas_create_sucess">Rupturas salvas com sucesso!</string>
+    <string name="lote_age">idade</string>
     <string-array name="type_arrays">
         <item>Selecione o tipo</item>
         <item>A</item>

@@ -56,7 +56,7 @@ public class LoteAdapter extends ArrayAdapter<Lotes> {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, ScanActivity.class);
-                    RupturaActivity.LOTE_ID = lotes.getId();
+                    RupturaActivity.atualLote = lotes;
                     RupturaListActivity.CorposList = new ArrayList<Corpos>();
                     context.startActivity(intent);
                 }

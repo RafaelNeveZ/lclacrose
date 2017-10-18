@@ -15,17 +15,37 @@ public  class Lotes {
     private String material;
     private String dimenssoes_nominais;
     private String concreteira;
-    private int notaFiscal;
+    private long idade;
+    private long notaFiscal;
     private float volume_do_caminhão;
     private int FCK;
     private int slump;
     private float slumFlow;
-    private Date data;
+    private long data;
     private String local_concretado;
-    private HashMap<String, String> corpos;
+    private String more;
+    private HashMap<String, Integer> dimenssoes;
+
+    public HashMap<String, Integer> getDimenssoes() {
+        return dimenssoes;
+    }
+
+    public void setDimenssoes(HashMap<String, Integer> dimenssoes) {
+        this.dimenssoes = dimenssoes;
+    }
+
 
     public Lotes() {
     }
+
+    public String getMore() {
+        return more;
+    }
+
+    public void setMore(String more) {
+        this.more = more;
+    }
+
     public String getId() {
         return id;
     }
@@ -65,11 +85,11 @@ public  class Lotes {
         this.concreteira = concreteira;
     }
 
-    public int getNotaFiscal() {
+    public long getNotaFiscal() {
         return notaFiscal;
     }
 
-    public void setNotaFiscal(int notaFiscal) {
+    public void setNotaFiscal(long notaFiscal) {
         this.notaFiscal = notaFiscal;
     }
 
@@ -105,11 +125,19 @@ public  class Lotes {
         this.slumFlow = slumFlow;
     }
 
-    public Date getData() {
+    public long getIdade() {
+        return idade;
+    }
+
+    public void setIdade(long idade) {
+        this.idade = idade;
+    }
+
+    public long getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(long data) {
         this.data = data;
     }
 
@@ -121,10 +149,10 @@ public  class Lotes {
         this.local_concretado = local_concretado;
     }
 
-    public void addCorpo(String remarkKey, String remark) {
-        if (corpos == null)
-            corpos = new HashMap<>();
+    public void addDimension(String Key, int value) {
+        if (dimenssoes == null)
+            dimenssoes = new HashMap<>();
 
-        corpos.put(remarkKey, remark);
+        dimenssoes.put(Key, value);
     }
 }

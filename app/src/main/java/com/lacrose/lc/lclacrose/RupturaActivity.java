@@ -1,10 +1,13 @@
 package com.lacrose.lc.lclacrose;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -15,20 +18,27 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.lacrose.lc.lclacrose.Model.Corpos;
+import com.lacrose.lc.lclacrose.Model.Lotes;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class RupturaActivity extends MainActivity {
-    public static String CODE, LOTE_ID;
+    public static String CODE;
+    public static Lotes atualLote;
     public TextView code_ET;
     private final Context context = this;
     Spinner spinner_type;
     EditText edit_carga;
+    FirebaseDatabase database;
+    DatabaseReference work_lotes_ref;
 
 
 
@@ -36,6 +46,8 @@ public class RupturaActivity extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rulptura);
+        database = FirebaseDatabase.getInstance();
+        isThisForNow();
         code_ET = (TextView) findViewById(R.id.code_edit_text);
         code_ET.setText(CODE);
         spinner_type=(Spinner) findViewById(R.id.type_spinner);
@@ -43,6 +55,40 @@ public class RupturaActivity extends MainActivity {
 
 
     }
+
+    private void isThisForNow() {
+
+        Calendar c = Calendar.getInstance();
+        Date idade = new Date(atualLote.getIdade());
+        Date criacao = new Date(atualLote.getData());
+        Date hoje = c.getTime();
+        if(hoje.getTime() - criacao.getTime() < idade.getTime()-criacao.getTime()) {
+            final Dialog dialog = new Dialog(context);
+            dialog.setContentView(R.layout.dialog_two_choice);
+            dialog.setTitle(getString(R.string.dialog_cancel_ruptura));
+            dialog.show();
+            TextView title = (TextView) dialog.findViewById(R.id.dialog_title);
+            title.setText(getString(R.string.dialog_cancel_ruptura));
+            Button btCancel = (Button) dialog.findViewById(R.id.button_no);
+            Button btYes = (Button) dialog.findViewById(R.id.button_yes);
+            btYes.setText(getString(R.string.yes));
+            btYes.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+            btCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+        }
+    }
+
 
     public void saveFinish(View view) {
     saveResults(false);

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,7 +22,6 @@ import com.lacrose.lc.lclacrose.Util.MainActivity;
 
 import java.util.List;
 
-import static com.lacrose.lc.lclacrose.RupturaActivity.LOTE_ID;
 
 public class RupturaListActivity extends MainActivity {
     public static  List<Corpos> CorposList;
@@ -46,7 +46,7 @@ public class RupturaListActivity extends MainActivity {
 
     public void saveRuptura(View view) {
         showProgress(getString(R.string.saving));
-        corpo_ref = database.getReference(getString(R.string.work_tag)).child(MoldActivity.WorkId+"").child(getString(R.string.lote_tag)).child(LOTE_ID);
+        corpo_ref = database.getReference(getString(R.string.work_tag)).child(MoldActivity.WorkId+"").child(getString(R.string.lote_tag)).child(RupturaActivity.atualLote.getId());
         for (Corpos corpo:CorposList) {
             corpo_ref.child(getString(R.string.corpos)).push().setValue(corpo).addOnCompleteListener(this,new OnCompleteListener(){
                         @Override
@@ -55,11 +55,12 @@ public class RupturaListActivity extends MainActivity {
                             if(task.isSuccessful()) {
                                 if(ListSize>=CorposList.size()) {
                                     dismissProgress();
+                                    Toast.makeText(context,getString(R.string.rupturas_create_sucess),Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(RupturaListActivity.this, HomeActivity.class);
                                     startActivity(intent);
                                     finish();
                                 }else{
-
+                                    Toast.makeText(context,getString(R.string.server_error),Toast.LENGTH_SHORT).show();
                                 }
                             }else{
                                 dismissProgress();

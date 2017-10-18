@@ -19,6 +19,7 @@
         <activity
             android:name=".LoginActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppThemeFullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,11 +52,13 @@
             android:name=".MoldActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/mold"
+            android:windowSoftInputMode="stateHidden"
             android:parentActivityName=".HomeActivity" />
         <activity
             android:name=".RupturaActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/ruptura"
+            android:windowSoftInputMode="stateHidden"
             android:parentActivityName=".LotesActivity" />
         <activity
             android:name=".LotesActivity"

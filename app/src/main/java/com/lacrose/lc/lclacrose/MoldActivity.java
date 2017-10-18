@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -34,25 +35,27 @@ import com.lacrose.lc.lclacrose.Util.MainActivity;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 public class MoldActivity extends MainActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
 
-    private static final String TAG = "ERRO";
+
     public static  String WorkId;
     public static Obras thisObra;
     private FirebaseAuth Auth;
     private final Context context = this;
     DatabaseReference lote_ref, ref_lote;
     FirebaseDatabase database;
-    CheckBox check_material,check_dimenssion,check_construc,check_nota,check_volume,check_fck,check_slump,check_slump_flow,check_date,check_local;
+    CheckBox check_material,check_dimenssion,check_construc,check_nota,check_volume,check_fck,check_slump,check_slump_flow,check_date,check_local, check_idade;
     Spinner spinner_material,spinner_dimenssion,spinner_contruc;
-    EditText edit_nota,edit_volume,edit_fck,edit_slump,edit_slump_flow,edit_local;
+    EditText edit_nota,edit_volume,edit_fck,edit_slump,edit_slump_flow,edit_local,edit_more,edit_idade;
     Button button_date;
     TextView tv_code,tv_slump,tv_slump_flow;
     Calendar refCalendar,tempCalendar,finalCalendar;
     Lotes newLote;
     ArrayList<String> cimento,argamassa,graute,defaultlist;
+    RelativeLayout slump,slumpflow;
 
     private ProgressDialog progressDialog;
 
@@ -99,21 +102,37 @@ public class MoldActivity extends MainActivity implements DatePickerDialog.OnDat
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
+                        slumpflow.setVisibility(View.VISIBLE);
+                        slump.setVisibility(View.VISIBLE);
+                        edit_slump.setText("");
+                        edit_slump_flow.setText("");
                         spinnerAdapter.clear();
                         spinnerAdapter.addAll(defaultlist);
                         spinnerAdapter.notifyDataSetChanged();
                         break;
                     case 1:
+                        slump.setVisibility(View.GONE);
+                        slumpflow.setVisibility(View.GONE);
+                        edit_slump.setText("");
+                        edit_slump_flow.setText("");
                         spinnerAdapter.clear();
                         spinnerAdapter.addAll(argamassa);
                         spinnerAdapter.notifyDataSetChanged();
                     break;
                     case 2:
+                        slumpflow.setVisibility(View.VISIBLE);
+                        slump.setVisibility(View.VISIBLE);
+                        edit_slump.setText("");
+                        edit_slump_flow.setText("");
                         spinnerAdapter.clear();
                         spinnerAdapter.addAll(cimento);
                         spinnerAdapter.notifyDataSetChanged();
                         break;
                     case 3:
+                        slump.setVisibility(View.GONE);
+                        slumpflow.setVisibility(View.GONE);
+                        edit_slump.setText("");
+                        edit_slump_flow.setText("");
                         spinnerAdapter.clear();
                         spinnerAdapter.addAll(graute);
                         spinnerAdapter.notifyDataSetChanged();
@@ -141,6 +160,7 @@ public class MoldActivity extends MainActivity implements DatePickerDialog.OnDat
                         loteList.add(lotes);
                     }
                     int last =  loteList.get(loteList.size()-1).getCodigo()+1;
+
                     if(last<10)
                     tv_code.setText("000"+last);
                     else  if(last<100)
@@ -150,12 +170,11 @@ public class MoldActivity extends MainActivity implements DatePickerDialog.OnDat
                     else  if(last<1000)
                                 tv_code.setText(""+last);
                     dismissProgress();
-                    Log.e(TAG,"TENHO");
+
                 }else{
                     dismissProgress();
-                    Log.e(TAG,"NAO TENHO");
                     int last =  0;
-                    tv_code.setText(last+"");
+                    tv_code.setText(last+"000");
                 }
             }
             @Override
@@ -194,6 +213,8 @@ public class MoldActivity extends MainActivity implements DatePickerDialog.OnDat
         edit_slump = (EditText) findViewById(R.id.slump_edit_text);
         edit_slump_flow = (EditText) findViewById(R.id.slump_flow_edit_text);
         edit_local = (EditText) findViewById(R.id.local_edit_text);
+        edit_more = (EditText) findViewById(R.id.more_edit_text);
+        edit_idade = (EditText) findViewById(R.id.idade_edit_text);
 
         //BUTTOM
         button_date = (Button) findViewById(R.id.date_buttom);
@@ -202,6 +223,10 @@ public class MoldActivity extends MainActivity implements DatePickerDialog.OnDat
         tv_code = (TextView) findViewById(R.id.code_edit_text);
         tv_slump = (TextView) findViewById(R.id.slump_text_view);
         tv_slump_flow = (TextView) findViewById(R.id.slump_flow_text_view);
+
+        //Relative
+        slump = (RelativeLayout) findViewById(R.id.slump_relative);
+        slumpflow = (RelativeLayout) findViewById(R.id.slump_flow_relative);
 
     }
 
@@ -226,8 +251,6 @@ public class MoldActivity extends MainActivity implements DatePickerDialog.OnDat
         dpd.show();
     }
 
-
-
     public void loteCreate(View view) {
         showProgress(getString(R.string.create_lote));
         if(validateFields()){
@@ -235,21 +258,68 @@ public class MoldActivity extends MainActivity implements DatePickerDialog.OnDat
             ref_lote = database.getReference(getString(R.string.work_tag)).child(WorkId+"").child(getString(R.string.lote_tag));
             newLote = new Lotes();
             newLote.setCodigo(Integer.parseInt(tv_code.getText().toString()));
+
+            if(!String.valueOf(spinner_material.getSelectedItem()).equals(getString(R.string.material_prompt)))
             newLote.setMaterial(String.valueOf(spinner_material.getSelectedItem()));
-            newLote.setDimenssoes_nominais(String.valueOf(spinner_dimenssion.getSelectedItem()));
+
+            if(!String.valueOf(spinner_contruc.getSelectedItem()).equals(getString(R.string.construc_prompt)))
             newLote.setConcreteira(String.valueOf(spinner_contruc.getSelectedItem()));
-            newLote.setNotaFiscal(Integer.parseInt(edit_nota.getText().toString()));
+
+            if(!edit_idade.getText().toString().isEmpty()) {
+                Calendar temp = Calendar.getInstance();
+                temp.add(Calendar.DATE, +Integer.parseInt(edit_idade.getText().toString()));
+                newLote.setIdade(temp.getTime().getTime());
+                /*temp.set(Calendar.DAY_OF_MONTH,Integer.parseInt(edit_idade.getText().toString()));*/
+            }
+
+            if(!edit_nota.getText().toString().isEmpty())
+            newLote.setNotaFiscal(Long.parseLong(edit_nota.getText().toString()));
+
+            if(!edit_volume.getText().toString().isEmpty())
             newLote.setVolume_do_caminhão(Float.parseFloat(edit_volume.getText().toString()));
-            newLote.setFCK(Integer.parseInt(edit_nota.getText().toString()));
-            newLote.setSlump(Integer.parseInt(edit_nota.getText().toString()));
-            newLote.setSlumFlow(Float.parseFloat(edit_volume.getText().toString()));
-            newLote.setData(finalCalendar.getTime());
+
+            if(!edit_fck.getText().toString().isEmpty())
+            newLote.setFCK(Integer.parseInt(edit_fck.getText().toString()));
+
+            if(!edit_slump.getText().toString().isEmpty())
+            newLote.setSlump(Integer.parseInt(edit_slump.getText().toString()));
+
+            if(!edit_slump_flow.getText().toString().isEmpty())
+            newLote.setSlumFlow(Float.parseFloat(edit_slump_flow.getText().toString()));
+
+            newLote.setData(finalCalendar.getTime().getTime());
+
+            if(!edit_local.getText().toString().isEmpty())
             newLote.setLocal_concretado(edit_local.getText().toString());
+
+            if(!edit_more.getText().toString().isEmpty())
+            newLote.setMore(edit_more.getText().toString());
+
+            HashMap<String, Integer> dimenssionHash = new HashMap<>();
+
+            if(String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.d40_40))){
+                dimenssionHash.put(getString(R.string.largura),40);
+                dimenssionHash.put(getString(R.string.altura),40);
+                newLote.setDimenssoes(dimenssionHash);
+                }else if(String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.d50_100))){
+                    dimenssionHash.put(getString(R.string.largura),50);
+                    dimenssionHash.put(getString(R.string.altura),100);
+                    newLote.setDimenssoes(dimenssionHash);
+                    }else if(String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.d100_200))){
+                        dimenssionHash.put(getString(R.string.largura),100);
+                        dimenssionHash.put(getString(R.string.altura),200);
+                        newLote.setDimenssoes(dimenssionHash);
+                    }
             ref_lote.push().setValue(newLote).addOnCompleteListener(this,new OnCompleteListener(){
                 @Override
                 public void onComplete(@NonNull Task task) {
                     dismissProgress();
-                    finish();
+                    if(task.isSuccessful()) {
+                        Toast.makeText(context,getString(R.string.lote_create_sucess),Toast.LENGTH_SHORT).show();
+                        finish();
+                    }else{
+                        Toast.makeText(context,getString(R.string.server_error),Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
 
@@ -270,6 +340,11 @@ public class MoldActivity extends MainActivity implements DatePickerDialog.OnDat
         }
         if(String.valueOf(spinner_contruc.getSelectedItem()).equals(getString(R.string.construc_prompt)) && !check_construc.isChecked()){
             Toast.makeText(context,getString(R.string.construc_prompt),Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if(edit_idade.getText().toString().isEmpty() && !check_idade.isChecked()){
+            edit_idade.setError(getString(R.string.empty_field_error));
             return false;
         }
 
