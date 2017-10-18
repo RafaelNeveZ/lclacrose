@@ -26,7 +26,6 @@ import com.lacrose.lc.lclacrose.Model.Obras;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class WorkActivity extends AppCompatActivity {
     private FirebaseAuth Auth;
@@ -56,11 +55,12 @@ public class WorkActivity extends AppCompatActivity {
         textEmpty.setVisibility(View.GONE);
         spinner.setVisibility(View.VISIBLE);
         final List<Obras> worksList = new ArrayList<>();
-        final ListView workListView = (ListView) findViewById(R.id.work_list);
+        final ListView workListView = (ListView) findViewById(R.id.normal_list);
         workListView.setDivider(null);
         final WorkAdapter workAdapter = new WorkAdapter(this, R.layout.item_work, worksList);
         workListView.setAdapter(workAdapter);
         user_works_ref = database.getReference(getString(R.string.user_tag)).child(Auth.getCurrentUser().getUid()).child(getString(R.string.work_tag));
+        user_works_ref.keepSynced(true);
         works_ref = database.getReference(getString(R.string.work_tag));
         Log.e(TAG,"before");
         user_works_ref.addChildEventListener(new ChildEventListener() {
@@ -120,7 +120,7 @@ public class WorkActivity extends AppCompatActivity {
         });
 
 
-        /*user_works_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        /*work_lotes_ref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
@@ -154,11 +154,11 @@ public class WorkActivity extends AppCompatActivity {
 
     public void logOut(MenuItem item) {
         final Dialog dialog = new Dialog(context);
-        dialog.setContentView(R.layout.dialog_logout);
+        dialog.setContentView(R.layout.dialog_two_choice);
         dialog.setTitle(getString(R.string.dialog_logout_title));
         dialog.show();
-        Button btCancel = (Button) dialog.findViewById(R.id.cancel_logout);
-        Button btLogOut = (Button) dialog.findViewById(R.id.confirm_logout);
+        Button btCancel = (Button) dialog.findViewById(R.id.button_no);
+        Button btLogOut = (Button) dialog.findViewById(R.id.button_yes);
         btLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

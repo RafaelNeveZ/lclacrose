@@ -22,7 +22,7 @@
         android:layout_centerInParent="true"
         android:progressDrawable="@drawable/circular_progress_bar"/>
     <ListView
-        android:id="@+id/work_list"
+        android:id="@+id/normal_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:dividerHeight="0dp"

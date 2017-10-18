@@ -5,11 +5,11 @@ import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.annotation.UiThread;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -20,11 +20,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseException;
-import com.google.firebase.FirebaseNetworkException;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -56,6 +52,8 @@ public class MoldActivity extends MainActivity implements DatePickerDialog.OnDat
     TextView tv_code,tv_slump,tv_slump_flow;
     Calendar refCalendar,tempCalendar,finalCalendar;
     Lotes newLote;
+    ArrayList<String> cimento,argamassa,graute,defaultlist;
+
     private ProgressDialog progressDialog;
 
     @Override
@@ -70,11 +68,69 @@ public class MoldActivity extends MainActivity implements DatePickerDialog.OnDat
         initiateViews();
         showProgress(getString(R.string.getting_lote_number));
         getLoteNumber();
+        regrasNegocios();
+    }
+    public void regrasNegocios(){
+        defaultlist = new ArrayList<>();
+        defaultlist.add(getString(R.string.dimenssion_prompt));
+        defaultlist.add(getString(R.string.d40_40));
+        defaultlist.add(getString(R.string.d50_100));
+        defaultlist.add(getString(R.string.d100_200));
+        cimento = new ArrayList<>();
+        cimento.add(getString(R.string.dimenssion_prompt));
+        cimento.add(getString(R.string.d100_200));
+        argamassa = new ArrayList<>();
+        argamassa.add(getString(R.string.dimenssion_prompt));
+        argamassa.add(getString(R.string.d40_40));
+        argamassa.add(getString(R.string.d50_100));
+        graute = new ArrayList<>();
+        graute.add(getString(R.string.dimenssion_prompt));
+        graute.add(getString(R.string.d50_100));
+        graute.add(getString(R.string.d100_200));
+
+        final ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_dimenssion.setAdapter(spinnerAdapter);
+        spinnerAdapter.addAll(defaultlist);
+        spinnerAdapter.notifyDataSetChanged();
+
+        spinner_material.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        spinnerAdapter.clear();
+                        spinnerAdapter.addAll(defaultlist);
+                        spinnerAdapter.notifyDataSetChanged();
+                        break;
+                    case 1:
+                        spinnerAdapter.clear();
+                        spinnerAdapter.addAll(argamassa);
+                        spinnerAdapter.notifyDataSetChanged();
+                    break;
+                    case 2:
+                        spinnerAdapter.clear();
+                        spinnerAdapter.addAll(cimento);
+                        spinnerAdapter.notifyDataSetChanged();
+                        break;
+                    case 3:
+                        spinnerAdapter.clear();
+                        spinnerAdapter.addAll(graute);
+                        spinnerAdapter.notifyDataSetChanged();
+                        break;
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void getLoteNumber() {
         final List<Lotes> loteList = new ArrayList<>();
         lote_ref = database.getReference(getString(R.string.work_tag)).child(WorkId+"").child(getString(R.string.lote_tag));
+        lote_ref.keepSynced(true);
         lote_ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -127,6 +183,9 @@ public class MoldActivity extends MainActivity implements DatePickerDialog.OnDat
         spinner_material=(Spinner) findViewById(R.id.material_spinner);
         spinner_dimenssion=(Spinner) findViewById(R.id.dimenssion_spinner);
         spinner_contruc=(Spinner) findViewById(R.id.constru_spinner);
+
+
+
 
         //EDITTEXT
         edit_nota = (EditText) findViewById(R.id.nota_edit_text);

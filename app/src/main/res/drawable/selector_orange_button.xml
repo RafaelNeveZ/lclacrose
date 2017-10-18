@@ -1,10 +1,10 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:drawable="@drawable/rounded_orange_button_inverse"
+        android:drawable="@drawable/rounded_white_button"
         android:state_pressed="true" />
     <item
-        android:drawable="@drawable/rounded_orange_button_inverse"
+        android:drawable="@drawable/rounded_white_button"
         android:state_checked="true" />
     <item
         android:drawable="@drawable/rounded_orange_button" />

@@ -1,5 +1,6 @@
 package com.lacrose.lc.lclacrose;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -37,6 +38,8 @@ public class ScanActivity extends MainActivity implements ZBarScannerView.Result
 
     @Override
     public void handleResult(me.dm7.barcodescanner.zbar.Result result) {
+        final MediaPlayer barcodeSound = MediaPlayer.create(this, R.raw.barcode_reader);
+        barcodeSound.start();
         Log.e(TAG_CÓDIGO, result.getContents()); // Prints scan results
         Log.e(TAG_TIPO, result.getBarcodeFormat().getName()); // Prints the scan format (qrcode, pdf417 etc.)
         RupturaActivity.CODE = result.getContents();

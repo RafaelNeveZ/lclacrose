@@ -83,5 +83,9 @@
     <string name="create_lote">Criando lote...</string>
     <string name="list_ruptura_label">Corpos de prova</string>
     <string name="code">Código</string>
+    <string name="save">Save</string>
+    <string name="dialog_cancel_ruptura">Deseja realmente cancelar? (Os dados serão perdidos)</string>
+    <string name="yes">SIM</string>
+    <string name="saving">Salvando</string>
 
 </resources>

@@ -7,5 +7,5 @@
         android:drawable="@drawable/rounded_orange_button"
         android:state_checked="true" />
     <item
-        android:drawable="@drawable/rounded_orange_button_inverse" />
+        android:drawable="@drawable/rounded_white_button" />
 </selector>

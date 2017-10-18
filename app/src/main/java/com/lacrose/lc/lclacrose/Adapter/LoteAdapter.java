@@ -35,7 +35,7 @@ public class LoteAdapter extends ArrayAdapter<Lotes> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, final View convertView, ViewGroup parent) {
 
         View view = convertView;
 

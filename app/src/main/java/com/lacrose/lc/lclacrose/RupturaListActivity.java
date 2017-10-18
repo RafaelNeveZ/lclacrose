@@ -1,40 +1,103 @@
 package com.lacrose.lc.lclacrose;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.lacrose.lc.lclacrose.Adapter.RupturaAdapter;
-import com.lacrose.lc.lclacrose.Adapter.WorkAdapter;
 import com.lacrose.lc.lclacrose.Model.Corpos;
-import com.lacrose.lc.lclacrose.Model.Obras;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import static com.lacrose.lc.lclacrose.RupturaActivity.LOTE_ID;
+
 public class RupturaListActivity extends MainActivity {
-        public static  List<Corpos> CorposList;
+    public static  List<Corpos> CorposList;
+    private final Context context=this;
+    DatabaseReference corpo_ref;
+    FirebaseDatabase database;
+    int ListSize = 0;
+
+
+    //TODO LAYOOUT SCROLLVIEW
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ruptura_list);
-        List<Corpos> newVo=new ArrayList<>();
-      /*  Corpos corpo = new Corpos();
-        corpo.setCodigo("12");
-        corpo.setCarga(52);
-        corpo.setTipo("A");
-        newVo.add(corpo);*/
+        database = FirebaseDatabase.getInstance();
         ListView rupturaListView = (ListView) findViewById(R.id.ruptura_list);
-        rupturaListView.setDivider(null);
-        RupturaAdapter corposAdapter = new RupturaAdapter(this, R.layout.item_ruptura, newVo);
-        rupturaListView.setAdapter(corposAdapter);
-        for (Corpos item: CorposList
-             ) {
-            newVo.add(item);
 
-        }
-        corposAdapter.notifyDataSetChanged();
+        rupturaListView.setDivider(null);
+        RupturaAdapter corposAdapter = new RupturaAdapter(this, R.layout.item_ruptura, CorposList);
+        rupturaListView.setAdapter(corposAdapter);
     }
+
+    public void saveRuptura(View view) {
+        showProgress(getString(R.string.saving));
+        corpo_ref = database.getReference(getString(R.string.work_tag)).child(MoldActivity.WorkId+"").child(getString(R.string.lote_tag)).child(LOTE_ID);
+        for (Corpos corpo:CorposList) {
+            corpo_ref.child(getString(R.string.corpos)).push().setValue(corpo).addOnCompleteListener(this,new OnCompleteListener(){
+                        @Override
+                        public void onComplete(@NonNull Task task) {
+                            ListSize++;
+                            if(task.isSuccessful()) {
+                                if(ListSize>=CorposList.size()) {
+                                    dismissProgress();
+                                    Intent intent = new Intent(RupturaListActivity.this, HomeActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }else{
+
+                                }
+                            }else{
+                                dismissProgress();
+                                Log.e(TAG,task.getException().toString());
+                            }
+                        };
+        });
+
+    }
+}
+
+    public void onCancel(View view) {
+        final Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.dialog_two_choice);
+        dialog.setTitle(getString(R.string.dialog_cancel_ruptura));
+        dialog.show();
+        TextView title = (TextView) dialog.findViewById(R.id.dialog_title);
+        title.setText(getString(R.string.dialog_cancel_ruptura));
+        Button btCancel = (Button) dialog.findViewById(R.id.button_no);
+        Button btYes = (Button) dialog.findViewById(R.id.button_yes);
+        btYes.setText(getString(R.string.yes));
+        btYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        btCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+
+    }
+
+
 }

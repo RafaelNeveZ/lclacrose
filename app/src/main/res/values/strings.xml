@@ -67,11 +67,24 @@
         <item>Graute</item>
     </string-array>
     <string name="dimenssion_prompt">Selecione as dimenssões</string>
-    <string-array name="dimenssion_arrays">
+    <string-array name="dimenssion_arrays_argamassa">
+        <item>Selecione as dimenssões</item>
+        <item>50x100</item>
+        <item>40x40</item>
+    </string-array>
+
+    <string name="d50_100">50x100</string>
+    <string name="d40_40">40x40</string>
+    <string name="d100_200">100x200</string>
+
+    <string-array name="dimenssion_arrays_graute">
         <item>Selecione as dimenssões</item>
         <item>100x200</item>
-        <item>150x300</item>
         <item>50x100</item>
+    </string-array>
+    <string-array name="dimenssion_arrays_cimento">
+        <item>Selecione as dimenssões</item>
+        <item>100x200</item>
     </string-array>
 
     <string name="material_text">Material cimenticio</string>
@@ -116,6 +129,10 @@
     <string name="create_lote">Criando lote...</string>
     <string name="list_ruptura_label">Corpos de prova</string>
     <string name="code">Código</string>
+    <string name="save">Salvar</string>
+    <string name="dialog_cancel_ruptura">Deseja realmente cancelar? (Os dados serão perdidos)</string>
+    <string name="yes">SIM</string>
+    <string name="saving">Salvando</string>
     <string-array name="type_arrays">
         <item>Selecione o tipo</item>
         <item>A</item>

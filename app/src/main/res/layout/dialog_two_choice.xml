@@ -8,7 +8,7 @@
 
 
     <TextView
-        android:id="@+id/dialog_send_email_title"
+        android:id="@+id/dialog_title"
         android:text="@string/dialog_logout_title"
         android:textAlignment="center"
         android:layout_marginTop="30dp"
@@ -33,7 +33,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/cancel_logout"
+            android:id="@+id/button_no"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -44,7 +44,7 @@
             android:textColor="@drawable/selector_orange_text_button" />
 
         <Button
-            android:id="@+id/confirm_logout"
+            android:id="@+id/button_yes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"

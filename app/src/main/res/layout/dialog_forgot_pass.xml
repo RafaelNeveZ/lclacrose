@@ -8,7 +8,7 @@
 
 
     <TextView
-        android:id="@+id/dialog_send_email_title"
+        android:id="@+id/dialog_title"
         android:text="@string/dialog_forgot_pass_title"
         android:textAlignment="center"
         android:layout_marginTop="10dp"

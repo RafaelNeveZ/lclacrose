@@ -15,6 +15,7 @@ import com.lacrose.lc.lclacrose.R;
 import com.lacrose.lc.lclacrose.RupturaActivity;
 import com.lacrose.lc.lclacrose.ScanActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -61,7 +62,8 @@ public class RupturaAdapter extends ArrayAdapter<Corpos> {
                 tipo.setText(corpos.getTipo());
             }
             if (data != null) {
-                //data.setText(corpos.getData());
+                SimpleDateFormat fmtOut = new SimpleDateFormat("dd/MM/yyyy");
+                data.setText(fmtOut.format(corpos.getData()));
             }
         }
 

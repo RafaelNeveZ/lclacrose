@@ -1,14 +1,10 @@
 package com.lacrose.lc.lclacrose;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -20,10 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.lacrose.lc.lclacrose.Adapter.LoteAdapter;
-import com.lacrose.lc.lclacrose.Adapter.WorkAdapter;
 import com.lacrose.lc.lclacrose.Model.Lotes;
-import com.lacrose.lc.lclacrose.Model.Obras;
-import com.lacrose.lc.lclacrose.R;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
 import java.util.ArrayList;
@@ -33,7 +26,7 @@ public class LotesActivity extends MainActivity {
     private FirebaseAuth Auth;
     private final Context context = this;
     FirebaseDatabase database;
-    DatabaseReference user_works_ref;
+    DatabaseReference work_lotes_ref;
     private ProgressBar spinner;
     public TextView textEmpty;
 
@@ -55,13 +48,14 @@ public class LotesActivity extends MainActivity {
     private void showListOfLotes() {
         textEmpty.setVisibility(View.GONE);
         spinner.setVisibility(View.VISIBLE);
-        final List<Lotes> worksList = new ArrayList<>();
-        final ListView lotesListView = (ListView) findViewById(R.id.work_list);
+        final List<Lotes>lotesList = new ArrayList<>();
+        final ListView lotesListView = (ListView) findViewById(R.id.normal_list);
         lotesListView.setDivider(null);
-        final LoteAdapter loteAdapter = new LoteAdapter(this, R.layout.item_work, worksList);
+        final LoteAdapter loteAdapter = new LoteAdapter(this, R.layout.item_work, lotesList);
         lotesListView.setAdapter(loteAdapter);
-        user_works_ref = database.getReference(getString(R.string.work_tag)).child(MoldActivity.WorkId).child(getString(R.string.lote_tag));
-        user_works_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        work_lotes_ref = database.getReference(getString(R.string.work_tag)).child(MoldActivity.WorkId).child(getString(R.string.lote_tag));
+        work_lotes_ref.keepSynced(true);
+        work_lotes_ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -69,7 +63,7 @@ public class LotesActivity extends MainActivity {
                     for (DataSnapshot d : dataSnapshot.getChildren()) {
                         Lotes lotes = d.getValue(Lotes.class);
                         lotes.setId(d.getKey());
-                        worksList.add(lotes);
+                        lotesList.add(lotes);
                     }
                     loteAdapter.notifyDataSetChanged();
                 } else {

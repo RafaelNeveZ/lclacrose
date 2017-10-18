@@ -9,9 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:padding="5dp"
-        android:background="@drawable/selector_white_button"
-        android:text="@string/default_work"
-        android:textColor="@drawable/selector_orange_text_button"
+        android:background="@drawable/rounded_white_button"
         android:textSize="18sp">
     <LinearLayout
         android:id="@+id/ll_code"
@@ -27,10 +25,11 @@
             android:text="@string/code"
             android:layout_margin="5dp"
             android:textStyle="bold"
+            android:layout_weight="0"
             android:textColor="@color/colorPrimary"
             />
-        <view
-            android:layout_width="0dp"
+        <View
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"/>
         <TextView
@@ -39,6 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:textStyle="bold"
+            android:layout_weight="0"
             android:textColor="@color/colorPrimary"
             android:text="00"/>
     </LinearLayout>
@@ -56,10 +56,11 @@
                 android:text="@string/carga_text"
                 android:layout_margin="5dp"
                 android:textStyle="bold"
+                android:layout_weight="0"
                 android:textColor="@color/colorPrimary"
                 />
-            <view
-                android:layout_width="0dp"
+            <View
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"/>
             <TextView
@@ -68,6 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:textStyle="bold"
+                android:layout_weight="0"
                 android:textColor="@color/colorPrimary"
                 android:text="00"/>
         </LinearLayout>
@@ -85,10 +87,11 @@
                 android:text="@string/type_text"
                 android:layout_margin="5dp"
                 android:textStyle="bold"
+                android:layout_weight="0"
                 android:textColor="@color/colorPrimary"
                 />
-            <view
-                android:layout_width="0dp"
+            <View
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"/>
             <TextView
@@ -97,6 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:textStyle="bold"
+                android:layout_weight="0"
                 android:textColor="@color/colorPrimary"
                 android:text="00"/>
         </LinearLayout>
@@ -114,10 +118,11 @@
                 android:text="@string/data_text"
                 android:layout_margin="5dp"
                 android:textStyle="bold"
+                android:layout_weight="0"
                 android:textColor="@color/colorPrimary"
                 />
-            <view
-                android:layout_width="0dp"
+            <View
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"/>
             <TextView
@@ -126,6 +131,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:textStyle="bold"
+                android:layout_weight="0"
                 android:textColor="@color/colorPrimary"
                 android:text="00"/>
         </LinearLayout>

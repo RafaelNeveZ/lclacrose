@@ -21,16 +21,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.lacrose.lc.lclacrose.Model.Corpos;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
+import java.util.Calendar;
+
 public class RupturaActivity extends MainActivity {
     public static String CODE, LOTE_ID;
     public TextView code_ET;
     private final Context context = this;
     Spinner spinner_type;
     EditText edit_carga;
-    TextView edit_codigo;
-    DatabaseReference corpo_ref;
-    FirebaseDatabase database;
-    Corpos newCorpo;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +40,10 @@ public class RupturaActivity extends MainActivity {
         code_ET.setText(CODE);
         spinner_type=(Spinner) findViewById(R.id.type_spinner);
         edit_carga = (EditText) findViewById(R.id.carga_edit_text);
-        database = FirebaseDatabase.getInstance();
+
 
     }
-//tesa
+
     public void saveFinish(View view) {
     saveResults(false);
     }
@@ -51,39 +51,26 @@ public class RupturaActivity extends MainActivity {
     public void saveContinue(View view) {
         saveResults(true);
     }
+
     public void saveResults(final boolean Continue){
         showProgress(getString(R.string.create_body));
         if(validateFields()){
-            //corpo_ref = database.getReference(getString(R.string.work_tag)).child(MoldActivity.WorkId+"").child(getString(R.string.lote_tag)).child(LOTE_ID);
-            newCorpo = new Corpos();
+            Calendar calendar = Calendar.getInstance();
+            Corpos newCorpo = new Corpos();
             newCorpo.setCodigo(code_ET.getText().toString());
             newCorpo.setCarga(Float.parseFloat(edit_carga.getText().toString()));
             newCorpo.setTipo(String.valueOf(spinner_type.getSelectedItem()));
+            newCorpo.setData(calendar.getTime());
             RupturaListActivity.CorposList.add(newCorpo);
             dismissProgress();
             Intent intent = new Intent(RupturaActivity.this, Continue ? ScanActivity.class : RupturaListActivity.class);
             startActivity(intent);
             finish();
-            /*corpo_ref.child(getString(R.string.corpos)).push().setValue(newCorpo,new DatabaseReference.CompletionListener(){
-                @Override
-                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                    dismissProgress();
-                    if(databaseError==null) {
-                        Intent intent = new Intent(RupturaActivity.this, Continue ? ScanActivity.class : HomeActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }else{
-                        System.out.println("Value was set. Error = "+databaseError);
-                    }
-                }
-            });*/
 
         }else{
             dismissProgress();
         }
     }
-
-
 
     private boolean validateFields() {
 
