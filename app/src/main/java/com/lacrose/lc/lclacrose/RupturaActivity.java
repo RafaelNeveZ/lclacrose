@@ -59,10 +59,11 @@ public class RupturaActivity extends MainActivity {
     private void isThisForNow() {
 
         Calendar c = Calendar.getInstance();
-        Date idade = new Date(atualLote.getIdade());
-        Date criacao = new Date(atualLote.getData());
-        Date hoje = c.getTime();
-        if(hoje.getTime() - criacao.getTime() < idade.getTime()-criacao.getTime()) {
+        long idade = atualLote.getIdade()/ (1000 * 60 * 60 * 24);
+        long criacao = atualLote.getData()/ (1000 * 60 * 60 * 24);
+        long hoje = c.getTime().getTime()/ (1000 * 60 * 60 * 24);
+
+        if(hoje - criacao < idade - criacao) {
             final Dialog dialog = new Dialog(context);
             dialog.setContentView(R.layout.dialog_two_choice);
             dialog.setTitle(getString(R.string.dialog_cancel_ruptura));
