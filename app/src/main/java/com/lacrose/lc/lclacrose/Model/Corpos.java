@@ -1,6 +1,9 @@
 package com.lacrose.lc.lclacrose.Model;
 
+import com.google.firebase.database.ServerValue;
+
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Created by rafae on 13/10/2017.
@@ -10,13 +13,15 @@ public class Corpos {
     private String codigo;
     private float carga;
     private String tipo;
-    private Date data;
+    private long data;
+    private HashMap <String, Object> timestamp;
 
-    public Date getData() {
+
+    public long getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(long data) {
         this.data = data;
     }
 
@@ -47,5 +52,12 @@ public class Corpos {
 
 
     public Corpos() {
+    }
+
+    public  void setTimeStamp(){
+        if(timestamp == null)
+            timestamp = new HashMap<>();
+
+        timestamp.put("timeStamp", ServerValue.TIMESTAMP);
     }
 }

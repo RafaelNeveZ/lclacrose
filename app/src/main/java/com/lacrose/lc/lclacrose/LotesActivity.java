@@ -16,7 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.lacrose.lc.lclacrose.Adapter.LoteAdapter;
-import com.lacrose.lc.lclacrose.Model.Lotes;
+import com.lacrose.lc.lclacrose.Model.CorpoLotes;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
 import java.util.ArrayList;
@@ -48,12 +48,12 @@ public class LotesActivity extends MainActivity {
     private void showListOfLotes() {
         textEmpty.setVisibility(View.GONE);
         spinner.setVisibility(View.VISIBLE);
-        final List<Lotes>lotesList = new ArrayList<>();
+        final List<CorpoLotes> corpoLotesList = new ArrayList<>();
         final ListView lotesListView = (ListView) findViewById(R.id.normal_list);
         lotesListView.setDivider(null);
-        final LoteAdapter loteAdapter = new LoteAdapter(this, R.layout.item_work, lotesList);
+        final LoteAdapter loteAdapter = new LoteAdapter(this, R.layout.item_work, corpoLotesList);
         lotesListView.setAdapter(loteAdapter);
-        work_lotes_ref = database.getReference(getString(R.string.work_tag)).child(MoldActivity.WorkId).child(getString(R.string.lote_tag));
+        work_lotes_ref = database.getReference(getString(R.string.work_tag)).child(HomeActivity.WorkId).child(getString(R.string.lote_corpo_tag));
         work_lotes_ref.keepSynced(true);
         work_lotes_ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -61,9 +61,9 @@ public class LotesActivity extends MainActivity {
                 if (dataSnapshot.exists()) {
                     spinner.setVisibility(View.GONE);
                     for (DataSnapshot d : dataSnapshot.getChildren()) {
-                        Lotes lotes = d.getValue(Lotes.class);
-                        lotes.setId(d.getKey());
-                        lotesList.add(lotes);
+                        CorpoLotes corpoLotes = d.getValue(CorpoLotes.class);
+                        corpoLotes.setId(d.getKey());
+                        corpoLotesList.add(corpoLotes);
                     }
                     loteAdapter.notifyDataSetChanged();
                 } else {

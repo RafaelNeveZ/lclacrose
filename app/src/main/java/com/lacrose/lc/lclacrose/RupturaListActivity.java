@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -46,7 +45,7 @@ public class RupturaListActivity extends MainActivity {
 
     public void saveRuptura(View view) {
         showProgress(getString(R.string.saving));
-        corpo_ref = database.getReference(getString(R.string.work_tag)).child(MoldActivity.WorkId+"").child(getString(R.string.lote_tag)).child(RupturaActivity.atualLote.getId());
+        corpo_ref = database.getReference(getString(R.string.work_tag)).child(HomeActivity.WorkId+"").child(getString(R.string.lote_corpo_tag)).child(RupturaActivity.atualLote.getId());
         for (Corpos corpo:CorposList) {
             corpo_ref.child(getString(R.string.corpos)).push().setValue(corpo).addOnCompleteListener(this,new OnCompleteListener(){
                         @Override
@@ -60,11 +59,11 @@ public class RupturaListActivity extends MainActivity {
                                     startActivity(intent);
                                     finish();
                                 }else{
-                                    Toast.makeText(context,getString(R.string.server_error),Toast.LENGTH_SHORT).show();
+                                    dismissProgress();
                                 }
                             }else{
                                 dismissProgress();
-                                Log.e(TAG,task.getException().toString());
+                                Toast.makeText(context,getString(R.string.server_error),Toast.LENGTH_SHORT).show();
                             }
                         };
         });

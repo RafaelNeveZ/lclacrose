@@ -3,9 +3,7 @@ package com.lacrose.lc.lclacrose;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,32 +11,24 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.lacrose.lc.lclacrose.Model.Corpos;
-import com.lacrose.lc.lclacrose.Model.Lotes;
+import com.lacrose.lc.lclacrose.Model.CorpoLotes;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class RupturaActivity extends MainActivity {
     public static String CODE;
-    public static Lotes atualLote;
+    public static CorpoLotes atualLote;
     public TextView code_ET;
     private final Context context = this;
     Spinner spinner_type;
     EditText edit_carga;
     FirebaseDatabase database;
     DatabaseReference work_lotes_ref;
+    public static long Hoje;
 
 
 
@@ -53,38 +43,36 @@ public class RupturaActivity extends MainActivity {
         spinner_type=(Spinner) findViewById(R.id.type_spinner);
         edit_carga = (EditText) findViewById(R.id.carga_edit_text);
 
-
     }
 
     private void isThisForNow() {
-
-        Calendar c = Calendar.getInstance();
         long idade = atualLote.getIdade()/ (1000 * 60 * 60 * 24);
         long criacao = atualLote.getData()/ (1000 * 60 * 60 * 24);
-        long hoje = c.getTime().getTime()/ (1000 * 60 * 60 * 24);
-
-        if(hoje - criacao < idade - criacao) {
+        Hoje = Hoje/ (1000 * 60 * 60 * 24);
+        if(Hoje - criacao < idade - criacao) {
             final Dialog dialog = new Dialog(context);
             dialog.setContentView(R.layout.dialog_two_choice);
-            dialog.setTitle(getString(R.string.dialog_cancel_ruptura));
+            dialog.setTitle(getString(R.string.dialog_before_age));
             dialog.show();
             TextView title = (TextView) dialog.findViewById(R.id.dialog_title);
-            title.setText(getString(R.string.dialog_cancel_ruptura));
+            title.setText(getString(R.string.dialog_before_age));
             Button btCancel = (Button) dialog.findViewById(R.id.button_no);
             Button btYes = (Button) dialog.findViewById(R.id.button_yes);
             btYes.setText(getString(R.string.yes));
             btYes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, HomeActivity.class);
-                    startActivity(intent);
-                    finish();
+                    dialog.dismiss();
                 }
             });
+            btCancel.setText(getString(R.string.no));
             btCancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    dialog.dismiss();
+
+                    Intent intent = new Intent(context, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
             });
         }
@@ -107,7 +95,7 @@ public class RupturaActivity extends MainActivity {
             newCorpo.setCodigo(code_ET.getText().toString());
             newCorpo.setCarga(Float.parseFloat(edit_carga.getText().toString()));
             newCorpo.setTipo(String.valueOf(spinner_type.getSelectedItem()));
-            newCorpo.setData(calendar.getTime());
+            newCorpo.setData(calendar.getTime().getTime());
             RupturaListActivity.CorposList.add(newCorpo);
             dismissProgress();
             Intent intent = new Intent(RupturaActivity.this, Continue ? ScanActivity.class : RupturaListActivity.class);

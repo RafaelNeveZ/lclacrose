@@ -2,7 +2,6 @@ package com.lacrose.lc.lclacrose.Adapter;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +9,10 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.lacrose.lc.lclacrose.Model.Corpos;
-import com.lacrose.lc.lclacrose.Model.Lotes;
 import com.lacrose.lc.lclacrose.R;
-import com.lacrose.lc.lclacrose.RupturaActivity;
-import com.lacrose.lc.lclacrose.ScanActivity;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -63,8 +60,9 @@ public class RupturaAdapter extends ArrayAdapter<Corpos> {
             }
             if (data != null) {
                 SimpleDateFormat fmtOut = new SimpleDateFormat("dd/MM/yyyy");
-                data.setText(fmtOut.format(corpos.getData()));
+                data.setText(fmtOut.format(new Date(corpos.getData())));
             }
+            corpos.setTimeStamp();
         }
 
         return view;

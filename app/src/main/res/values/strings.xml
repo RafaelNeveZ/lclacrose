@@ -53,7 +53,7 @@
     <string name="dialog_permission">Você precisa permitir o acesso a camera para continuar.</string>
     <string name="ok">OK</string>
     <string name="mold">MOLDAGEM</string>
-    <string name="lotes">LOTES</string>
+    <string name="corpoLotes">LOTES</string>
     <string name="lote_code">Código do lote</string>
     <string name="default_lote">0000</string>
 
@@ -92,10 +92,10 @@
     <string name="constru_text">Concreteira</string>
     <string name="nota_text">Nota fiscal</string>
     <string name="volume_text">Volume do caminhão</string>
-    <string name="fck_text">FCK</string>
+    <string name="fck_text">FCK de projeto</string>
     <string name="slump_text">Slump</string>
     <string name="slump_flow_text">Slump flow</string>
-    <string name="data_text">Data</string>
+    <string name="data_text">Data de recebimento</string>
     <string name="date_default">DATA</string>
     <string name="local_text">Local concretado</string>
     <string name="lote_create">CRIAR LOTE</string>
@@ -119,7 +119,7 @@
     <string name="date_before_error">Data inválida</string>
     <string name="default_work">Obra</string>
     <string name="work_empyt">NÃO POSSUI OBRAS DISPONIVEIS</string>
-    <string name="lote_tag">lotes</string>
+    <string name="lote_corpo_tag">corpoLotes</string>
     <string name="update">Atualizar</string>
     <string name="lote">Lote</string>
     <string name="lote_label">LOTES</string>
@@ -140,6 +140,29 @@
     <string name="age_text">Idade</string>
     <string name="rupturas_create_sucess">Rupturas salvas com sucesso!</string>
     <string name="lote_age">idade</string>
+    <string name="time_stamp_tag">timeStamp</string>
+    <string name="dialog_before_age">O teste esta sendo feito antes da data prevista, É isso que deseja?</string>
+    <string name="no">Não</string>
+    <string name="bloco">BLOCO</string>
+    <string name="prisma">Prisma</string>
+    <string name="pavimento_intertravado">Pavimento intertravado</string>
+    <string name="body">CORPO</string>
+    <string name="moldagem_bloco_label">MOLDAGEM DE BLOCO</string>
+    <string name="moldagem_type_label">TIPO DE MOLDAGEM</string>
+    <string name="moldagem_pavimento_label">MOLDAGEM DE PAVIMENTO</string>
+    <string name="moldagem_prisma_label">MOLDAGEM DE PRISMA</string>
+    <string name="body_tag">corpo</string>
+    <string name="datafab_text">Data de fabricação</string>
+    <string name="lote_text">Lote interno do cliente</string>
+    <string name="fab_text">Fabricante</string>
+    <string name="func_text">Teve função estrutural?</string>
+    <string name="no_uper">NÂO</string>
+    <string name="d120_190_390">120 x 190 x 390</string>
+    <string name="d140_190_390">140 x 190 x 390</string>
+    <string name="bloco_tag">bloco</string>
+    <string name="comprimento">comprimento</string>
+    <string name="lote_bloco_tag">blocoLotes</string>
+    <string name="yes_uper">SIM</string>
     <string-array name="type_arrays">
         <item>Selecione o tipo</item>
         <item>A</item>

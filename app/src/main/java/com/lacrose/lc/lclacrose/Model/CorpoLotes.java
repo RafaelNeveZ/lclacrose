@@ -7,7 +7,7 @@ import java.util.HashMap;
  * Created by rafae on 13/10/2017.
  */
 
-public  class Lotes {
+public  class CorpoLotes {
 
 
     private String id;
@@ -35,7 +35,7 @@ public  class Lotes {
     }
 
 
-    public Lotes() {
+    public CorpoLotes() {
     }
 
     public String getMore() {

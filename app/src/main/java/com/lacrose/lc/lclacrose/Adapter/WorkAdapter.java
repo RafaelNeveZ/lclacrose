@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import com.lacrose.lc.lclacrose.HomeActivity;
 import com.lacrose.lc.lclacrose.Model.Obras;
-import com.lacrose.lc.lclacrose.MoldActivity;
+import com.lacrose.lc.lclacrose.CorpoMoldActivity;
 import com.lacrose.lc.lclacrose.R;
 
 
@@ -53,7 +53,7 @@ public class WorkAdapter extends ArrayAdapter<Obras> {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context,HomeActivity.class);
-                    MoldActivity.WorkId = obras.getId();
+                    HomeActivity.WorkId = obras.getId();
                     HomeActivity.label = context.getString(R.string.work)+": "+ obras.getCodigo();
                     context.startActivity(intent);
                 }

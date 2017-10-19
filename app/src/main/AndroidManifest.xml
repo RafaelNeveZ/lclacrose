@@ -19,8 +19,8 @@
         <activity
             android:name=".LoginActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:windowSoftInputMode="stateHidden"
-            android:theme="@style/AppThemeFullscreen">
+            android:theme="@style/AppThemeFullscreen"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -49,17 +49,17 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:parentActivityName=".WorkActivity" />
         <activity
-            android:name=".MoldActivity"
+            android:name=".CorpoMoldActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/mold"
-            android:windowSoftInputMode="stateHidden"
-            android:parentActivityName=".HomeActivity" />
+            android:parentActivityName=".ChooseMoldActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".RupturaActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/ruptura"
-            android:windowSoftInputMode="stateHidden"
-            android:parentActivityName=".LotesActivity" />
+            android:parentActivityName=".LotesActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".LotesActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
@@ -70,6 +70,30 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/list_ruptura_label"
             android:parentActivityName=".HomeActivity" />
+        <activity
+            android:name=".BlocoMoldActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/moldagem_bloco_label"
+            android:windowSoftInputMode="stateHidden"
+            android:parentActivityName=".ChooseMoldActivity"/>
+        <activity
+            android:name=".PrismaMoldActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/moldagem_prisma_label"
+            android:windowSoftInputMode="stateHidden"
+            android:parentActivityName=".ChooseMoldActivity"/>
+        <activity
+            android:name=".PavimentoMoldActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/moldagem_pavimento_label"
+            android:windowSoftInputMode="stateHidden"
+            android:parentActivityName=".ChooseMoldActivity"/>
+        <activity
+            android:name=".ChooseMoldActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/moldagem_type_label"
+            android:windowSoftInputMode="stateHidden"
+            android:parentActivityName=".ChooseMoldActivity" />
     </application>
 
 </manifest>

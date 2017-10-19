@@ -22,7 +22,7 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 public class HomeActivity extends MainActivity {
     private static final int PERMISSION_REQUEST_CODE = 7;
     public static String label;
-
+    public static  String WorkId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +42,7 @@ public class HomeActivity extends MainActivity {
         }
     }
     public void moldButton(View view) {
-        Intent intent = new Intent(HomeActivity.this, MoldActivity.class);
+        Intent intent = new Intent(HomeActivity.this, ChooseMoldActivity.class);
         startActivity(intent);
     }
 

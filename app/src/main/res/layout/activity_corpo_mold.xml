@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center|top"
     android:background="@color/back_gray_almost_white"
-    tools:context="com.lacrose.lc.lclacrose.MoldActivity">
+    tools:context="com.lacrose.lc.lclacrose.CorpoMoldActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -294,7 +294,7 @@
                     android:textColor="@android:color/black" />
 
                 <CheckBox
-                    android:id="@+id/idade_nota_fiscal"
+                    android:id="@+id/check_idade"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignStart="@+id/idade_edit_text"
