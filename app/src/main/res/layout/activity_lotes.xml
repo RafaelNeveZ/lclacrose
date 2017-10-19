@@ -24,10 +24,17 @@
     <ListView
         android:id="@+id/normal_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:dividerHeight="0dp"
-        tools:layout_editor_absoluteY="8dp"
-        tools:layout_editor_absoluteX="8dp">
+        >
+
+    </ListView>
+    <ListView
+        android:id="@+id/bloco_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:dividerHeight="0dp"
+        android:layout_above="@+id/normal_list">
 
     </ListView>
 

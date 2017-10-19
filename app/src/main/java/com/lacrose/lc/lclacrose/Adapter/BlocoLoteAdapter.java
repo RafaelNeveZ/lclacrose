@@ -14,8 +14,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
-import com.lacrose.lc.lclacrose.Model.Corpos;
+import com.lacrose.lc.lclacrose.Model.BlocoLotes;
 import com.lacrose.lc.lclacrose.Model.CorpoLotes;
+import com.lacrose.lc.lclacrose.Model.Corpos;
 import com.lacrose.lc.lclacrose.R;
 import com.lacrose.lc.lclacrose.RupturaActivity;
 import com.lacrose.lc.lclacrose.RupturaListActivity;
@@ -28,13 +29,13 @@ import java.util.List;
  * Created by rafae on 12/10/2017.
  */
 
-public class LoteAdapter extends ArrayAdapter<CorpoLotes> {
+public class BlocoLoteAdapter extends ArrayAdapter<BlocoLotes> {
     Context context;
-    public LoteAdapter(Context context, int textViewResourceId) {
+    public BlocoLoteAdapter(Context context, int textViewResourceId) {
         super(context, textViewResourceId);
     }
 
-    public LoteAdapter(Context context, int resource, List<CorpoLotes> items) {
+    public BlocoLoteAdapter(Context context, int resource, List<BlocoLotes> items) {
         super(context, resource, items);
         this.context = context;
     }
@@ -50,12 +51,12 @@ public class LoteAdapter extends ArrayAdapter<CorpoLotes> {
             view = viewLayout.inflate(R.layout.item_work, null);
         }
 
-        final CorpoLotes corpoLotes = getItem(position);
+        final BlocoLotes blocoLotes = getItem(position);
 
-        if (corpoLotes != null) {
+        if (blocoLotes != null) {
             TextView work_name = (TextView) view.findViewById(R.id.button_work);
             if (work_name != null) {
-                work_name.setText(context.getString(R.string.lote)+" - CORPO: "+ corpoLotes.getCodigo());
+                work_name.setText(context.getString(R.string.lote)+" - Bloco: "+ blocoLotes.getCodigo());
             }
             work_name.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -66,9 +67,9 @@ public class LoteAdapter extends ArrayAdapter<CorpoLotes> {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             RupturaActivity.Hoje = (long) dataSnapshot.getValue();
-                            RupturaActivity.atualLote = corpoLotes;
+                        //    RupturaActivity.atualLote = corpoLotes;
                             Intent intent = new Intent(context, ScanActivity.class);
-                            RupturaListActivity.CorposList = new ArrayList<Corpos>();
+                          //  RupturaListActivity.CorposList = new ArrayList<Bloco>();
                             context.startActivity(intent);
                         }
 

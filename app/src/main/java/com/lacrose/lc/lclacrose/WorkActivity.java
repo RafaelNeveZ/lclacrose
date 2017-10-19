@@ -122,7 +122,7 @@ public class WorkActivity extends AppCompatActivity {
         });
 
 
-        /*work_lotes_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        /*work_lotes_corpo_ref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {

@@ -15,7 +15,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.lacrose.lc.lclacrose.Adapter.BlocoLoteAdapter;
 import com.lacrose.lc.lclacrose.Adapter.LoteAdapter;
+import com.lacrose.lc.lclacrose.Model.BlocoLotes;
 import com.lacrose.lc.lclacrose.Model.CorpoLotes;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
@@ -26,7 +28,7 @@ public class LotesActivity extends MainActivity {
     private FirebaseAuth Auth;
     private final Context context = this;
     FirebaseDatabase database;
-    DatabaseReference work_lotes_ref;
+    DatabaseReference work_lotes_corpo_ref, work_lotes_bloco_ref;
     private ProgressBar spinner;
     public TextView textEmpty;
 
@@ -53,9 +55,16 @@ public class LotesActivity extends MainActivity {
         lotesListView.setDivider(null);
         final LoteAdapter loteAdapter = new LoteAdapter(this, R.layout.item_work, corpoLotesList);
         lotesListView.setAdapter(loteAdapter);
-        work_lotes_ref = database.getReference(getString(R.string.work_tag)).child(HomeActivity.WorkId).child(getString(R.string.lote_corpo_tag));
-        work_lotes_ref.keepSynced(true);
-        work_lotes_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+
+        final List<BlocoLotes> blocoLotesList = new ArrayList<>();
+        final ListView blocoListView = (ListView) findViewById(R.id.bloco_list);
+        blocoListView.setDivider(null);
+        final BlocoLoteAdapter blocoAdapter = new BlocoLoteAdapter(this, R.layout.item_work, blocoLotesList);
+        blocoListView.setAdapter(blocoAdapter);
+
+        work_lotes_corpo_ref = database.getReference(getString(R.string.work_tag)).child(HomeActivity.WorkId).child(getString(R.string.lote_corpo_tag));
+        work_lotes_corpo_ref.keepSynced(true);
+        work_lotes_corpo_ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -76,6 +85,31 @@ public class LotesActivity extends MainActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 spinner.setVisibility(View.GONE);
+            }
+        });
+        work_lotes_bloco_ref = database.getReference(getString(R.string.work_tag)).child(HomeActivity.WorkId).child(getString(R.string.lote_bloco_tag));
+        work_lotes_bloco_ref.keepSynced(true);
+        work_lotes_bloco_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    spinner.setVisibility(View.GONE);
+                    for (DataSnapshot d : dataSnapshot.getChildren()) {
+                        BlocoLotes blocoLotes = d.getValue(BlocoLotes.class);
+                        blocoLotes.setId(d.getKey());
+                        blocoLotesList.add(blocoLotes);
+                    }
+                    blocoAdapter.notifyDataSetChanged();
+                } else {
+                    blocoAdapter.notifyDataSetChanged();
+                    textEmpty.setVisibility(View.VISIBLE);
+                    spinner.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
     }
