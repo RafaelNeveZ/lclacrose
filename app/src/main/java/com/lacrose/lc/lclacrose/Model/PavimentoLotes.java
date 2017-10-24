@@ -6,7 +6,7 @@ import java.util.HashMap;
  * Created by rafae on 13/10/2017.
  */
 
-public  class BlocoLotes {
+public  class PavimentoLotes {
 
 
     private String id;
@@ -14,21 +14,14 @@ public  class BlocoLotes {
     private long idade;
     private long notaFiscal;
     private String Lote;
-    private int FBK;
+    private int FPK;
     private long data;
     private long datafab;
     private String fabricante;
     private String more;
     private HashMap<String, Integer> dimenssoes;
-    private boolean func_estrutural;
 
-    public boolean isFunc_estrutural() {
-        return func_estrutural;
-    }
 
-    public void setFunc_estrutural(boolean func_estrutural) {
-        this.func_estrutural = func_estrutural;
-    }
 
     public String getId() {
         return id;
@@ -70,12 +63,12 @@ public  class BlocoLotes {
         Lote = lote;
     }
 
-    public int getFBK() {
-        return FBK;
+    public int getFPK() {
+        return FPK;
     }
 
-    public void setFBK(int FBK) {
-        this.FBK = FBK;
+    public void setFPK(int FPK) {
+        this.FPK = FPK;
     }
 
     public long getData() {
@@ -118,6 +111,6 @@ public  class BlocoLotes {
         this.dimenssoes = dimenssoes;
     }
 
-    public BlocoLotes() {
+    public PavimentoLotes() {
     }
 }

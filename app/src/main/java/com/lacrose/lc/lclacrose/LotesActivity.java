@@ -16,7 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.lacrose.lc.lclacrose.Adapter.BlocoLoteAdapter;
-import com.lacrose.lc.lclacrose.Adapter.LoteAdapter;
+import com.lacrose.lc.lclacrose.Adapter.CorpoLoteAdapter;
 import com.lacrose.lc.lclacrose.Model.BlocoLotes;
 import com.lacrose.lc.lclacrose.Model.CorpoLotes;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
@@ -53,8 +53,8 @@ public class LotesActivity extends MainActivity {
         final List<CorpoLotes> corpoLotesList = new ArrayList<>();
         final ListView lotesListView = (ListView) findViewById(R.id.normal_list);
         lotesListView.setDivider(null);
-        final LoteAdapter loteAdapter = new LoteAdapter(this, R.layout.item_work, corpoLotesList);
-        lotesListView.setAdapter(loteAdapter);
+        final CorpoLoteAdapter corpoLoteAdapter = new CorpoLoteAdapter(this, R.layout.item_work, corpoLotesList);
+        lotesListView.setAdapter(corpoLoteAdapter);
 
         final List<BlocoLotes> blocoLotesList = new ArrayList<>();
         final ListView blocoListView = (ListView) findViewById(R.id.bloco_list);
@@ -74,9 +74,9 @@ public class LotesActivity extends MainActivity {
                         corpoLotes.setId(d.getKey());
                         corpoLotesList.add(corpoLotes);
                     }
-                    loteAdapter.notifyDataSetChanged();
+                    corpoLoteAdapter.notifyDataSetChanged();
                 } else {
-                    loteAdapter.notifyDataSetChanged();
+                    corpoLoteAdapter.notifyDataSetChanged();
                     textEmpty.setVisibility(View.VISIBLE);
                     spinner.setVisibility(View.GONE);
                 }

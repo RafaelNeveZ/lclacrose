@@ -157,12 +157,17 @@
     <string name="fab_text">Fabricante</string>
     <string name="func_text">Teve função estrutural?</string>
     <string name="no_uper">NÂO</string>
-    <string name="d120_190_390">120 x 190 x 390</string>
-    <string name="d140_190_390">140 x 190 x 390</string>
+    <string name="d120_190_390">120x190x390</string>
+    <string name="d140_190_390">140x190x390</string>
     <string name="bloco_tag">bloco</string>
     <string name="comprimento">comprimento</string>
     <string name="lote_bloco_tag">blocoLotes</string>
     <string name="yes_uper">SIM</string>
+    <string name="fpk_text">FPK de projeto</string>
+    <string name="d60_100_200">60x100x200</string>
+    <string name="lote_pavimento_tag">pavimentoLotes</string>
+    <string name="date_fab_notput_error">Coloque a data de fabricação</string>
+    <string name="fbk_text">FBK de projeto</string>
     <string-array name="type_arrays">
         <item>Selecione o tipo</item>
         <item>A</item>

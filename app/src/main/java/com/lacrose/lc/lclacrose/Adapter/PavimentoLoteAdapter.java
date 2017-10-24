@@ -14,8 +14,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
-import com.lacrose.lc.lclacrose.Model.Corpos;
 import com.lacrose.lc.lclacrose.Model.CorpoLotes;
+import com.lacrose.lc.lclacrose.Model.Corpos;
 import com.lacrose.lc.lclacrose.R;
 import com.lacrose.lc.lclacrose.RupturaActivity;
 import com.lacrose.lc.lclacrose.RupturaListActivity;
@@ -28,13 +28,13 @@ import java.util.List;
  * Created by rafae on 12/10/2017.
  */
 
-public class LoteAdapter extends ArrayAdapter<CorpoLotes> {
+public class PavimentoLoteAdapter extends ArrayAdapter<CorpoLotes> {
     Context context;
-    public LoteAdapter(Context context, int textViewResourceId) {
+    public PavimentoLoteAdapter(Context context, int textViewResourceId) {
         super(context, textViewResourceId);
     }
 
-    public LoteAdapter(Context context, int resource, List<CorpoLotes> items) {
+    public PavimentoLoteAdapter(Context context, int resource, List<CorpoLotes> items) {
         super(context, resource, items);
         this.context = context;
     }

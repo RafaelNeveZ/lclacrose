@@ -1,9 +1,450 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center|top"
+    android:background="@color/back_gray_almost_white"
     tools:context="com.lacrose.lc.lclacrose.PavimentoMoldActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/code_relative"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/code_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/code_edit_text"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/lote_code"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/code_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/code_text_view"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_full_white_edit_text"
+                    android:paddingTop="10dp"
+                    android:text="@string/default_lote"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/dimenssion_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/dimenssion_spinner_relative"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/dimenssion_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:id="@+id/dimenssion_spinner_relative"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/dimenssion_text_view"
+
+                    >
+
+                    <Spinner
+                        android:id="@+id/dimenssion_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginEnd="50dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/rounded_gray_edit_text"
+                        android:paddingLeft="20dp"
+                        android:prompt="@string/dimenssion_prompt"
+                        android:text="@string/material_prompt"
+                        android:textColor="@android:color/black" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/dimenssion_spinner"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="11dp"
+                        android:paddingTop="8dp"
+                        android:src="@drawable/ic_keyboard_arrow_down_black_24dp" />
+                </RelativeLayout>
+
+                <CheckBox
+                    android:id="@+id/check_dimenssion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/dimenssion_text_view"
+                    android:layout_below="@+id/dimenssion_spinner_relative"
+                    android:text="@string/not_info" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/datefab_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/datefab_buttom"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/datafab_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/datefab_buttom"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/datefab_text_view"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/selector_white_button"
+                    android:onClick="dataFabChamge"
+                    android:text="@string/date_default"
+                    android:textColor="@drawable/selector_orange_text_button" />
+
+                <CheckBox
+                    android:id="@+id/checkfab_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/datefab_buttom"
+                    android:layout_below="@+id/datefab_buttom"
+                    android:text="@string/not_info" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/idade_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/idade_edit_text"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/age_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/idade_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/idade_text_view"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_gray_edit_text"
+                    android:inputType="number"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@android:color/black" />
+
+                <CheckBox
+                    android:id="@+id/check_idade"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/idade_edit_text"
+                    android:layout_below="@+id/idade_edit_text"
+                    android:text="@string/not_info" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/lote_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/lote_edit_text"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/lote_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/lote_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/lote_text_view"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_gray_edit_text"
+                    android:inputType="textMultiLine"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@android:color/black" />
+
+                <CheckBox
+                    android:id="@+id/check_lote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/lote_edit_text"
+                    android:layout_below="@+id/lote_edit_text"
+                    android:text="@string/not_info" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/nota_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/nota_edit_text"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/nota_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/nota_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/nota_text_view"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_gray_edit_text"
+                    android:inputType="number"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@android:color/black" />
+
+                <CheckBox
+                    android:id="@+id/check_nota_fiscal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/nota_edit_text"
+                    android:layout_below="@+id/nota_edit_text"
+                    android:text="@string/not_info" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/fab_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/fab_edit_text"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/fab_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/fab_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/fab_text_view"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_gray_edit_text"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@android:color/black" />
+
+                <CheckBox
+                    android:id="@+id/check_fab"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/fab_edit_text"
+                    android:layout_below="@+id/fab_edit_text"
+                    android:text="@string/not_info" />
+                />
+            </RelativeLayout>
+
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/fpk_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/fpk_edit_text"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/fpk_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/fpk_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/fpk_text_view"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_gray_edit_text"
+                    android:inputType="number"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@android:color/black" />
+
+                <CheckBox
+                    android:id="@+id/check_fpk"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/fpk_edit_text"
+                    android:layout_below="@+id/fpk_edit_text"
+                    android:text="@string/not_info" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/date_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/date_buttom"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/data_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/date_buttom"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/date_text_view"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/selector_white_button"
+                    android:onClick="dataChamge"
+                    android:text="@string/date_default"
+                    android:textColor="@drawable/selector_orange_text_button" />
+
+                <CheckBox
+                    android:id="@+id/check_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/date_buttom"
+                    android:layout_below="@+id/date_buttom"
+                    android:text="@string/not_info" />
+            </RelativeLayout>
+
+
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/more_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+
+                    android:layout_alignStart="@+id/more_edit_text"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/more_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/more_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/more_text_view"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_gray_edit_text"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@android:color/black" />
+
+                <Button
+                    android:id="@+id/data_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_alignEnd="@+id/more_edit_text"
+                    android:layout_alignStart="@+id/more_edit_text"
+                    android:layout_below="@+id/more_edit_text"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/selector_orange_button"
+                    android:onClick="loteCreate"
+                    android:text="@string/lote_create"
+                    android:textColor="@drawable/selector_white_text_button"
+
+                    />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
+
+

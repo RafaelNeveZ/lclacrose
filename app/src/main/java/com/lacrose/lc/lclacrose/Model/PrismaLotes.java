@@ -6,7 +6,7 @@ import java.util.HashMap;
  * Created by rafae on 13/10/2017.
  */
 
-public  class BlocoLotes {
+public  class PrismaLotes {
 
 
     private String id;
@@ -14,7 +14,7 @@ public  class BlocoLotes {
     private long idade;
     private long notaFiscal;
     private String Lote;
-    private int FBK;
+    private int FCK;
     private long data;
     private long datafab;
     private String fabricante;
@@ -70,12 +70,12 @@ public  class BlocoLotes {
         Lote = lote;
     }
 
-    public int getFBK() {
-        return FBK;
+    public int getFCK() {
+        return FCK;
     }
 
-    public void setFBK(int FBK) {
-        this.FBK = FBK;
+    public void setFCK(int FCK) {
+        this.FCK = FCK;
     }
 
     public long getData() {
@@ -118,6 +118,6 @@ public  class BlocoLotes {
         this.dimenssoes = dimenssoes;
     }
 
-    public BlocoLotes() {
+    public PrismaLotes() {
     }
 }

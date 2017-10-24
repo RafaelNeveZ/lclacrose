@@ -47,11 +47,11 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
     private final Context context = this;
     DatabaseReference lote_ref, ref_lote;
     FirebaseDatabase database;
-    CheckBox check_dimenssion,check_nota,check_dataFab,check_fck,check_lote,check_fab,check_func,check_date,check_idade;
+    CheckBox check_dimenssion,check_nota,check_dataFab, check_fbk,check_lote,check_fab,check_func,check_date,check_idade;
     Spinner spinner_dimenssion;
     TextView tv_code, tv_switch;
     Switch switch_func;
-    EditText edit_nota,edit_lote,edit_fck,edit_fab,edit_more,edit_idade;
+    EditText edit_nota,edit_lote, edit_fbk,edit_fab,edit_more,edit_idade;
     Button button_date, button_datefab;
     Calendar refCalendar,tempCalendar,finalCalendar,fabCalendar;
     BlocoLotes newLote;
@@ -100,7 +100,7 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
 
     private void getLoteNumber() {
         final List<CorpoLotes> loteList = new ArrayList<>();
-        lote_ref = database.getReference(getString(R.string.work_tag)).child(HomeActivity.WorkId+"").child(getString(R.string.lote_corpo_tag));
+        lote_ref = database.getReference(getString(R.string.work_tag)).child(HomeActivity.WorkId+"").child(getString(R.string.lote_bloco_tag));
         lote_ref.keepSynced(true);
         lote_ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -142,7 +142,7 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
         check_dataFab = (CheckBox) findViewById(R.id.checkfab_date);
         check_idade = (CheckBox) findViewById(R.id.check_idade);
         check_lote = (CheckBox) findViewById(R.id.check_lote);
-        check_fck = (CheckBox) findViewById(R.id.check_fck);
+        check_fbk = (CheckBox) findViewById(R.id.check_fbk);
         check_date = (CheckBox) findViewById(R.id.check_date);
         check_fab = (CheckBox) findViewById(R.id.check_fab);
         check_func = (CheckBox) findViewById(R.id.check_func);
@@ -154,7 +154,7 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
         edit_nota = (EditText) findViewById(R.id.nota_edit_text);
         edit_idade = (EditText) findViewById(R.id.idade_edit_text);
         edit_lote = (EditText) findViewById(R.id.lote_edit_text);
-        edit_fck = (EditText) findViewById(R.id.fck_edit_text);
+        edit_fbk = (EditText) findViewById(R.id.fbk_edit_text);
         edit_fab = (EditText) findViewById(R.id.fab_edit_text);
         edit_more = (EditText) findViewById(R.id.more_edit_text);
 
@@ -224,8 +224,8 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
             if(!edit_lote.getText().toString().isEmpty())
                 newLote.setLote(edit_lote.getText().toString());
 
-            if(!edit_fck.getText().toString().isEmpty())
-                newLote.setFCK(Integer.parseInt(edit_fck.getText().toString()));
+            if(!edit_fbk.getText().toString().isEmpty())
+                newLote.setFBK(Integer.parseInt(edit_fbk.getText().toString()));
 
             newLote.setDatafab(fabCalendar.getTime().getTime());
             newLote.setData(finalCalendar.getTime().getTime());
@@ -280,8 +280,18 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
             return false;
         }
 
+        if(button_datefab.getText().equals(getString(R.string.date_default)) && !check_dataFab.isChecked()){
+            Toast.makeText(context,getString(R.string.date_fab_notput_error),Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
         if(edit_idade.getText().toString().isEmpty() && !check_idade.isChecked()){
             edit_idade.setError(getString(R.string.empty_field_error));
+            return false;
+        }
+
+        if(edit_lote.getText().toString().isEmpty() && !check_lote.isChecked()){
+            edit_lote.setError(getString(R.string.empty_field_error));
             return false;
         }
 
@@ -289,12 +299,14 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
             edit_nota.setError(getString(R.string.empty_field_error));
             return false;
         }
-        if(edit_lote.getText().toString().isEmpty() && !check_lote.isChecked()){
-            edit_lote.setError(getString(R.string.empty_field_error));
+
+        if(edit_fab.getText().toString().isEmpty() && !check_fab.isChecked()){
+            edit_fab.setError(getString(R.string.empty_field_error));
             return false;
         }
-        if(edit_fck.getText().toString().isEmpty() && !check_fck.isChecked()){
-            edit_fck.setError(getString(R.string.empty_field_error));
+
+        if(edit_fbk.getText().toString().isEmpty() && !check_fbk.isChecked()){
+            edit_fbk.setError(getString(R.string.empty_field_error));
             return false;
         }
 
@@ -302,15 +314,7 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
             Toast.makeText(context,getString(R.string.date_notput_error),Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(button_datefab.getText().equals(getString(R.string.date_default)) && !check_dataFab.isChecked()){
-            Toast.makeText(context,getString(R.string.date_notput_error),Toast.LENGTH_SHORT).show();
-            return false;
-        }
 
-        if(edit_fab.getText().toString().isEmpty() && !check_fab.isChecked()){
-            edit_fab.setError(getString(R.string.empty_field_error));
-            return false;
-        }
 
         return true;
     }
