@@ -121,5 +121,14 @@
     <string name="lote_pavimento_tag">pavimentoLotes</string>
     <string name="date_fab_notput_error">Coloque a data de fabricação</string>
     <string name="fbk_text">FBK de projeto</string>
+    <string name="dialog_date_error_title">Error: Data</string>
+    <string name="dialog_date_error">Data de fabricação maior do que a de recebimento</string>
+    <string name="dialog_confirm">OK</string>
+    <string name="tipo_prisma_text">Tipo de prisma</string>
+    <string name="dateGraute_text">Data do  grauteamento</string>
+    <string name="local_prisma_text">Local aplicado</string>
+    <string name="dataAssent_text">Data de assentamento</string>
+    <string name="d120_390_390">120x390x390</string>
+    <string name="lote_prisma_tag">prismaLotes</string>
 
 </resources>

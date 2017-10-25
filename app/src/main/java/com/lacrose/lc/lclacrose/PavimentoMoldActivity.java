@@ -6,6 +6,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -56,8 +57,8 @@ public class PavimentoMoldActivity extends MainActivity implements DatePickerDia
     PavimentoLotes newLote;
     ArrayList<String> dimen;
     public boolean isFab=true;
-
     private ProgressDialog progressDialog;
+    long date, fabDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +87,7 @@ public class PavimentoMoldActivity extends MainActivity implements DatePickerDia
     }
 
     private void getLoteNumber() {
-        final List<CorpoLotes> loteList = new ArrayList<>();
+        final List<PavimentoLotes> loteList = new ArrayList<>();
         lote_ref = database.getReference(getString(R.string.work_tag)).child(HomeActivity.WorkId+"").child(getString(R.string.lote_pavimento_tag));
         lote_ref.keepSynced(true);
         lote_ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -94,9 +95,9 @@ public class PavimentoMoldActivity extends MainActivity implements DatePickerDia
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     for(DataSnapshot d : dataSnapshot.getChildren()) {
-                        CorpoLotes corpoLotes = d.getValue(CorpoLotes.class);
-                        corpoLotes.setId(d.getKey());
-                        loteList.add(corpoLotes);
+                        PavimentoLotes pavimentoLotes = d.getValue(PavimentoLotes.class);
+                        pavimentoLotes.setId(d.getKey());
+                        loteList.add(pavimentoLotes);
                     }
                     int last =  loteList.get(loteList.size()-1).getCodigo()+1;
                     if(last<10)
@@ -155,7 +156,7 @@ public class PavimentoMoldActivity extends MainActivity implements DatePickerDia
 
 
     }
-//TODO COMPARAR DATAS
+
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         tempCalendar.set(year,month,dayOfMonth);
@@ -164,14 +165,16 @@ public class PavimentoMoldActivity extends MainActivity implements DatePickerDia
             if(isFab) {
                 button_datefab.setText(fmtOut.format(tempCalendar.getTime()));
                 fabCalendar = tempCalendar;
+                fabDate = tempCalendar.getTime().getTime();
             }else {
                 button_date.setText(fmtOut.format(tempCalendar.getTime()));
                 finalCalendar = tempCalendar;
+                date = tempCalendar.getTime().getTime();
             }
 
         }else{
             tempCalendar = Calendar.getInstance();
-            Toast.makeText(context,getString(R.string.date_before_error),Toast.LENGTH_SHORT).show();
+            showAlert(getString(R.string.dialog_date_error_title),getString(R.string.date_before_error));
         }
     }
     @Override
@@ -212,8 +215,8 @@ public class PavimentoMoldActivity extends MainActivity implements DatePickerDia
             if(!edit_fpk.getText().toString().isEmpty())
                 newLote.setFPK(Integer.parseInt(edit_fpk.getText().toString()));
 
-            newLote.setDatafab(fabCalendar.getTime().getTime());
-            newLote.setData(finalCalendar.getTime().getTime());
+            newLote.setDataFab(fabDate);
+            newLote.setData(date);
 
             if(!edit_fab.getText().toString().isEmpty())
                 newLote.setFabricante(edit_fab.getText().toString());
@@ -222,12 +225,13 @@ public class PavimentoMoldActivity extends MainActivity implements DatePickerDia
                 newLote.setMore(edit_more.getText().toString());
 
             HashMap<String, Integer> dimenssionHash = new HashMap<>();
-
-            if(String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.d60_100_200))){
-                dimenssionHash.put(getString(R.string.largura),120);
-                dimenssionHash.put(getString(R.string.altura),190);
-                dimenssionHash.put(getString(R.string.comprimento),390);
-                newLote.setDimenssoes(dimenssionHash);
+            if(!String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.dimenssion_prompt))) {
+                if (String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.d60_100_200))) {
+                    dimenssionHash.put(getString(R.string.largura), 120);
+                    dimenssionHash.put(getString(R.string.altura), 190);
+                    dimenssionHash.put(getString(R.string.comprimento), 390);
+                    newLote.setDimenssoes(dimenssionHash);
+                }
             }
 
             ref_lote.push().setValue(newLote).addOnCompleteListener(this,new OnCompleteListener(){
@@ -290,12 +294,20 @@ public class PavimentoMoldActivity extends MainActivity implements DatePickerDia
             return false;
         }
 
-
+        if(!button_date.getText().equals(getString(R.string.date_default)) && !check_date.isChecked()
+                && !button_datefab.getText().equals(getString(R.string.date_default)) && !check_dataFab.isChecked()) {
+            if (date < fabDate) {
+                showAlert(getString(R.string.dialog_date_error_title), getString(R.string.dialog_date_error));
+                return false;
+            }
+        }
 
 
 
         return true;
     }
+
+
 
 
 }

@@ -6,6 +6,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -57,6 +58,7 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
     BlocoLotes newLote;
     ArrayList<String> dimen;
     public boolean isFab=true;
+    long date, fabDate;
 
 
     private ProgressDialog progressDialog;
@@ -99,7 +101,7 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
     }
 
     private void getLoteNumber() {
-        final List<CorpoLotes> loteList = new ArrayList<>();
+        final List<BlocoLotes> loteList = new ArrayList<>();
         lote_ref = database.getReference(getString(R.string.work_tag)).child(HomeActivity.WorkId+"").child(getString(R.string.lote_bloco_tag));
         lote_ref.keepSynced(true);
         lote_ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -107,9 +109,9 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     for(DataSnapshot d : dataSnapshot.getChildren()) {
-                        CorpoLotes corpoLotes = d.getValue(CorpoLotes.class);
-                        corpoLotes.setId(d.getKey());
-                        loteList.add(corpoLotes);
+                        BlocoLotes blocoLotes = d.getValue(BlocoLotes.class);
+                        blocoLotes.setId(d.getKey());
+                        loteList.add(blocoLotes);
                     }
                     int last =  loteList.get(loteList.size()-1).getCodigo()+1;
                     if(last<10)
@@ -179,14 +181,16 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
             if(isFab) {
                 button_datefab.setText(fmtOut.format(tempCalendar.getTime()));
                 fabCalendar = tempCalendar;
+                fabDate = tempCalendar.getTime().getTime();
             }else {
                 button_date.setText(fmtOut.format(tempCalendar.getTime()));
                 finalCalendar = tempCalendar;
+                date = tempCalendar.getTime().getTime();
             }
 
         }else{
             tempCalendar = Calendar.getInstance();
-            Toast.makeText(context,getString(R.string.date_before_error),Toast.LENGTH_SHORT).show();
+            showAlert(getString(R.string.dialog_date_error_title),getString(R.string.date_before_error));
         }
     }
     @Override
@@ -227,13 +231,13 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
             if(!edit_fbk.getText().toString().isEmpty())
                 newLote.setFBK(Integer.parseInt(edit_fbk.getText().toString()));
 
-            newLote.setDatafab(fabCalendar.getTime().getTime());
-            newLote.setData(finalCalendar.getTime().getTime());
+            newLote.setDataFab(fabDate);
+            newLote.setData(date);
 
             if(switch_func.isChecked())
-                newLote.setFunc_estrutural(true);
+                newLote.setFuncEstrutural(true);
             else
-                newLote.setFunc_estrutural(false);
+                newLote.setFuncEstrutural(false);
 
             if(!edit_fab.getText().toString().isEmpty())
                 newLote.setFabricante(edit_fab.getText().toString());
@@ -242,19 +246,19 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
                 newLote.setMore(edit_more.getText().toString());
 
             HashMap<String, Integer> dimenssionHash = new HashMap<>();
-
-            if(String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.d120_190_390))){
-                dimenssionHash.put(getString(R.string.largura),120);
-                dimenssionHash.put(getString(R.string.altura),190);
-                dimenssionHash.put(getString(R.string.comprimento),390);
-                newLote.setDimenssoes(dimenssionHash);
-            }else if(String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.d140_190_390))){
-                dimenssionHash.put(getString(R.string.largura),140);
-                dimenssionHash.put(getString(R.string.altura),190);
-                dimenssionHash.put(getString(R.string.comprimento),390);
-                newLote.setDimenssoes(dimenssionHash);
+            if(!String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.dimenssion_prompt))) {
+                if (String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.d120_190_390))) {
+                    dimenssionHash.put(getString(R.string.largura), 120);
+                    dimenssionHash.put(getString(R.string.altura), 190);
+                    dimenssionHash.put(getString(R.string.comprimento), 390);
+                    newLote.setDimenssoes(dimenssionHash);
+                } else if (String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.d140_190_390))) {
+                    dimenssionHash.put(getString(R.string.largura), 140);
+                    dimenssionHash.put(getString(R.string.altura), 190);
+                    dimenssionHash.put(getString(R.string.comprimento), 390);
+                    newLote.setDimenssoes(dimenssionHash);
+                }
             }
-
             ref_lote.push().setValue(newLote).addOnCompleteListener(this,new OnCompleteListener(){
                 @Override
                 public void onComplete(@NonNull Task task) {
@@ -314,6 +318,15 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
             Toast.makeText(context,getString(R.string.date_notput_error),Toast.LENGTH_SHORT).show();
             return false;
         }
+
+        if(!button_date.getText().equals(getString(R.string.date_default)) && !check_date.isChecked()
+                && !button_datefab.getText().equals(getString(R.string.date_default)) && !check_dataFab.isChecked()) {
+            if (date < fabDate) {
+                showAlert(getString(R.string.dialog_date_error_title), getString(R.string.dialog_date_error));
+                return false;
+            }
+        }
+
 
 
         return true;

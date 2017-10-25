@@ -16,19 +16,13 @@ public  class BlocoLotes {
     private String Lote;
     private int FBK;
     private long data;
-    private long datafab;
+    private long dataFab;
     private String fabricante;
     private String more;
     private HashMap<String, Integer> dimenssoes;
-    private boolean func_estrutural;
+    private boolean funcEstrutural;
 
-    public boolean isFunc_estrutural() {
-        return func_estrutural;
-    }
 
-    public void setFunc_estrutural(boolean func_estrutural) {
-        this.func_estrutural = func_estrutural;
-    }
 
     public String getId() {
         return id;
@@ -86,12 +80,20 @@ public  class BlocoLotes {
         this.data = data;
     }
 
-    public long getDatafab() {
-        return datafab;
+    public long getDataFab() {
+        return dataFab;
     }
 
-    public void setDatafab(long datafab) {
-        this.datafab = datafab;
+    public void setDataFab(long dataFab) {
+        this.dataFab = dataFab;
+    }
+
+    public boolean isFuncEstrutural() {
+        return funcEstrutural;
+    }
+
+    public void setFuncEstrutural(boolean funcEstrutural) {
+        this.funcEstrutural = funcEstrutural;
     }
 
     public String getFabricante() {

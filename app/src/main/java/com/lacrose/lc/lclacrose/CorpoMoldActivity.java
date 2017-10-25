@@ -239,7 +239,7 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
             finalCalendar = tempCalendar;
         }else{
             tempCalendar = Calendar.getInstance();
-            Toast.makeText(context,getString(R.string.date_before_error),Toast.LENGTH_SHORT).show();
+            showAlert(getString(R.string.dialog_date_error_title),getString(R.string.date_before_error));
         }
     }
     @Override
@@ -294,20 +294,21 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
             newLote.setMore(edit_more.getText().toString());
 
             HashMap<String, Integer> dimenssionHash = new HashMap<>();
-
-            if(String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.d40_40))){
-                dimenssionHash.put(getString(R.string.largura),40);
-                dimenssionHash.put(getString(R.string.altura),40);
-                newLote.setDimenssoes(dimenssionHash);
-                }else if(String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.d50_100))){
-                    dimenssionHash.put(getString(R.string.largura),50);
-                    dimenssionHash.put(getString(R.string.altura),100);
+            if(!String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.dimenssion_prompt))) {
+                if (String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.d40_40))) {
+                    dimenssionHash.put(getString(R.string.largura), 40);
+                    dimenssionHash.put(getString(R.string.altura), 40);
                     newLote.setDimenssoes(dimenssionHash);
-                    }else if(String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.d100_200))){
-                        dimenssionHash.put(getString(R.string.largura),100);
-                        dimenssionHash.put(getString(R.string.altura),200);
-                        newLote.setDimenssoes(dimenssionHash);
-                    }
+                } else if (String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.d50_100))) {
+                    dimenssionHash.put(getString(R.string.largura), 50);
+                    dimenssionHash.put(getString(R.string.altura), 100);
+                    newLote.setDimenssoes(dimenssionHash);
+                } else if (String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.d100_200))) {
+                    dimenssionHash.put(getString(R.string.largura), 100);
+                    dimenssionHash.put(getString(R.string.altura), 200);
+                    newLote.setDimenssoes(dimenssionHash);
+                }
+            }
             ref_lote.push().setValue(newLote).addOnCompleteListener(this,new OnCompleteListener(){
                 @Override
                 public void onComplete(@NonNull Task task) {

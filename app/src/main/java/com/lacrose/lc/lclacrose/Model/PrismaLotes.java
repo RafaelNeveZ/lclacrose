@@ -14,20 +14,37 @@ public  class PrismaLotes {
     private long idade;
     private long notaFiscal;
     private String Lote;
-    private int FCK;
+    private int FPK;
     private long data;
-    private long datafab;
+    private long dataFab;
+    private long dataAssent;
     private String fabricante;
     private String more;
     private HashMap<String, Integer> dimenssoes;
-    private boolean func_estrutural;
+    private boolean funcEstrutural;
 
-    public boolean isFunc_estrutural() {
-        return func_estrutural;
+    public long getDataFab() {
+        return dataFab;
     }
 
-    public void setFunc_estrutural(boolean func_estrutural) {
-        this.func_estrutural = func_estrutural;
+    public void setDataFab(long dataFab) {
+        this.dataFab = dataFab;
+    }
+
+    public long getDataAssent() {
+        return dataAssent;
+    }
+
+    public void setDataAssent(long dataAssent) {
+        this.dataAssent = dataAssent;
+    }
+
+    public boolean isFuncEstrutural() {
+        return funcEstrutural;
+    }
+
+    public void setFuncEstrutural(boolean funcEstrutural) {
+        this.funcEstrutural = funcEstrutural;
     }
 
     public String getId() {
@@ -70,12 +87,12 @@ public  class PrismaLotes {
         Lote = lote;
     }
 
-    public int getFCK() {
-        return FCK;
+    public int getFPK() {
+        return FPK;
     }
 
-    public void setFCK(int FCK) {
-        this.FCK = FCK;
+    public void setFPK(int FPK) {
+        this.FPK = FPK;
     }
 
     public long getData() {
@@ -86,13 +103,7 @@ public  class PrismaLotes {
         this.data = data;
     }
 
-    public long getDatafab() {
-        return datafab;
-    }
 
-    public void setDatafab(long datafab) {
-        this.datafab = datafab;
-    }
 
     public String getFabricante() {
         return fabricante;

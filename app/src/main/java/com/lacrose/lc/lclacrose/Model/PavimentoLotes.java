@@ -16,7 +16,7 @@ public  class PavimentoLotes {
     private String Lote;
     private int FPK;
     private long data;
-    private long datafab;
+    private long dataFab;
     private String fabricante;
     private String more;
     private HashMap<String, Integer> dimenssoes;
@@ -79,12 +79,12 @@ public  class PavimentoLotes {
         this.data = data;
     }
 
-    public long getDatafab() {
-        return datafab;
+    public long getDataFab() {
+        return dataFab;
     }
 
-    public void setDatafab(long datafab) {
-        this.datafab = datafab;
+    public void setDataFab(long dataFab) {
+        this.dataFab = dataFab;
     }
 
     public String getFabricante() {
