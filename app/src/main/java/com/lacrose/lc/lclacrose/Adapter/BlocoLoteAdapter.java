@@ -3,6 +3,7 @@ package com.lacrose.lc.lclacrose.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +16,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.lacrose.lc.lclacrose.Model.BlocoLotes;
-import com.lacrose.lc.lclacrose.Model.CorpoLotes;
-import com.lacrose.lc.lclacrose.Model.Corpos;
+import com.lacrose.lc.lclacrose.Model.Blocos;
 import com.lacrose.lc.lclacrose.R;
-import com.lacrose.lc.lclacrose.RupturaActivity;
-import com.lacrose.lc.lclacrose.RupturaListActivity;
+import com.lacrose.lc.lclacrose.RupturaBlocoActivity;
+import com.lacrose.lc.lclacrose.RupturaBlocoListActivity;
+import com.lacrose.lc.lclacrose.RupturaCorpoActivity;
 import com.lacrose.lc.lclacrose.ScanActivity;
 
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class BlocoLoteAdapter extends ArrayAdapter<BlocoLotes> {
         if (blocoLotes != null) {
             TextView work_name = (TextView) view.findViewById(R.id.button_work);
             if (work_name != null) {
-                work_name.setText(context.getString(R.string.lote)+" - Bloco: "+ blocoLotes.getCodigo());
+                work_name.setText(context.getString(R.string.bloco)+": "+ blocoLotes.getCodigo());
             }
             work_name.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -66,10 +67,12 @@ public class BlocoLoteAdapter extends ArrayAdapter<BlocoLotes> {
                     database.getReference(context.getString(R.string.time_stamp_tag)).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            RupturaActivity.Hoje = (long) dataSnapshot.getValue();
-                        //    RupturaActivity.atualLote = corpoLotes;
+                            RupturaBlocoActivity.Hoje = (long) dataSnapshot.getValue();
+                            Log.e("MERDA",RupturaBlocoActivity.Hoje+"");
+                            RupturaBlocoActivity.atualLote = blocoLotes;
+                            ScanActivity.ondeEstou = 1;
                             Intent intent = new Intent(context, ScanActivity.class);
-                          //  RupturaListActivity.CorposList = new ArrayList<Bloco>();
+                            RupturaBlocoListActivity.BlocosList = new ArrayList<Blocos>();
                             context.startActivity(intent);
                         }
 

@@ -11,17 +11,56 @@ import java.util.HashMap;
 public class Blocos {
     private String codigo;
     private float carga;
-    private String tipo;
-    private long data;
-    private HashMap <String, Object> timestamp;
+    private Object dataCreate;
+    private float altura,largura,comprimento;
+    private float espessura_longitudinal, espessura_transvessal;
 
-
-    public long getData() {
-        return data;
+    public Object getDataCreate() {
+        return dataCreate;
     }
 
-    public void setData(long data) {
-        this.data = data;
+    public void setDataCreate(Object dataCreate) {
+        this.dataCreate = dataCreate;
+    }
+
+    public float getAltura() {
+        return altura;
+    }
+
+    public void setAltura(float altura) {
+        this.altura = altura;
+    }
+
+    public float getLargura() {
+        return largura;
+    }
+
+    public void setLargura(float largura) {
+        this.largura = largura;
+    }
+
+    public float getComprimento() {
+        return comprimento;
+    }
+
+    public void setComprimento(float comprimento) {
+        this.comprimento = comprimento;
+    }
+
+    public float getEspessura_longitudinal() {
+        return espessura_longitudinal;
+    }
+
+    public void setEspessura_longitudinal(float espessura_longitudinal) {
+        this.espessura_longitudinal = espessura_longitudinal;
+    }
+
+    public float getEspessura_transvessal() {
+        return espessura_transvessal;
+    }
+
+    public void setEspessura_transvessal(float espessura_transvessal) {
+        this.espessura_transvessal = espessura_transvessal;
     }
 
     public String getCodigo() {
@@ -40,23 +79,9 @@ public class Blocos {
         this.carga = carga;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-
 
     public Blocos() {
     }
 
-    public  void setTimeStamp(){
-        if(timestamp == null)
-            timestamp = new HashMap<>();
 
-        timestamp.put("timeStamp", ServerValue.TIMESTAMP);
-    }
 }

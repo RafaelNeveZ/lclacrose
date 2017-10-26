@@ -13,16 +13,14 @@ public class Corpos {
     private String codigo;
     private float carga;
     private String tipo;
-    private long data;
-    private HashMap <String, Object> timestamp;
+    private Object dataCreate;
 
-
-    public long getData() {
-        return data;
+    public Object getDataCreate() {
+        return dataCreate;
     }
 
-    public void setData(long data) {
-        this.data = data;
+    public void setDataCreate(Object dataCreate) {
+        this.dataCreate = dataCreate;
     }
 
     public String getCodigo() {
@@ -49,15 +47,8 @@ public class Corpos {
         this.tipo = tipo;
     }
 
-
-
     public Corpos() {
     }
 
-    public  void setTimeStamp(){
-        if(timestamp == null)
-            timestamp = new HashMap<>();
 
-        timestamp.put("timeStamp", ServerValue.TIMESTAMP);
-    }
 }

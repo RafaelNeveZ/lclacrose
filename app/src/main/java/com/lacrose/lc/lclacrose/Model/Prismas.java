@@ -11,17 +11,39 @@ import java.util.HashMap;
 public class Prismas {
     private String codigo;
     private float carga;
-    private String tipo;
-    private long data;
-    private HashMap <String, Object> timestamp;
+    private float altura,largura,comprimento;
+    private Object dataCreate;
 
-
-    public long getData() {
-        return data;
+    public float getAltura() {
+        return altura;
     }
 
-    public void setData(long data) {
-        this.data = data;
+    public void setAltura(float altura) {
+        this.altura = altura;
+    }
+
+    public float getLargura() {
+        return largura;
+    }
+
+    public void setLargura(float largura) {
+        this.largura = largura;
+    }
+
+    public float getComprimento() {
+        return comprimento;
+    }
+
+    public void setComprimento(float comprimento) {
+        this.comprimento = comprimento;
+    }
+
+    public Object getDataCreate() {
+        return dataCreate;
+    }
+
+    public void setDataCreate(Object dataCreate) {
+        this.dataCreate = dataCreate;
     }
 
     public String getCodigo() {
@@ -40,23 +62,9 @@ public class Prismas {
         this.carga = carga;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
 
 
     public Prismas() {
     }
 
-    public  void setTimeStamp(){
-        if(timestamp == null)
-            timestamp = new HashMap<>();
-
-        timestamp.put("timeStamp", ServerValue.TIMESTAMP);
-    }
 }

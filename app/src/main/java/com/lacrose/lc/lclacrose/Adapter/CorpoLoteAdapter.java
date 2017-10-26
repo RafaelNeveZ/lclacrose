@@ -17,8 +17,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.lacrose.lc.lclacrose.Model.Corpos;
 import com.lacrose.lc.lclacrose.Model.CorpoLotes;
 import com.lacrose.lc.lclacrose.R;
-import com.lacrose.lc.lclacrose.RupturaActivity;
-import com.lacrose.lc.lclacrose.RupturaListActivity;
+import com.lacrose.lc.lclacrose.RupturaCorpoActivity;
+import com.lacrose.lc.lclacrose.RupturaCorpoListActivity;
 import com.lacrose.lc.lclacrose.ScanActivity;
 
 import java.util.ArrayList;
@@ -55,7 +55,7 @@ public class CorpoLoteAdapter extends ArrayAdapter<CorpoLotes> {
         if (corpoLotes != null) {
             TextView work_name = (TextView) view.findViewById(R.id.button_work);
             if (work_name != null) {
-                work_name.setText(context.getString(R.string.lote)+" - CORPO: "+ corpoLotes.getCodigo());
+                work_name.setText(context.getString(R.string.body)+": "+ corpoLotes.getCodigo());
             }
             work_name.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -65,10 +65,11 @@ public class CorpoLoteAdapter extends ArrayAdapter<CorpoLotes> {
                     database.getReference(context.getString(R.string.time_stamp_tag)).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            RupturaActivity.Hoje = (long) dataSnapshot.getValue();
-                            RupturaActivity.atualLote = corpoLotes;
+                            RupturaCorpoActivity.Hoje = (long) dataSnapshot.getValue();
+                            RupturaCorpoActivity.atualLote = corpoLotes;
+                            ScanActivity.ondeEstou = 0;
                             Intent intent = new Intent(context, ScanActivity.class);
-                            RupturaListActivity.CorposList = new ArrayList<Corpos>();
+                            RupturaCorpoListActivity.CorposList = new ArrayList<Corpos>();
                             context.startActivity(intent);
                         }
 

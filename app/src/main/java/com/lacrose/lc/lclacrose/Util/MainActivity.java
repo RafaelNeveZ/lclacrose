@@ -6,8 +6,11 @@ import android.support.annotation.UiThread;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.EditText;
 
 import com.lacrose.lc.lclacrose.R;
+
+import java.sql.Ref;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,5 +44,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
         alertDialog.show();
+    }
+
+    public void errorAndRequestFocustoEditText(EditText edit_text){
+        edit_text.setError(getString(R.string.empty_field_error));
+        edit_text.requestFocus();
+    }
+
+    public long getDateWithoutHoursAndMinutes(long date){
+        return date/ (1000 * 60 * 60 * 24);
     }
 }

@@ -98,8 +98,8 @@
     <string name="dialog_before_age">O teste esta sendo feito antes da data prevista. É isso que deseja?</string>
     <string name="no">Não</string>
     <string name="bloco">BLOCO</string>
-    <string name="prisma">Prisma</string>
-    <string name="pavimento_intertravado">Pavimento intertravado</string>
+    <string name="prisma">PRISMA</string>
+    <string name="pavimento_intertravado">PAVIMENTO INTERTRAVADO</string>
     <string name="body">CORPO</string>
     <string name="moldagem_bloco_label">MOLDAGEM DE BLOCO</string>
     <string name="moldagem_type_label">TIPO DE LOTE</string>
@@ -122,7 +122,7 @@
     <string name="date_fab_notput_error">Coloque a data de fabricação</string>
     <string name="fbk_text">FBK de projeto</string>
     <string name="dialog_date_error_title">Error: Data</string>
-    <string name="dialog_date_error">Data de fabricação maior do que a de recebimento</string>
+    <string name="dialog_date_error">A data de recebimento não pode ser menor do que a de fabricação</string>
     <string name="dialog_confirm">OK</string>
     <string name="tipo_prisma_text">Tipo de prisma</string>
     <string name="dateGraute_text">Data do  grauteamento</string>
@@ -130,5 +130,23 @@
     <string name="dataAssent_text">Data de assentamento</string>
     <string name="d120_390_390">120x390x390</string>
     <string name="lote_prisma_tag">prismaLotes</string>
+    <string name="tipo_prompt">Selecione o tipo</string>
+    <string name="vazio">Vazio</string>
+    <string name="metade">Metade</string>
+    <string name="cheio">Cheio</string>
+    <string name="lote_prima_tag">prismaLotes</string>
+    <string name="dialog_date_Assent_error_title">A data de assentamento não pode ser menor do que a de fabricação.</string>
+    <string name="dialog_date_Grauur_error_title">A data de grauteamento não pode ser menor do que a de fabricação.</string>
+    <string name="lote_prompt">Selecione o tipo de lote</string>
+    <string name="lote_empyt">Não possui lotes disponiveis.</string>
+    <string name="pavimento_intertravado_reduc">PAVIMENTO INTER.</string>
+    <string name="largura_text">Largura (mm)</string>
+    <string name="altura_text">Altura (mm)</string>
+    <string name="comprimento_text">Comprimento (mm)</string>
+    <string name="esp_long_text">Espessura da parede longitudinal (a)</string>
+    <string name="esp_trans_text">Espessura da parede transversal (a)</string>
+    <string name="data_rompimento_text">Data de rompimento</string>
+    <string name="list_bloco_label">BLOCOS ROMPIDOS</string>
+    <string name="list_prismas_label">PRISMAS ROMPIDOS</string>
 
 </resources>

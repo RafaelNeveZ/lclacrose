@@ -23,8 +23,17 @@ public  class CorpoLotes {
     private float slumFlow;
     private long data;
     private String local_concretado;
-    private String more;
+    private String obs;
     private HashMap<String, Integer> dimenssoes;
+    private Object dataCreate;
+
+    public Object getDataCreate() {
+        return dataCreate;
+    }
+
+    public void setDataCreate(Object dataCreate) {
+        this.dataCreate = dataCreate;
+    }
 
     public HashMap<String, Integer> getDimenssoes() {
         return dimenssoes;
@@ -38,12 +47,12 @@ public  class CorpoLotes {
     public CorpoLotes() {
     }
 
-    public String getMore() {
-        return more;
+    public String getObs() {
+        return obs;
     }
 
-    public void setMore(String more) {
-        this.more = more;
+    public void setObs(String obs) {
+        this.obs = obs;
     }
 
     public String getId() {

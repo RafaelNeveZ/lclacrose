@@ -2,7 +2,6 @@ package com.lacrose.lc.lclacrose;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
@@ -13,6 +12,7 @@ public class ScanActivity extends MainActivity implements ZBarScannerView.Result
     private ZBarScannerView mScannerView;
     public final String TAG_CÓDIGO ="LIDO";
     public final String TAG_TIPO="TIPO";
+    public static int ondeEstou;
     //camera permission is needed.
 
     @Override
@@ -40,12 +40,31 @@ public class ScanActivity extends MainActivity implements ZBarScannerView.Result
     public void handleResult(me.dm7.barcodescanner.zbar.Result result) {
         final MediaPlayer barcodeSound = MediaPlayer.create(this, R.raw.barcode_reader);
         barcodeSound.start();
-        Log.e(TAG_CÓDIGO, result.getContents()); // Prints scan results
-        Log.e(TAG_TIPO, result.getBarcodeFormat().getName()); // Prints the scan format (qrcode, pdf417 etc.)
-        RupturaActivity.CODE = result.getContents();
-        Intent intent = new Intent(ScanActivity.this, RupturaActivity.class);
-        startActivity(intent);
-        finish();
+        Intent intent;
+        switch (ondeEstou){
+            case 0:
+                RupturaCorpoActivity.CODE = result.getContents();
+                intent = new Intent(ScanActivity.this, RupturaCorpoActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case 1:
+                RupturaBlocoActivity.CODE = result.getContents();
+                intent = new Intent(ScanActivity.this, RupturaBlocoActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case 2:
+                RupturaPrismaActivity.CODE = result.getContents();
+                intent = new Intent(ScanActivity.this, RupturaPrismaActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case 3:
+           //     intent = new Intent(ScanActivity.this, RupturaPavimentoActivity.class);
+                break;
+        }
+
 
     }
 }

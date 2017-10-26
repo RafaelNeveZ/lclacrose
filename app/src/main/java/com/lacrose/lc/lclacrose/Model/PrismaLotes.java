@@ -13,15 +13,67 @@ public  class PrismaLotes {
     private int codigo;
     private long idade;
     private long notaFiscal;
-    private String Lote;
+    private String lote;
     private int FPK;
     private long data;
     private long dataFab;
+    private String local;
+    private long dataGraute;
     private long dataAssent;
     private String fabricante;
-    private String more;
+    private String obs;
+    private String tipo;
     private HashMap<String, Integer> dimenssoes;
     private boolean funcEstrutural;
+    private Object dataCreate;
+
+    public Object getDataCreate() {
+        return dataCreate;
+    }
+
+    public void setDataCreate(Object dataCreate) {
+        this.dataCreate = dataCreate;
+    }
+
+    public String getLote() {
+        return lote;
+    }
+
+    public void setLote(String lote) {
+        this.lote = lote;
+    }
+
+    public String getObs() {
+        return obs;
+    }
+
+    public void setObs(String obs) {
+        this.obs = obs;
+    }
+
+    public String getLocal() {
+        return local;
+    }
+
+    public void setLocal(String local) {
+        this.local = local;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public long getDataGraute() {
+        return dataGraute;
+    }
+
+    public void setDataGraute(long dataGraute) {
+        this.dataGraute = dataGraute;
+    }
 
     public long getDataFab() {
         return dataFab;
@@ -79,14 +131,6 @@ public  class PrismaLotes {
         this.notaFiscal = notaFiscal;
     }
 
-    public String getLote() {
-        return Lote;
-    }
-
-    public void setLote(String lote) {
-        Lote = lote;
-    }
-
     public int getFPK() {
         return FPK;
     }
@@ -113,13 +157,6 @@ public  class PrismaLotes {
         this.fabricante = fabricante;
     }
 
-    public String getMore() {
-        return more;
-    }
-
-    public void setMore(String more) {
-        this.more = more;
-    }
 
     public HashMap<String, Integer> getDimenssoes() {
         return dimenssoes;

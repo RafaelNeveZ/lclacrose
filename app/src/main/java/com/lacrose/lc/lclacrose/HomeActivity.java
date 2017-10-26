@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
 import static android.Manifest.permission.CAMERA;
@@ -23,11 +25,16 @@ public class HomeActivity extends MainActivity {
     private static final int PERMISSION_REQUEST_CODE = 7;
     public static String label;
     public static  String WorkId;
+    FirebaseDatabase database;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         setTitle(label);
+        DatabaseReference user_works_ref;
+        database = FirebaseDatabase.getInstance();
+        user_works_ref = database.getReference(getString(R.string.work_tag)).child(WorkId);
+        user_works_ref.keepSynced(true);
     }
 
     public void scanButton(View view) {

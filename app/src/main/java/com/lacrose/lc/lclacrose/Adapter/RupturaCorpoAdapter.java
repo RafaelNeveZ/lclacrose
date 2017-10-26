@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.lacrose.lc.lclacrose.Model.Corpos;
 import com.lacrose.lc.lclacrose.R;
+import com.lacrose.lc.lclacrose.RupturaCorpoActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,13 +20,13 @@ import java.util.List;
  * Created by rafae on 12/10/2017.
  */
 
-public class RupturaAdapter extends ArrayAdapter<Corpos> {
+public class RupturaCorpoAdapter extends ArrayAdapter<Corpos> {
     Context context;
-    public RupturaAdapter(Context context, int textViewResourceId) {
+    public RupturaCorpoAdapter(Context context, int textViewResourceId) {
         super(context, textViewResourceId);
     }
 
-    public RupturaAdapter(Context context, int resource, List<Corpos> items) {
+    public RupturaCorpoAdapter(Context context, int resource, List<Corpos> items) {
         super(context, resource, items);
         this.context = context;
     }
@@ -38,7 +39,7 @@ public class RupturaAdapter extends ArrayAdapter<Corpos> {
         if (view == null) {
             LayoutInflater viewLayout;
             viewLayout = LayoutInflater.from(getContext());
-            view = viewLayout.inflate(R.layout.item_ruptura, null);
+            view = viewLayout.inflate(R.layout.item_ruptura_corpo, null);
         }
 
         final Corpos corpos = getItem(position);
@@ -60,9 +61,8 @@ public class RupturaAdapter extends ArrayAdapter<Corpos> {
             }
             if (data != null) {
                 SimpleDateFormat fmtOut = new SimpleDateFormat("dd/MM/yyyy");
-                data.setText(fmtOut.format(new Date(corpos.getData())));
+                data.setText(fmtOut.format(RupturaCorpoActivity.Hoje));
             }
-            corpos.setTimeStamp();
         }
 
         return view;

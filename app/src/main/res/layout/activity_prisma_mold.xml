@@ -396,53 +396,52 @@
                         android:paddingTop="8dp"
                         android:src="@drawable/ic_keyboard_arrow_down_black_24dp" />
                 </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/dateGraute_relate"
-                    android:visibility="gone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/dateGraute_text_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignStart="@+id/dateGraute_buttom"
-                        android:layout_marginTop="15dp"
-                        android:text="@string/dateGraute_text"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <Button
-                        android:id="@+id/dateGraute_buttom"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_below="@+id/dateGraute_text_view"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginEnd="50dp"
-                        android:layout_marginTop="5dp"
-                        android:background="@drawable/selector_white_button"
-                        android:onClick="dateGrauteChamge"
-                        android:text="@string/date_default"
-                        android:textColor="@drawable/selector_orange_text_button" />
-
-                    <CheckBox
-                        android:id="@+id/check_dateGraute"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignStart="@+id/dateGraute_buttom"
-                        android:layout_below="@+id/dateGraute_buttom"
-                        android:text="@string/not_info" />
-                </RelativeLayout>
-
                 <CheckBox
-                    android:id="@+id/tipo_dimenssion"
+                    android:id="@+id/check_tipo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignStart="@+id/tipo_text_view"
                     android:layout_below="@+id/tipo_spinner_relative"
+                    android:text="@string/not_info" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/dateGraute_relate"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/dateGraute_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/dateGraute_buttom"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/dateGraute_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/dateGraute_buttom"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/dateGraute_text_view"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/selector_white_button"
+                    android:onClick="dateGrauteChamge"
+                    android:text="@string/date_default"
+                    android:textColor="@drawable/selector_orange_text_button" />
+
+                <CheckBox
+                    android:id="@+id/check_dateGraute"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/dateGraute_buttom"
+                    android:layout_below="@+id/dateGraute_buttom"
                     android:text="@string/not_info" />
             </RelativeLayout>
 

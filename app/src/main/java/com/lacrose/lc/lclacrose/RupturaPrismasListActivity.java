@@ -15,15 +15,17 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.lacrose.lc.lclacrose.Adapter.RupturaAdapter;
-import com.lacrose.lc.lclacrose.Model.Corpos;
+import com.lacrose.lc.lclacrose.Adapter.RupturaBlocoAdapter;
+import com.lacrose.lc.lclacrose.Adapter.RupturaPrismaAdapter;
+import com.lacrose.lc.lclacrose.Model.Blocos;
+import com.lacrose.lc.lclacrose.Model.Prismas;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
 import java.util.List;
 
 
-public class RupturaListActivity extends MainActivity {
-    public static  List<Corpos> CorposList;
+public class RupturaPrismasListActivity extends MainActivity {
+    public static  List<Prismas> prismasList;
     private final Context context=this;
     DatabaseReference corpo_ref;
     FirebaseDatabase database;
@@ -37,25 +39,24 @@ public class RupturaListActivity extends MainActivity {
         setContentView(R.layout.activity_ruptura_list);
         database = FirebaseDatabase.getInstance();
         ListView rupturaListView = (ListView) findViewById(R.id.ruptura_list);
-
         rupturaListView.setDivider(null);
-        RupturaAdapter corposAdapter = new RupturaAdapter(this, R.layout.item_ruptura, CorposList);
-        rupturaListView.setAdapter(corposAdapter);
+        RupturaPrismaAdapter prismasAdapter = new RupturaPrismaAdapter(this, R.layout.item_ruptura_prisma, prismasList);
+        rupturaListView.setAdapter(prismasAdapter);
     }
 
     public void saveRuptura(View view) {
         showProgress(getString(R.string.saving));
-        corpo_ref = database.getReference(getString(R.string.work_tag)).child(HomeActivity.WorkId+"").child(getString(R.string.lote_corpo_tag)).child(RupturaActivity.atualLote.getId());
-        for (Corpos corpo:CorposList) {
-            corpo_ref.child(getString(R.string.corpos)).push().setValue(corpo).addOnCompleteListener(this,new OnCompleteListener(){
+        corpo_ref = database.getReference(getString(R.string.work_tag)).child(HomeActivity.WorkId+"").child(getString(R.string.lote_prisma_tag)).child(RupturaPrismaActivity.atualLote.getId());
+        for (Prismas prismas: prismasList) {
+            corpo_ref.child(getString(R.string.corpos)).push().setValue(prismas).addOnCompleteListener(this,new OnCompleteListener(){
                         @Override
                         public void onComplete(@NonNull Task task) {
                             ListSize++;
                             if(task.isSuccessful()) {
-                                if(ListSize>=CorposList.size()) {
+                                if(ListSize>= prismasList.size()) {
                                     dismissProgress();
                                     Toast.makeText(context,getString(R.string.rupturas_create_sucess),Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(RupturaListActivity.this, HomeActivity.class);
+                                    Intent intent = new Intent(RupturaPrismasListActivity.this, HomeActivity.class);
                                     startActivity(intent);
                                     finish();
                                 }else{

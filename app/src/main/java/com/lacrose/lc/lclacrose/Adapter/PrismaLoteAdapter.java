@@ -14,27 +14,30 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
-import com.lacrose.lc.lclacrose.Model.CorpoLotes;
-import com.lacrose.lc.lclacrose.Model.Corpos;
+import com.lacrose.lc.lclacrose.Model.PrismaLotes;
+import com.lacrose.lc.lclacrose.Model.Prismas;
 import com.lacrose.lc.lclacrose.R;
-import com.lacrose.lc.lclacrose.RupturaActivity;
-import com.lacrose.lc.lclacrose.RupturaListActivity;
+import com.lacrose.lc.lclacrose.RupturaCorpoActivity;
+import com.lacrose.lc.lclacrose.RupturaPrismaActivity;
+import com.lacrose.lc.lclacrose.RupturaPrismasListActivity;
 import com.lacrose.lc.lclacrose.ScanActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.lacrose.lc.lclacrose.R.string.corpoLotes;
+
 /**
  * Created by rafae on 12/10/2017.
  */
 
-public class PrismaLoteAdapter extends ArrayAdapter<CorpoLotes> {
+public class PrismaLoteAdapter extends ArrayAdapter<PrismaLotes> {
     Context context;
     public PrismaLoteAdapter(Context context, int textViewResourceId) {
         super(context, textViewResourceId);
     }
 
-    public PrismaLoteAdapter(Context context, int resource, List<CorpoLotes> items) {
+    public PrismaLoteAdapter(Context context, int resource, List<PrismaLotes> items) {
         super(context, resource, items);
         this.context = context;
     }
@@ -50,12 +53,12 @@ public class PrismaLoteAdapter extends ArrayAdapter<CorpoLotes> {
             view = viewLayout.inflate(R.layout.item_work, null);
         }
 
-        final CorpoLotes corpoLotes = getItem(position);
+        final PrismaLotes prismaLotes = getItem(position);
 
-        if (corpoLotes != null) {
+        if (prismaLotes != null) {
             TextView work_name = (TextView) view.findViewById(R.id.button_work);
             if (work_name != null) {
-                work_name.setText(context.getString(R.string.lote)+" - CORPO: "+ corpoLotes.getCodigo());
+                work_name.setText(context.getString(R.string.prisma)+": "+ prismaLotes.getCodigo());
             }
             work_name.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -65,10 +68,11 @@ public class PrismaLoteAdapter extends ArrayAdapter<CorpoLotes> {
                     database.getReference(context.getString(R.string.time_stamp_tag)).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            RupturaActivity.Hoje = (long) dataSnapshot.getValue();
-                            RupturaActivity.atualLote = corpoLotes;
+                            RupturaPrismaActivity.Hoje = (long) dataSnapshot.getValue();
+                            RupturaPrismaActivity.atualLote = prismaLotes;
+                            ScanActivity.ondeEstou = 2;
                             Intent intent = new Intent(context, ScanActivity.class);
-                            RupturaListActivity.CorposList = new ArrayList<Corpos>();
+                            RupturaPrismasListActivity.prismasList = new ArrayList<Prismas>();
                             context.startActivity(intent);
                         }
 

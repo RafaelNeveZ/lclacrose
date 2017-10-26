@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,19 +14,20 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.lacrose.lc.lclacrose.Model.Corpos;
-import com.lacrose.lc.lclacrose.Model.CorpoLotes;
+import com.google.firebase.database.ServerValue;
+import com.lacrose.lc.lclacrose.Model.BlocoLotes;
+import com.lacrose.lc.lclacrose.Model.Blocos;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
 import java.util.Calendar;
 
-public class RupturaActivity extends MainActivity {
+public class RupturaBlocoActivity extends MainActivity {
     public static String CODE;
-    public static CorpoLotes atualLote;
+    public static BlocoLotes atualLote;
     public TextView code_ET;
     private final Context context = this;
     Spinner spinner_type;
-    EditText edit_carga;
+    EditText edit_carga, edit_altura,edit_largura,edit_comprimento,edit_espc_long,edit_espc_trans;
     FirebaseDatabase database;
     DatabaseReference work_lotes_ref;
     public static long Hoje;
@@ -35,21 +37,30 @@ public class RupturaActivity extends MainActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rulptura);
+        setContentView(R.layout.activity_bloco_rulptura);
         database = FirebaseDatabase.getInstance();
         isThisForNow();
         code_ET = (TextView) findViewById(R.id.code_edit_text);
         code_ET.setText(CODE);
-        spinner_type=(Spinner) findViewById(R.id.type_spinner);
+        edit_largura = (EditText) findViewById(R.id.largura_edit_text);
+        edit_altura = (EditText) findViewById(R.id.altura_edit_text);
+        edit_comprimento = (EditText) findViewById(R.id.comprimento_edit_text);
         edit_carga = (EditText) findViewById(R.id.carga_edit_text);
+        edit_espc_long = (EditText) findViewById(R.id.esp_long_edit_text);
+        edit_espc_trans = (EditText) findViewById(R.id.esp_trans_edit_text);
+
 
     }
 
     private void isThisForNow() {
-        long idade = atualLote.getIdade()/ (1000 * 60 * 60 * 24);
-        long criacao = atualLote.getData()/ (1000 * 60 * 60 * 24);
-        Hoje = Hoje/ (1000 * 60 * 60 * 24);
-        if(Hoje - criacao < idade - criacao) {
+        long idade = atualLote.getIdade();
+        Log.e(TAG,"idade "+idade);
+        //Descobrir com que data comparar
+        long criacao = atualLote.getDataFab();
+        Log.e(TAG,"criacao "+criacao);
+        long tempoHoje = getDateWithoutHoursAndMinutes(Hoje);
+        Log.e(TAG,"hoje "+Hoje);
+        if(tempoHoje - criacao < idade - criacao) {
             final Dialog dialog = new Dialog(context);
             dialog.setContentView(R.layout.dialog_two_choice);
             dialog.setTitle(getString(R.string.dialog_before_age));
@@ -91,14 +102,19 @@ public class RupturaActivity extends MainActivity {
         showProgress(getString(R.string.create_body));
         if(validateFields()){
             Calendar calendar = Calendar.getInstance();
-            Corpos newCorpo = new Corpos();
-            newCorpo.setCodigo(code_ET.getText().toString());
-            newCorpo.setCarga(Float.parseFloat(edit_carga.getText().toString()));
-            newCorpo.setTipo(String.valueOf(spinner_type.getSelectedItem()));
-            newCorpo.setData(calendar.getTime().getTime());
-            RupturaListActivity.CorposList.add(newCorpo);
+            Blocos newBloco = new Blocos();
+            newBloco .setCodigo(code_ET.getText().toString());
+            newBloco .setLargura(Float.parseFloat(edit_largura.getText().toString()));
+            newBloco .setAltura(Float.parseFloat(edit_altura.getText().toString()));
+            newBloco .setComprimento(Float.parseFloat(edit_comprimento.getText().toString()));
+            newBloco .setCarga(Float.parseFloat(edit_carga.getText().toString()));
+            newBloco .setEspessura_longitudinal(Float.parseFloat(edit_espc_long.getText().toString()));
+            newBloco .setEspessura_transvessal(Float.parseFloat(edit_espc_trans.getText().toString()));
+            newBloco .setDataCreate(ServerValue.TIMESTAMP);
+       /*     newBloco .setDataRuptura(Hoje);*/
+            RupturaBlocoListActivity.BlocosList.add(newBloco);
             dismissProgress();
-            Intent intent = new Intent(RupturaActivity.this, Continue ? ScanActivity.class : RupturaListActivity.class);
+            Intent intent = new Intent(RupturaBlocoActivity.this, Continue ? ScanActivity.class : RupturaBlocoListActivity.class);
             startActivity(intent);
             finish();
 
@@ -109,13 +125,29 @@ public class RupturaActivity extends MainActivity {
 
     private boolean validateFields() {
 
-        if(edit_carga.getText().toString().isEmpty()){
-            edit_carga.setError(getString(R.string.empty_field_error));
+
+        if(edit_largura.getText().toString().isEmpty()){
+            errorAndRequestFocustoEditText(edit_largura);
             return false;
         }
-
-        if(String.valueOf(spinner_type.getSelectedItem()).equals(getString(R.string.type_prompt)) ){
-            Toast.makeText(context,getString(R.string.type_prompt),Toast.LENGTH_SHORT).show();
+        if(edit_altura.getText().toString().isEmpty()){
+            errorAndRequestFocustoEditText(edit_altura);
+            return false;
+        }
+        if(edit_comprimento.getText().toString().isEmpty()){
+            errorAndRequestFocustoEditText(edit_comprimento);
+            return false;
+        }
+        if(edit_carga.getText().toString().isEmpty()){
+            errorAndRequestFocustoEditText(edit_carga);
+            return false;
+        }
+        if(edit_espc_long.getText().toString().isEmpty()){
+            errorAndRequestFocustoEditText(edit_espc_long);
+            return false;
+        }
+        if(edit_espc_trans.getText().toString().isEmpty()){
+            errorAndRequestFocustoEditText(edit_espc_trans);
             return false;
         }
 

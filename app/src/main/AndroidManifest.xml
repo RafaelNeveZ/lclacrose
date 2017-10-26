@@ -55,7 +55,19 @@
             android:parentActivityName=".ChooseMoldActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".RupturaActivity"
+            android:name=".RupturaCorpoActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/ruptura"
+            android:parentActivityName=".LotesActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".RupturaBlocoActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/ruptura"
+            android:parentActivityName=".LotesActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".RupturaPrismaActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/ruptura"
             android:parentActivityName=".LotesActivity"
@@ -66,9 +78,19 @@
             android:label="@string/lote_label"
             android:parentActivityName=".HomeActivity" />
         <activity
-            android:name=".RupturaListActivity"
+            android:name=".RupturaCorpoListActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/list_ruptura_label"
+            android:parentActivityName=".HomeActivity" />
+        <activity
+            android:name=".RupturaBlocoListActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/list_bloco_label"
+            android:parentActivityName=".HomeActivity" />
+        <activity
+            android:name=".RupturaPrismasListActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/list_prismas_label"
             android:parentActivityName=".HomeActivity" />
         <activity
             android:name=".BlocoMoldActivity"

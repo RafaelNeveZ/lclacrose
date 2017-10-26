@@ -13,16 +13,49 @@ public  class BlocoLotes {
     private int codigo;
     private long idade;
     private long notaFiscal;
-    private String Lote;
+    private String lote;
+    private String local;
     private int FBK;
     private long data;
     private long dataFab;
     private String fabricante;
-    private String more;
+    private String obs;
     private HashMap<String, Integer> dimenssoes;
     private boolean funcEstrutural;
+    private Object dataCreate;
+
+    public Object getDataCreate() {
+        return dataCreate;
+    }
+
+    public void setDataCreate(Object dataCreate) {
+        this.dataCreate = dataCreate;
+    }
 
 
+    public String getLote() {
+        return lote;
+    }
+
+    public void setLote(String lote) {
+        this.lote = lote;
+    }
+
+    public String getObs() {
+        return obs;
+    }
+
+    public void setObs(String obs) {
+        this.obs = obs;
+    }
+
+    public String getLocal() {
+        return local;
+    }
+
+    public void setLocal(String local) {
+        this.local = local;
+    }
 
     public String getId() {
         return id;
@@ -56,13 +89,6 @@ public  class BlocoLotes {
         this.notaFiscal = notaFiscal;
     }
 
-    public String getLote() {
-        return Lote;
-    }
-
-    public void setLote(String lote) {
-        Lote = lote;
-    }
 
     public int getFBK() {
         return FBK;
@@ -104,14 +130,6 @@ public  class BlocoLotes {
         this.fabricante = fabricante;
     }
 
-    public String getMore() {
-        return more;
-    }
-
-    public void setMore(String more) {
-        this.more = more;
-    }
-
     public HashMap<String, Integer> getDimenssoes() {
         return dimenssoes;
     }
@@ -122,4 +140,5 @@ public  class BlocoLotes {
 
     public BlocoLotes() {
     }
+
 }

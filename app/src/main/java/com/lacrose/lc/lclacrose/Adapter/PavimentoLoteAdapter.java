@@ -14,27 +14,24 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
-import com.lacrose.lc.lclacrose.Model.CorpoLotes;
-import com.lacrose.lc.lclacrose.Model.Corpos;
+import com.lacrose.lc.lclacrose.Model.PavimentoLotes;
 import com.lacrose.lc.lclacrose.R;
-import com.lacrose.lc.lclacrose.RupturaActivity;
-import com.lacrose.lc.lclacrose.RupturaListActivity;
+import com.lacrose.lc.lclacrose.RupturaCorpoActivity;
 import com.lacrose.lc.lclacrose.ScanActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by rafae on 12/10/2017.
  */
 
-public class PavimentoLoteAdapter extends ArrayAdapter<CorpoLotes> {
+public class PavimentoLoteAdapter extends ArrayAdapter<PavimentoLotes> {
     Context context;
     public PavimentoLoteAdapter(Context context, int textViewResourceId) {
         super(context, textViewResourceId);
     }
 
-    public PavimentoLoteAdapter(Context context, int resource, List<CorpoLotes> items) {
+    public PavimentoLoteAdapter(Context context, int resource, List<PavimentoLotes> items) {
         super(context, resource, items);
         this.context = context;
     }
@@ -50,12 +47,12 @@ public class PavimentoLoteAdapter extends ArrayAdapter<CorpoLotes> {
             view = viewLayout.inflate(R.layout.item_work, null);
         }
 
-        final CorpoLotes corpoLotes = getItem(position);
+        final PavimentoLotes pavimentoLotes = getItem(position);
 
-        if (corpoLotes != null) {
+        if (pavimentoLotes != null) {
             TextView work_name = (TextView) view.findViewById(R.id.button_work);
             if (work_name != null) {
-                work_name.setText(context.getString(R.string.lote)+" - CORPO: "+ corpoLotes.getCodigo());
+                work_name.setText(context.getString(R.string.pavimento_intertravado_reduc)+": "+ pavimentoLotes.getCodigo());
             }
             work_name.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -65,10 +62,10 @@ public class PavimentoLoteAdapter extends ArrayAdapter<CorpoLotes> {
                     database.getReference(context.getString(R.string.time_stamp_tag)).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            RupturaActivity.Hoje = (long) dataSnapshot.getValue();
-                            RupturaActivity.atualLote = corpoLotes;
+                            RupturaCorpoActivity.Hoje = (long) dataSnapshot.getValue();
+                          //  RupturaCorpoActivity.atualLote = corpoLotes;
                             Intent intent = new Intent(context, ScanActivity.class);
-                            RupturaListActivity.CorposList = new ArrayList<Corpos>();
+                        //    RupturaCorpoListActivity.CorposList = new ArrayList<Corpos>();
                             context.startActivity(intent);
                         }
 

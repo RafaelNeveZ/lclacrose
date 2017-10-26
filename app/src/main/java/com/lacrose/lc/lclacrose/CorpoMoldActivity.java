@@ -26,6 +26,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.lacrose.lc.lclacrose.Model.CorpoLotes;
 import com.lacrose.lc.lclacrose.Model.Obras;
@@ -55,7 +56,7 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
     CorpoLotes newLote;
     ArrayList<String> cimento,argamassa,graute,defaultlist;
     RelativeLayout slump,slumpflow;
-
+    long date;
     private ProgressDialog progressDialog;
 
     @Override
@@ -72,6 +73,7 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
         getLoteNumber();
         regrasNegocios();
     }
+
     public void regrasNegocios(){
         defaultlist = new ArrayList<>();
         defaultlist.add(getString(R.string.dimenssion_prompt));
@@ -183,7 +185,6 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
         });
     }
 
-
     public void initiateViews(){
         //CHECKBOX
         check_material = (CheckBox) findViewById(R.id.check_material);
@@ -233,14 +234,16 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         tempCalendar.set(year,month,dayOfMonth);
-        if(tempCalendar.getTime().getTime()>= refCalendar.getTime().getTime()){
+     /*   if(tempCalendar.getTime().getTime()>= refCalendar.getTime().getTime()){*/
             SimpleDateFormat fmtOut = new SimpleDateFormat("dd/MM/yyyy");
             button_date.setText(fmtOut.format(tempCalendar.getTime()));
             finalCalendar = tempCalendar;
-        }else{
+            date = getDateWithoutHoursAndMinutes(tempCalendar.getTime().getTime());
+
+       /* }else{
             tempCalendar = Calendar.getInstance();
             showAlert(getString(R.string.dialog_date_error_title),getString(R.string.date_before_error));
-        }
+        }*/
     }
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -261,37 +264,43 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
             if(!String.valueOf(spinner_material.getSelectedItem()).equals(getString(R.string.material_prompt)))
             newLote.setMaterial(String.valueOf(spinner_material.getSelectedItem()));
 
+
             if(!String.valueOf(spinner_contruc.getSelectedItem()).equals(getString(R.string.construc_prompt)))
             newLote.setConcreteira(String.valueOf(spinner_contruc.getSelectedItem()));
 
-            if(!edit_idade.getText().toString().isEmpty()) {
+            if(!edit_idade.getText().toString().isEmpty() && !check_idade.isChecked()) {
                 Calendar temp = Calendar.getInstance();
                 temp.add(Calendar.DATE, +Integer.parseInt(edit_idade.getText().toString()));
-                newLote.setIdade(temp.getTime().getTime());
+                newLote.setIdade(getDateWithoutHoursAndMinutes(temp.getTime().getTime()));
             }
 
-            if(!edit_nota.getText().toString().isEmpty())
+            if(!edit_nota.getText().toString().isEmpty() && !check_nota.isChecked())
             newLote.setNotaFiscal(Long.parseLong(edit_nota.getText().toString()));
 
-            if(!edit_volume.getText().toString().isEmpty())
+
+            if(!edit_volume.getText().toString().isEmpty() && !check_volume.isChecked())
             newLote.setVolume_do_caminhão(Float.parseFloat(edit_volume.getText().toString()));
 
-            if(!edit_fck.getText().toString().isEmpty())
+
+            if(!edit_fck.getText().toString().isEmpty() && !check_fck.isChecked())
             newLote.setFCK(Integer.parseInt(edit_fck.getText().toString()));
 
-            if(!edit_slump.getText().toString().isEmpty())
+            if(!edit_slump.getText().toString().isEmpty() && !check_slump.isChecked())
             newLote.setSlump(Integer.parseInt(edit_slump.getText().toString()));
 
-            if(!edit_slump_flow.getText().toString().isEmpty())
+            if(!edit_slump_flow.getText().toString().isEmpty() && !check_slump_flow.isChecked())
             newLote.setSlumFlow(Float.parseFloat(edit_slump_flow.getText().toString()));
 
-            newLote.setData(finalCalendar.getTime().getTime());
+            if(!button_date.getText().toString().equals(getString(R.string.date_default)) && !check_date.isChecked())
+            newLote.setData(date);
 
-            if(!edit_local.getText().toString().isEmpty())
+            if(!edit_local.getText().toString().isEmpty() && !check_local.isChecked())
             newLote.setLocal_concretado(edit_local.getText().toString());
 
             if(!edit_more.getText().toString().isEmpty())
-            newLote.setMore(edit_more.getText().toString());
+            newLote.setObs(edit_more.getText().toString());
+
+            newLote.setDataCreate(ServerValue.TIMESTAMP);
 
             HashMap<String, Integer> dimenssionHash = new HashMap<>();
             if(!String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.dimenssion_prompt))) {
@@ -345,27 +354,27 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
 
 
         if(edit_nota.getText().toString().isEmpty() && !check_nota.isChecked()){
-            edit_nota.setError(getString(R.string.empty_field_error));
+            errorAndRequestFocustoEditText(edit_nota);
             return false;
         }
         if(edit_idade.getText().toString().isEmpty() && !check_idade.isChecked()){
-            edit_idade.setError(getString(R.string.empty_field_error));
+            errorAndRequestFocustoEditText(edit_idade);
             return false;
         }
         if(edit_volume.getText().toString().isEmpty() && !check_volume.isChecked()){
-            edit_volume.setError(getString(R.string.empty_field_error));
+            errorAndRequestFocustoEditText(edit_volume);
             return false;
         }
         if(edit_fck.getText().toString().isEmpty() && !check_fck.isChecked()){
-            edit_fck.setError(getString(R.string.empty_field_error));
+            errorAndRequestFocustoEditText(edit_fck);
             return false;
         }
         if(edit_slump.getText().toString().isEmpty() && !check_slump.isChecked() && String.valueOf(spinner_material.getSelectedItem()).equals(getString(R.string.concreto))){
-            edit_slump.setError(getString(R.string.empty_field_error));
+            errorAndRequestFocustoEditText(edit_slump);
             return false;
         }
         if(edit_slump_flow.getText().toString().isEmpty() && !check_slump_flow.isChecked() && String.valueOf(spinner_material.getSelectedItem()).equals(getString(R.string.concreto))){
-            edit_slump_flow.setError(getString(R.string.empty_field_error));
+            errorAndRequestFocustoEditText(edit_slump_flow);
             return false;
         }
         if(button_date.getText().equals(getString(R.string.date_default)) && !check_date.isChecked()){
@@ -374,15 +383,11 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
         }
 
         if(edit_local.getText().toString().isEmpty() && !check_local.isChecked()){
-            edit_local.setError(getString(R.string.empty_field_error));
+            errorAndRequestFocustoEditText(edit_local);
             return false;
         }
 
         return true;
     }
 
-    public void editTextError(final EditText edittext){
-        edittext.setError(getString(R.string.empty_field_error));
-    }
-    
 }

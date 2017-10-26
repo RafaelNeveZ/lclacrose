@@ -27,6 +27,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.lacrose.lc.lclacrose.Model.BlocoLotes;
 import com.lacrose.lc.lclacrose.Model.CorpoLotes;
@@ -38,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
 
@@ -62,6 +64,8 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
 
 
     private ProgressDialog progressDialog;
+    private EditText edit_local;
+    private CheckBox check_local;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,6 +153,7 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
         check_fab = (CheckBox) findViewById(R.id.check_fab);
         check_func = (CheckBox) findViewById(R.id.check_func);
 
+
         //SPINNER
         spinner_dimenssion=(Spinner) findViewById(R.id.dimenssion_spinner);
 
@@ -159,7 +164,6 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
         edit_fbk = (EditText) findViewById(R.id.fbk_edit_text);
         edit_fab = (EditText) findViewById(R.id.fab_edit_text);
         edit_more = (EditText) findViewById(R.id.more_edit_text);
-
 
         //BUTTOM
         button_date = (Button) findViewById(R.id.date_buttom);
@@ -176,22 +180,21 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         tempCalendar.set(year,month,dayOfMonth);
-        if(tempCalendar.getTime().getTime()>= refCalendar.getTime().getTime()){
+/*        if(tempCalendar.getTime().getTime()>= refCalendar.getTime().getTime()){*/
             SimpleDateFormat fmtOut = new SimpleDateFormat("dd/MM/yyyy");
             if(isFab) {
                 button_datefab.setText(fmtOut.format(tempCalendar.getTime()));
                 fabCalendar = tempCalendar;
-                fabDate = tempCalendar.getTime().getTime();
+                fabDate = getDateWithoutHoursAndMinutes(tempCalendar.getTime().getTime());
             }else {
                 button_date.setText(fmtOut.format(tempCalendar.getTime()));
                 finalCalendar = tempCalendar;
-                date = tempCalendar.getTime().getTime();
+                date = getDateWithoutHoursAndMinutes(tempCalendar.getTime().getTime());
             }
-
-        }else{
+       /* }else{
             tempCalendar = Calendar.getInstance();
             showAlert(getString(R.string.dialog_date_error_title),getString(R.string.date_before_error));
-        }
+        }*/
     }
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -212,26 +215,29 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
     public void loteCreate(View view) {
         showProgress(getString(R.string.create_lote));
         if(validateFields()){
-            DatabaseReference ref_lote = database.getReference(getString(R.string.work_tag)).child(HomeActivity.WorkId+"").child(getString(R.string.lote_bloco_tag));
+            final DatabaseReference ref_lote = database.getReference(getString(R.string.work_tag)).child(HomeActivity.WorkId+"").child(getString(R.string.lote_bloco_tag));
             newLote = new BlocoLotes();
             newLote.setCodigo(Integer.parseInt(tv_code.getText().toString()));
 
-            if(!edit_idade.getText().toString().isEmpty()) {
+            if(!edit_idade.getText().toString().isEmpty() && !check_idade.isChecked()) {
                 Calendar temp = Calendar.getInstance();
                 temp.add(Calendar.DATE, +Integer.parseInt(edit_idade.getText().toString()));
-                newLote.setIdade(temp.getTime().getTime());
+                newLote.setIdade(getDateWithoutHoursAndMinutes(temp.getTime().getTime()));
             }
 
-            if(!edit_nota.getText().toString().isEmpty())
+            if(!edit_nota.getText().toString().isEmpty() && !check_nota.isChecked())
                 newLote.setNotaFiscal(Long.parseLong(edit_nota.getText().toString()));
 
-            if(!edit_lote.getText().toString().isEmpty())
+            if(!edit_lote.getText().toString().isEmpty() && !check_lote.isChecked())
                 newLote.setLote(edit_lote.getText().toString());
 
-            if(!edit_fbk.getText().toString().isEmpty())
+            if(!edit_fbk.getText().toString().isEmpty() && !check_fbk.isChecked())
                 newLote.setFBK(Integer.parseInt(edit_fbk.getText().toString()));
 
+            if(!button_date.getText().toString().equals(getString(R.string.date_default)) && !check_date.isChecked())
             newLote.setDataFab(fabDate);
+
+            if(!button_datefab.getText().toString().equals(getString(R.string.date_default)) && !check_date.isChecked())
             newLote.setData(date);
 
             if(switch_func.isChecked())
@@ -239,11 +245,11 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
             else
                 newLote.setFuncEstrutural(false);
 
-            if(!edit_fab.getText().toString().isEmpty())
+            if(!edit_fab.getText().toString().isEmpty() && !check_fab.isChecked())
                 newLote.setFabricante(edit_fab.getText().toString());
 
-            if(!edit_more.getText().toString().isEmpty())
-                newLote.setMore(edit_more.getText().toString());
+            if(!edit_more.getText().toString().isEmpty() )
+                newLote.setObs(edit_more.getText().toString());
 
             HashMap<String, Integer> dimenssionHash = new HashMap<>();
             if(!String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.dimenssion_prompt))) {
@@ -259,6 +265,8 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
                     newLote.setDimenssoes(dimenssionHash);
                 }
             }
+            newLote.setDataCreate(ServerValue.TIMESTAMP);
+
             ref_lote.push().setValue(newLote).addOnCompleteListener(this,new OnCompleteListener(){
                 @Override
                 public void onComplete(@NonNull Task task) {
@@ -290,27 +298,27 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
         }
 
         if(edit_idade.getText().toString().isEmpty() && !check_idade.isChecked()){
-            edit_idade.setError(getString(R.string.empty_field_error));
+            errorAndRequestFocustoEditText(edit_idade);
             return false;
         }
 
         if(edit_lote.getText().toString().isEmpty() && !check_lote.isChecked()){
-            edit_lote.setError(getString(R.string.empty_field_error));
+            errorAndRequestFocustoEditText(edit_lote);
             return false;
         }
 
         if(edit_nota.getText().toString().isEmpty() && !check_nota.isChecked()){
-            edit_nota.setError(getString(R.string.empty_field_error));
+            errorAndRequestFocustoEditText(edit_nota);
             return false;
         }
 
         if(edit_fab.getText().toString().isEmpty() && !check_fab.isChecked()){
-            edit_fab.setError(getString(R.string.empty_field_error));
+            errorAndRequestFocustoEditText(edit_fab);
             return false;
         }
 
         if(edit_fbk.getText().toString().isEmpty() && !check_fbk.isChecked()){
-            edit_fbk.setError(getString(R.string.empty_field_error));
+            errorAndRequestFocustoEditText(edit_fbk);
             return false;
         }
 
@@ -320,11 +328,10 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
         }
 
         if(!button_date.getText().equals(getString(R.string.date_default)) && !check_date.isChecked()
-                && !button_datefab.getText().equals(getString(R.string.date_default)) && !check_dataFab.isChecked()) {
-            if (date < fabDate) {
+                && !button_datefab.getText().equals(getString(R.string.date_default)) && !check_dataFab.isChecked() && date < fabDate) {
                 showAlert(getString(R.string.dialog_date_error_title), getString(R.string.dialog_date_error));
                 return false;
-            }
+
         }
 
 
