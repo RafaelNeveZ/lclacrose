@@ -196,6 +196,7 @@
     <string name="data_rompimento_text">Data de rompimento</string>
     <string name="list_bloco_label">BLOCOS ROMPIDOS</string>
     <string name="list_prismas_label">PRISMAS ROMPIDOS</string>
+    <string name="list_pavimento_label">PAVIMENTOS ROMPIDOS</string>
 
     <string-array name="type_arrays">
         <item>Selecione o tipo</item>

@@ -61,7 +61,10 @@ public class ScanActivity extends MainActivity implements ZBarScannerView.Result
                 finish();
                 break;
             case 3:
-           //     intent = new Intent(ScanActivity.this, RupturaPavimentoActivity.class);
+                RupturaPavimentoActivity.CODE = result.getContents();
+                intent = new Intent(ScanActivity.this, RupturaPavimentoActivity.class);
+                startActivity(intent);
+                finish();
                 break;
         }
 

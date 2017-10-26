@@ -73,6 +73,12 @@
             android:parentActivityName=".LotesActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
+            android:name=".RupturaPavimentoActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/ruptura"
+            android:parentActivityName=".LotesActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
             android:name=".LotesActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/lote_label"
@@ -91,6 +97,11 @@
             android:name=".RupturaPrismasListActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/list_prismas_label"
+            android:parentActivityName=".HomeActivity" />
+        <activity
+            android:name=".RupturaPavimentoListActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/list_pavimento_label"
             android:parentActivityName=".HomeActivity" />
         <activity
             android:name=".BlocoMoldActivity"

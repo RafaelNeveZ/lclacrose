@@ -15,10 +15,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.lacrose.lc.lclacrose.Model.PavimentoLotes;
+import com.lacrose.lc.lclacrose.Model.Pavimentos;
 import com.lacrose.lc.lclacrose.R;
 import com.lacrose.lc.lclacrose.RupturaCorpoActivity;
+import com.lacrose.lc.lclacrose.RupturaPavimentoActivity;
+import com.lacrose.lc.lclacrose.RupturaPavimentoListActivity;
 import com.lacrose.lc.lclacrose.ScanActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -62,10 +66,11 @@ public class PavimentoLoteAdapter extends ArrayAdapter<PavimentoLotes> {
                     database.getReference(context.getString(R.string.time_stamp_tag)).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            RupturaCorpoActivity.Hoje = (long) dataSnapshot.getValue();
-                          //  RupturaCorpoActivity.atualLote = corpoLotes;
+                            RupturaPavimentoActivity.Hoje = (long) dataSnapshot.getValue();
+                            RupturaPavimentoActivity.atualLote = pavimentoLotes;
+                            ScanActivity.ondeEstou = 3;
                             Intent intent = new Intent(context, ScanActivity.class);
-                        //    RupturaCorpoListActivity.CorposList = new ArrayList<Corpos>();
+                            RupturaPavimentoListActivity.pavimentoList = new ArrayList<Pavimentos>();
                             context.startActivity(intent);
                         }
 
