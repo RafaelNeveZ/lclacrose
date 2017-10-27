@@ -69,19 +69,15 @@ public class WorkActivity extends AppCompatActivity {
         user_works_ref.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Log.e(TAG,"added");
                 works_ref.child(dataSnapshot.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        Log.e(TAG,"not existis");
                         if (dataSnapshot.exists()) {
                             //    for(DataSnapshot d : dataSnapshot.getChildren()) {
                                     Obras obras = dataSnapshot.getValue(Obras.class);
                                     obras.setId(dataSnapshot.getKey());
                                     worksList.add(obras);
-                                    Log.e(TAG,"foreach");
                            //     }
-                                        Log.e(TAG,"sai do foreach");
                                     spinner.setVisibility(View.GONE);
                                     workAdapter.notifyDataSetChanged();
                             }else{
