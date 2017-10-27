@@ -78,9 +78,9 @@
     <string name="lote">Lote</string>
     <string name="lote_label">LOTES</string>
     <string name="corpos">corpos</string>
-    <string name="getting_lote_number">Carregando...</string>
-    <string name="create_body">Registrando corpo de prova...</string>
-    <string name="create_lote">Criando lote...</string>
+    <string name="getting_lote_number">Carregando&#8230;</string>
+    <string name="create_body">Registrando corpo de prova&#8230;</string>
+    <string name="create_lote">Criando lote&#8230;</string>
     <string name="list_ruptura_label">Corpos de prova</string>
     <string name="code">Código</string>
     <string name="save">Save</string>
@@ -149,5 +149,6 @@
     <string name="list_bloco_label">BLOCOS ROMPIDOS</string>
     <string name="list_prismas_label">PRISMAS ROMPIDOS</string>
     <string name="list_pavimento_label">PAVIMENTOS ROMPIDOS</string>
+    <string name="logo_text">logo</string>
 
 </resources>

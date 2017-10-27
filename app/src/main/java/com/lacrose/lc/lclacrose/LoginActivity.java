@@ -1,13 +1,9 @@
 package com.lacrose.lc.lclacrose;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.annotation.UiThread;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.view.ActionMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
 
@@ -34,8 +31,6 @@ public class LoginActivity extends MainActivity {
     private final static String ERROR = "ERROR";
     public EditText et_user,et_pass;
     public TextView tv_forgotPass, tv_about, tv_terms;
-    private ProgressDialog progressDialog;
-
 
 
     @Override
@@ -47,11 +42,10 @@ public class LoginActivity extends MainActivity {
         tv_forgotPass = (TextView) findViewById(R.id.pass_forgot);
         tv_about = (TextView) findViewById(R.id.about);
         tv_terms = (TextView) findViewById(R.id.terms_of_user);
+        FireBaseUtil.getDatabase();
         Auth = FirebaseAuth.getInstance();
         loginListener();
-
     }
-
 
     //=================================LOGIN=======================================================\\
     public void loginListener(){
@@ -60,13 +54,10 @@ public class LoginActivity extends MainActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    FirebaseDatabase.getInstance().setPersistenceEnabled(true);
                     Intent intent = new Intent(context,WorkActivity.class);
                     context.startActivity(intent);
                     finish();
                     dismissProgress();
-                } else {
-                    Log.e(ERROR,"NAO LOGOU");
                 }
             }
         };

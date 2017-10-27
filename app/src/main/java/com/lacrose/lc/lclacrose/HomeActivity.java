@@ -4,22 +4,19 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
-
 import static android.Manifest.permission.CAMERA;
-import static android.Manifest.permission.GET_ACCOUNTS;
-import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
 
 public class HomeActivity extends MainActivity {
     private static final int PERMISSION_REQUEST_CODE = 7;
@@ -32,7 +29,7 @@ public class HomeActivity extends MainActivity {
         setContentView(R.layout.activity_home);
         setTitle(label);
         DatabaseReference user_works_ref;
-        database = FirebaseDatabase.getInstance();
+        database = FireBaseUtil.getDatabase();
         user_works_ref = database.getReference(getString(R.string.work_tag)).child(WorkId);
         user_works_ref.keepSynced(true);
     }
@@ -59,9 +56,9 @@ public class HomeActivity extends MainActivity {
         return result == PackageManager.PERMISSION_GRANTED;
     }
     private void requestPermission() {
-        ActivityCompat.requestPermissions(this, new String[]{/*WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE,*/CAMERA}, PERMISSION_REQUEST_CODE);
+        ActivityCompat.requestPermissions(this, new String[]{CAMERA}, PERMISSION_REQUEST_CODE);
     }
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],@NonNull int[] grantResults) {
         switch (requestCode) {
             case PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0) {
@@ -77,7 +74,7 @@ public class HomeActivity extends MainActivity {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
                                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                                    requestPermissions(new String[]{/*WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE,*/CAMERA},
+                                                    requestPermissions(new String[]{CAMERA},
                                                             PERMISSION_REQUEST_CODE);
                                                 }
                                             }

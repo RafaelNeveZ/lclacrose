@@ -6,7 +6,6 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -30,8 +29,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.lacrose.lc.lclacrose.Model.BlocoLotes;
-import com.lacrose.lc.lclacrose.Model.CorpoLotes;
 import com.lacrose.lc.lclacrose.Model.Obras;
+import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
 import java.text.SimpleDateFormat;
@@ -39,16 +38,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
 
 
 
-    public static Obras thisObra;
-    private FirebaseAuth Auth;
     private final Context context = this;
-    DatabaseReference lote_ref, ref_lote;
+    DatabaseReference lote_ref;
     FirebaseDatabase database;
     CheckBox check_dimenssion,check_nota,check_dataFab, check_fbk,check_lote,check_fab,check_func,check_date,check_idade;
     Spinner spinner_dimenssion;
@@ -63,10 +60,6 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
     long date, fabDate;
 
 
-    private ProgressDialog progressDialog;
-    private EditText edit_local;
-    private CheckBox check_local;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,8 +68,7 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
         tempCalendar = Calendar.getInstance();
         finalCalendar = Calendar.getInstance();
         fabCalendar = Calendar.getInstance();
-        Auth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
+        database = FireBaseUtil.getDatabase();
         initiateViews();
         showProgress(getString(R.string.getting_lote_number));
         getLoteNumber();

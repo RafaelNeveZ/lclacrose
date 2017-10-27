@@ -1,7 +1,6 @@
 package com.lacrose.lc.lclacrose;
 
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -29,7 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.lacrose.lc.lclacrose.Model.CorpoLotes;
-import com.lacrose.lc.lclacrose.Model.Obras;
+import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
 import java.text.SimpleDateFormat;
@@ -41,9 +40,6 @@ import java.util.List;
 public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
 
 
-
-    public static Obras thisObra;
-    private FirebaseAuth Auth;
     private final Context context = this;
     DatabaseReference lote_ref, ref_lote;
     FirebaseDatabase database;
@@ -57,7 +53,6 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
     ArrayList<String> cimento,argamassa,graute,defaultlist;
     RelativeLayout slump,slumpflow;
     long date;
-    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +61,7 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
         refCalendar = Calendar.getInstance();
         tempCalendar = Calendar.getInstance();
         finalCalendar = Calendar.getInstance();
-        Auth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
+        database = FireBaseUtil.getDatabase();
         initiateViews();
         showProgress(getString(R.string.getting_lote_number));
         getLoteNumber();
@@ -272,6 +266,7 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
                 Calendar temp = Calendar.getInstance();
                 temp.add(Calendar.DATE, +Integer.parseInt(edit_idade.getText().toString()));
                 newLote.setIdade(getDateWithoutHoursAndMinutes(temp.getTime().getTime()));
+      //          newLote.setIdade(Integer.parseInt(edit_idade.getText().toString()));
             }
 
             if(!edit_nota.getText().toString().isEmpty() && !check_nota.isChecked())

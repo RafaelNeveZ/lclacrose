@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,14 +11,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.lacrose.lc.lclacrose.Model.Corpos;
 import com.lacrose.lc.lclacrose.Model.CorpoLotes;
+import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
-import java.util.Calendar;
 
 public class RupturaCorpoActivity extends MainActivity {
     public static String CODE;
@@ -29,7 +27,6 @@ public class RupturaCorpoActivity extends MainActivity {
     Spinner spinner_type;
     EditText edit_carga;
     FirebaseDatabase database;
-    DatabaseReference work_lotes_ref;
     public static long Hoje;
 
 
@@ -38,7 +35,7 @@ public class RupturaCorpoActivity extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_corpo_rulptura);
-        database = FirebaseDatabase.getInstance();
+        database = FireBaseUtil.getDatabase();
         isThisForNow();
         code_ET = (TextView) findViewById(R.id.code_edit_text);
         code_ET.setText(CODE);
@@ -48,13 +45,13 @@ public class RupturaCorpoActivity extends MainActivity {
     }
 
     private void isThisForNow() {
+/*        int idade = atualLote.getIdade();
+        Calendar idadeCalendar = Calendar.getInstance();
+        idadeCalendar.setTime(new Date(Hoje));
+        idadeCalendar.add(Calendar.DATE, +idade);*/
         long idade = atualLote.getIdade();
-        Log.e(TAG,"idade "+idade);
-        //Descobrir com que data comparar
         long criacao = getDateWithoutHoursAndMinutes((long)atualLote.getDataCreate());
-        Log.e(TAG,"criacao "+criacao);
         long tempoHoje = getDateWithoutHoursAndMinutes(Hoje);
-        Log.e(TAG,"hoje "+Hoje);
         if(tempoHoje - criacao < idade - criacao) {
             final Dialog dialog = new Dialog(context);
             dialog.setContentView(R.layout.dialog_two_choice);
@@ -96,7 +93,6 @@ public class RupturaCorpoActivity extends MainActivity {
     public void saveResults(final boolean Continue){
         showProgress(getString(R.string.create_body));
         if(validateFields()){
-            Calendar calendar = Calendar.getInstance();
             Corpos newCorpo = new Corpos();
             newCorpo.setCodigo(code_ET.getText().toString());
             newCorpo.setCarga(Float.parseFloat(edit_carga.getText().toString()));

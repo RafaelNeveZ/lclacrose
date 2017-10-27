@@ -10,10 +10,7 @@ import me.dm7.barcodescanner.zbar.ZBarScannerView;
 
 public class ScanActivity extends MainActivity implements ZBarScannerView.ResultHandler {
     private ZBarScannerView mScannerView;
-    public final String TAG_CÓDIGO ="LIDO";
-    public final String TAG_TIPO="TIPO";
     public static int ondeEstou;
-    //camera permission is needed.
 
     @Override
     public void onCreate(Bundle state) {

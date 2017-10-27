@@ -10,13 +10,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.firebase.database.DatabaseReference;
+
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.lacrose.lc.lclacrose.Model.PavimentoLotes;
 import com.lacrose.lc.lclacrose.Model.Pavimentos;
-import com.lacrose.lc.lclacrose.Model.PrismaLotes;
-import com.lacrose.lc.lclacrose.Model.Prismas;
+import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
 public class RupturaPavimentoActivity extends MainActivity {
@@ -26,7 +25,6 @@ public class RupturaPavimentoActivity extends MainActivity {
     private final Context context = this;
     EditText edit_carga, edit_altura,edit_largura,edit_comprimento;
     FirebaseDatabase database;
-    DatabaseReference work_lotes_ref;
     public static long Hoje;
 
 
@@ -35,7 +33,7 @@ public class RupturaPavimentoActivity extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pavimento_rulptura);
-        database = FirebaseDatabase.getInstance();
+        database = FireBaseUtil.getDatabase();
         isThisForNow();
         code_ET = (TextView) findViewById(R.id.code_edit_text);
         code_ET.setText(CODE);
@@ -46,13 +44,10 @@ public class RupturaPavimentoActivity extends MainActivity {
     }
 
     private void isThisForNow() {
+        //TODO Que data comparar?
         long idade = atualLote.getIdade();
-        Log.e(TAG,"idade "+idade);
-        //Descobrir com que data comparar
         long criacao = atualLote.getDataFab();
-        Log.e(TAG,"criacao "+criacao);
         long tempoHoje = getDateWithoutHoursAndMinutes(Hoje);
-        Log.e(TAG,"hoje "+Hoje);
         if(tempoHoje - criacao < idade - criacao) {
             final Dialog dialog = new Dialog(context);
             dialog.setContentView(R.layout.dialog_two_choice);
@@ -113,7 +108,6 @@ public class RupturaPavimentoActivity extends MainActivity {
     }
 
     private boolean validateFields() {
-
 
         if(edit_largura.getText().toString().isEmpty()){
             errorAndRequestFocustoEditText(edit_largura);

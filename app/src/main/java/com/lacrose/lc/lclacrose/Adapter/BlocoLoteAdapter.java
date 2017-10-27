@@ -3,6 +3,7 @@ package com.lacrose.lc.lclacrose.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,9 +27,6 @@ import com.lacrose.lc.lclacrose.ScanActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by rafae on 12/10/2017.
- */
 
 public class BlocoLoteAdapter extends ArrayAdapter<BlocoLotes> {
     Context context;
@@ -41,8 +39,8 @@ public class BlocoLoteAdapter extends ArrayAdapter<BlocoLotes> {
         this.context = context;
     }
 
-    @Override
-    public View getView(int position, final View convertView, ViewGroup parent) {
+    @Override @NonNull
+    public View getView(int position, final View convertView,@NonNull ViewGroup parent) {
 
         View view = convertView;
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -59,7 +57,7 @@ public class BlocoLoteAdapter extends ArrayAdapter<BlocoLotes> {
             if (work_name != null) {
                 work_name.setText(context.getString(R.string.bloco)+": "+ blocoLotes.getCodigo());
             }
-            work_name.setOnClickListener(new View.OnClickListener() {
+            work_name.setOnClickListener( new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -68,11 +66,10 @@ public class BlocoLoteAdapter extends ArrayAdapter<BlocoLotes> {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             RupturaBlocoActivity.Hoje = (long) dataSnapshot.getValue();
-                            Log.e("MERDA",RupturaBlocoActivity.Hoje+"");
                             RupturaBlocoActivity.atualLote = blocoLotes;
                             ScanActivity.ondeEstou = 1;
                             Intent intent = new Intent(context, ScanActivity.class);
-                            RupturaBlocoListActivity.BlocosList = new ArrayList<Blocos>();
+                            RupturaBlocoListActivity.BlocosList = new ArrayList<>();
                             context.startActivity(intent);
                         }
 

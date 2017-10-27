@@ -1,11 +1,9 @@
 package com.lacrose.lc.lclacrose;
 
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -31,10 +29,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
-import com.lacrose.lc.lclacrose.Model.CorpoLotes;
-import com.lacrose.lc.lclacrose.Model.Obras;
-import com.lacrose.lc.lclacrose.Model.PavimentoLotes;
 import com.lacrose.lc.lclacrose.Model.PrismaLotes;
+import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
 import java.text.SimpleDateFormat;
@@ -45,10 +41,8 @@ import java.util.List;
 
 public class PrismaMoldActivity extends MainActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
 
-    public static Obras thisObra;
-    private FirebaseAuth Auth;
     private final Context context = this;
-    DatabaseReference lote_ref, ref_lote;
+    DatabaseReference lote_ref;
     FirebaseDatabase database;
     RelativeLayout dateGraute_relative;
     CheckBox check_dimenssion,check_nota,check_dataFab, check_fpk,check_lote,check_fab,check_func,check_date,check_idade;
@@ -81,8 +75,7 @@ public class PrismaMoldActivity extends MainActivity implements DatePickerDialog
         assentCalendar = Calendar.getInstance();
         fabCalendar = Calendar.getInstance();
         grauteCalendar = Calendar.getInstance();
-        Auth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
+        database = FireBaseUtil.getDatabase();
         initiateViews();
         showProgress(getString(R.string.getting_lote_number));
         getLoteNumber();

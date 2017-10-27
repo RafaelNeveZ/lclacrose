@@ -3,6 +3,7 @@ package com.lacrose.lc.lclacrose.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,9 +25,7 @@ import com.lacrose.lc.lclacrose.ScanActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by rafae on 12/10/2017.
- */
+
 
 public class CorpoLoteAdapter extends ArrayAdapter<CorpoLotes> {
     Context context;
@@ -39,8 +38,8 @@ public class CorpoLoteAdapter extends ArrayAdapter<CorpoLotes> {
         this.context = context;
     }
 
-    @Override
-    public View getView(int position, final View convertView, ViewGroup parent) {
+    @Override @NonNull
+    public View getView(int position, final View convertView,@NonNull ViewGroup parent) {
 
         View view = convertView;
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -59,7 +58,7 @@ public class CorpoLoteAdapter extends ArrayAdapter<CorpoLotes> {
             }
             work_name.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(@NonNull View v) {
 
                     database.getReference(context.getString(R.string.time_stamp_tag)).setValue(ServerValue.TIMESTAMP);
                     database.getReference(context.getString(R.string.time_stamp_tag)).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -69,7 +68,7 @@ public class CorpoLoteAdapter extends ArrayAdapter<CorpoLotes> {
                             RupturaCorpoActivity.atualLote = corpoLotes;
                             ScanActivity.ondeEstou = 0;
                             Intent intent = new Intent(context, ScanActivity.class);
-                            RupturaCorpoListActivity.CorposList = new ArrayList<Corpos>();
+                            RupturaCorpoListActivity.CorposList = new ArrayList<>();
                             context.startActivity(intent);
                         }
 
@@ -85,5 +84,7 @@ public class CorpoLoteAdapter extends ArrayAdapter<CorpoLotes> {
 
         return view;
     }
+
+
 
 }

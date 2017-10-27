@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -15,10 +16,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.lacrose.lc.lclacrose.Adapter.RupturaBlocoAdapter;
 import com.lacrose.lc.lclacrose.Adapter.RupturaPrismaAdapter;
-import com.lacrose.lc.lclacrose.Model.Blocos;
 import com.lacrose.lc.lclacrose.Model.Prismas;
+import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
 import java.util.List;
@@ -32,12 +32,11 @@ public class RupturaPrismasListActivity extends MainActivity {
     int ListSize = 0;
 
 
-    //TODO LAYOOUT SCROLLVIEW
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ruptura_list);
-        database = FirebaseDatabase.getInstance();
+        database = FireBaseUtil.getDatabase();
         ListView rupturaListView = (ListView) findViewById(R.id.ruptura_list);
         rupturaListView.setDivider(null);
         RupturaPrismaAdapter prismasAdapter = new RupturaPrismaAdapter(this, R.layout.item_ruptura_prisma, prismasList);
@@ -66,13 +65,23 @@ public class RupturaPrismasListActivity extends MainActivity {
                                 dismissProgress();
                                 Toast.makeText(context,getString(R.string.server_error),Toast.LENGTH_SHORT).show();
                             }
-                        };
+                        }
         });
 
     }
 }
 
-    public void onCancel(View view) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog_two_choice);
         dialog.setTitle(getString(R.string.dialog_cancel_ruptura));
@@ -96,8 +105,6 @@ public class RupturaPrismasListActivity extends MainActivity {
                 dialog.dismiss();
             }
         });
-
-
     }
 
 

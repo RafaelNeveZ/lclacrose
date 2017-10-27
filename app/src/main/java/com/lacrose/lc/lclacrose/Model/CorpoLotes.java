@@ -1,11 +1,8 @@
 package com.lacrose.lc.lclacrose.Model;
 
-import java.util.Date;
+
 import java.util.HashMap;
 
-/**
- * Created by rafae on 13/10/2017.
- */
 
 public  class CorpoLotes {
 
@@ -26,6 +23,14 @@ public  class CorpoLotes {
     private String obs;
     private HashMap<String, Integer> dimenssoes;
     private Object dataCreate;
+
+    public long getIdade() {
+        return idade;
+    }
+
+    public void setIdade(long idade) {
+        this.idade = idade;
+    }
 
     public Object getDataCreate() {
         return dataCreate;
@@ -134,13 +139,7 @@ public  class CorpoLotes {
         this.slumFlow = slumFlow;
     }
 
-    public long getIdade() {
-        return idade;
-    }
 
-    public void setIdade(long idade) {
-        this.idade = idade;
-    }
 
     public long getData() {
         return data;

@@ -1,6 +1,6 @@
 package com.lacrose.lc.lclacrose;
 
-import android.content.Context;
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,16 +26,15 @@ import com.lacrose.lc.lclacrose.Model.BlocoLotes;
 import com.lacrose.lc.lclacrose.Model.CorpoLotes;
 import com.lacrose.lc.lclacrose.Model.PavimentoLotes;
 import com.lacrose.lc.lclacrose.Model.PrismaLotes;
+import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LotesActivity extends MainActivity {
-    private FirebaseAuth Auth;
-    private final Context context = this;
     FirebaseDatabase database;
-    DatabaseReference work_lotes_corpo_ref, work_lotes_bloco_ref;
+    DatabaseReference work_lotes_corpo_ref;
     private ProgressBar spinner;
     public TextView textEmpty;
     public Spinner spinner_tipo_lote;
@@ -60,8 +59,7 @@ public class LotesActivity extends MainActivity {
         spinner=(ProgressBar)findViewById(R.id.progressBar);
         textEmpty=(TextView) findViewById(R.id.empyt_text);
         spinner_tipo_lote = (Spinner)findViewById(R.id.spinner_tipo_lote);
-        Auth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
+        database = FireBaseUtil.getDatabase();
         tipoLoteList = new ArrayList<>();
         tipoLoteList.add(getString(R.string.body));
         tipoLoteList.add(getString(R.string.bloco));

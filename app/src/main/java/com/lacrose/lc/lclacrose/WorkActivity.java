@@ -24,6 +24,7 @@ import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.lacrose.lc.lclacrose.Adapter.WorkAdapter;
 import com.lacrose.lc.lclacrose.Model.Obras;
+import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,7 @@ public class WorkActivity extends AppCompatActivity {
         spinner=(ProgressBar)findViewById(R.id.progressBar);
         textEmpty=(TextView) findViewById(R.id.empyt_text);
         Auth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
+        database = FireBaseUtil.getDatabase();
         showListOfWorks();
 
 
@@ -120,30 +121,6 @@ public class WorkActivity extends AppCompatActivity {
                 spinner.setVisibility(View.GONE);
             }
         });
-
-
-        /*work_lotes_corpo_ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()) {
-                            spinner.setVisibility(View.GONE);
-                            for(DataSnapshot d : dataSnapshot.getChildren()) {
-                                Obras obras = d.getValue(Obras.class);
-                                obras.setId(d.getKey());
-                                worksList.add(obras);
-                            }
-                           workAdapter.notifyDataSetChanged();
-                        }else{
-                            workAdapter.notifyDataSetChanged();
-                            textEmpty.setVisibility(View.VISIBLE);
-                            spinner.setVisibility(View.GONE);
-                        }
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                            spinner.setVisibility(View.GONE);
-                    }
-                });*/
     }
 
 

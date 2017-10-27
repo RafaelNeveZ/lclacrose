@@ -8,19 +8,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
-import com.lacrose.lc.lclacrose.Model.BlocoLotes;
-import com.lacrose.lc.lclacrose.Model.Blocos;
 import com.lacrose.lc.lclacrose.Model.PrismaLotes;
 import com.lacrose.lc.lclacrose.Model.Prismas;
+import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
-import java.util.Calendar;
+
 
 public class RupturaPrismaActivity extends MainActivity {
     public static String CODE;
@@ -29,7 +26,6 @@ public class RupturaPrismaActivity extends MainActivity {
     private final Context context = this;
     EditText edit_carga, edit_altura,edit_largura,edit_comprimento;
     FirebaseDatabase database;
-    DatabaseReference work_lotes_ref;
     public static long Hoje;
 
 
@@ -38,7 +34,7 @@ public class RupturaPrismaActivity extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prisma_rulptura);
-        database = FirebaseDatabase.getInstance();
+        database = FireBaseUtil.getDatabase();
         isThisForNow();
         code_ET = (TextView) findViewById(R.id.code_edit_text);
         code_ET.setText(CODE);
@@ -116,7 +112,6 @@ public class RupturaPrismaActivity extends MainActivity {
     }
 
     private boolean validateFields() {
-
 
         if(edit_largura.getText().toString().isEmpty()){
             errorAndRequestFocustoEditText(edit_largura);
