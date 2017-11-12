@@ -11,31 +11,33 @@ import java.util.HashMap;
 public class Prismas {
     private String codigo;
     private float carga;
-    private float altura,largura,comprimento;
+
     private Object dataCreate;
 
-    public float getAltura() {
-        return altura;
+    public HashMap<String, Boolean> getCreatedBy() {
+        return createdBy;
     }
 
-    public void setAltura(float altura) {
-        this.altura = altura;
+    public void setCreatedBy(String Key,Boolean tru) {
+        if(createdBy == null){
+            createdBy = new HashMap<>();
+        }
+        this.createdBy.put(Key,tru);
     }
 
-    public float getLargura() {
-        return largura;
+    private HashMap<String, Boolean> createdBy;
+
+    private HashMap<String, Float> dimenssions;
+
+    public HashMap<String, Float> getDim() {
+        return dimenssions;
     }
 
-    public void setLargura(float largura) {
-        this.largura = largura;
-    }
-
-    public float getComprimento() {
-        return comprimento;
-    }
-
-    public void setComprimento(float comprimento) {
-        this.comprimento = comprimento;
+    public void setDim(String Key,Float value) {
+        if(dimenssions == null){
+            dimenssions = new HashMap<>();
+        }
+        this.dimenssions.put(Key,value);
     }
 
     public Object getDataCreate() {

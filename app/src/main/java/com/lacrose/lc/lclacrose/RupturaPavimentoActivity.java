@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.lacrose.lc.lclacrose.Model.PavimentoLotes;
@@ -26,6 +27,7 @@ public class RupturaPavimentoActivity extends MainActivity {
     EditText edit_carga, edit_altura,edit_largura,edit_comprimento;
     FirebaseDatabase database;
     public static long Hoje;
+    private FirebaseAuth Auth;
 
 
 
@@ -41,6 +43,7 @@ public class RupturaPavimentoActivity extends MainActivity {
         edit_altura = (EditText) findViewById(R.id.altura_edit_text);
         edit_comprimento = (EditText) findViewById(R.id.comprimento_edit_text);
         edit_carga = (EditText) findViewById(R.id.carga_edit_text);
+        Auth = FirebaseAuth.getInstance();
     }
 
     private void isThisForNow() {
@@ -91,9 +94,10 @@ public class RupturaPavimentoActivity extends MainActivity {
         if(validateFields()){
             Pavimentos newPavimento = new Pavimentos();
             newPavimento .setCodigo(code_ET.getText().toString());
-            newPavimento .setLargura(Float.parseFloat(edit_largura.getText().toString()));
-            newPavimento .setAltura(Float.parseFloat(edit_altura.getText().toString()));
-            newPavimento .setComprimento(Float.parseFloat(edit_comprimento.getText().toString()));
+            newPavimento .setDim("largura",Float.parseFloat(edit_largura.getText().toString()));
+            newPavimento .setDim("altura",Float.parseFloat(edit_altura.getText().toString()));
+            newPavimento .setDim("comprimento",Float.parseFloat(edit_comprimento.getText().toString()));
+            newPavimento.setCreatedBy(Auth.getCurrentUser().getUid(),true);
             newPavimento .setCarga(Float.parseFloat(edit_carga.getText().toString()));
             newPavimento .setDataCreate(ServerValue.TIMESTAMP);
             RupturaPavimentoListActivity.pavimentoList.add(newPavimento);

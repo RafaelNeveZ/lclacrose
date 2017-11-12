@@ -53,6 +53,7 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
     ArrayList<String> cimento,argamassa,graute,defaultlist;
     RelativeLayout slump,slumpflow;
     long date;
+    private FirebaseAuth Auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,7 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
         tempCalendar = Calendar.getInstance();
         finalCalendar = Calendar.getInstance();
         database = FireBaseUtil.getDatabase();
+        Auth = FirebaseAuth.getInstance();
         initiateViews();
         showProgress(getString(R.string.getting_lote_number));
         getLoteNumber();
@@ -296,7 +298,7 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
             newLote.setObs(edit_more.getText().toString());
 
             newLote.setDataCreate(ServerValue.TIMESTAMP);
-
+            newLote.setCreatedBy(Auth.getCurrentUser().getUid(),true);
             HashMap<String, Integer> dimenssionHash = new HashMap<>();
             if(!String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.dimenssion_prompt))) {
                 if (String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.d40_40))) {

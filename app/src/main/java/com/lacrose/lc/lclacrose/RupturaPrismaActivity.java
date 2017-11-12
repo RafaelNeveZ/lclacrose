@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.lacrose.lc.lclacrose.Model.PrismaLotes;
@@ -27,7 +28,7 @@ public class RupturaPrismaActivity extends MainActivity {
     EditText edit_carga, edit_altura,edit_largura,edit_comprimento;
     FirebaseDatabase database;
     public static long Hoje;
-
+    private FirebaseAuth Auth;
 
 
     @Override
@@ -42,6 +43,7 @@ public class RupturaPrismaActivity extends MainActivity {
         edit_altura = (EditText) findViewById(R.id.altura_edit_text);
         edit_comprimento = (EditText) findViewById(R.id.comprimento_edit_text);
         edit_carga = (EditText) findViewById(R.id.carga_edit_text);
+        Auth = FirebaseAuth.getInstance();
     }
 
     private void isThisForNow() {
@@ -95,9 +97,11 @@ public class RupturaPrismaActivity extends MainActivity {
         if(validateFields()){
             Prismas newPrisma = new Prismas();
             newPrisma .setCodigo(code_ET.getText().toString());
-            newPrisma .setLargura(Float.parseFloat(edit_largura.getText().toString()));
-            newPrisma .setAltura(Float.parseFloat(edit_altura.getText().toString()));
-            newPrisma .setComprimento(Float.parseFloat(edit_comprimento.getText().toString()));
+            newPrisma .setDim("largura",Float.parseFloat(edit_largura.getText().toString()));
+            newPrisma .setDim("altura",Float.parseFloat(edit_altura.getText().toString()));
+            newPrisma .setDim("comprimento",Float.parseFloat(edit_comprimento.getText().toString()));
+            newPrisma .setCreatedBy(Auth.getCurrentUser().getUid(),true);
+
             newPrisma .setCarga(Float.parseFloat(edit_carga.getText().toString()));
             newPrisma .setDataCreate(ServerValue.TIMESTAMP);
             RupturaPrismasListActivity.prismasList.add(newPrisma);

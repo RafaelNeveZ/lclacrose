@@ -11,6 +11,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.lacrose.lc.lclacrose.Model.Corpos;
@@ -28,6 +29,7 @@ public class RupturaCorpoActivity extends MainActivity {
     EditText edit_carga;
     FirebaseDatabase database;
     public static long Hoje;
+    private FirebaseAuth Auth;
 
 
 
@@ -41,6 +43,7 @@ public class RupturaCorpoActivity extends MainActivity {
         code_ET.setText(CODE);
         spinner_type=(Spinner) findViewById(R.id.type_spinner);
         edit_carga = (EditText) findViewById(R.id.carga_edit_text);
+        Auth = FirebaseAuth.getInstance();
 
     }
 
@@ -98,6 +101,7 @@ public class RupturaCorpoActivity extends MainActivity {
             newCorpo.setCarga(Float.parseFloat(edit_carga.getText().toString()));
             newCorpo.setTipo(String.valueOf(spinner_type.getSelectedItem()));
             newCorpo.setDataCreate(ServerValue.TIMESTAMP);
+            newCorpo.setCreatedBy(Auth.getCurrentUser().getUid(),true);
             RupturaCorpoListActivity.CorposList.add(newCorpo);
             dismissProgress();
             Intent intent = new Intent(RupturaCorpoActivity.this, Continue ? ScanActivity.class : RupturaCorpoListActivity.class);

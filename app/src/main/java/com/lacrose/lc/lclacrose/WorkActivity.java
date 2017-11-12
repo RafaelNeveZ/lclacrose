@@ -74,10 +74,11 @@ public class WorkActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
                             //    for(DataSnapshot d : dataSnapshot.getChildren()) {
+
                                     Obras obras = dataSnapshot.getValue(Obras.class);
                                     obras.setId(dataSnapshot.getKey());
                                     worksList.add(obras);
-                           //     }
+                           //    }
                                     spinner.setVisibility(View.GONE);
                                     workAdapter.notifyDataSetChanged();
                             }else{

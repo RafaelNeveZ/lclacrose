@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -46,10 +47,14 @@ public class RupturaCorpoListActivity extends MainActivity {
     public void saveRuptura(View view) {
         showProgress(getString(R.string.saving));
         corpo_ref = database.getReference(getString(R.string.work_tag)).child(HomeActivity.WorkId+"").child(getString(R.string.lote_corpo_tag)).child(RupturaCorpoActivity.atualLote.getId());
+        Log.e(TAG, "SAVE 1");
         for (Corpos corpo:CorposList) {
+            Log.e(TAG, "SAVE 2");
             corpo_ref.child(getString(R.string.corpos)).push().setValue(corpo).addOnCompleteListener(this,new OnCompleteListener(){
                         @Override
                         public void onComplete(@NonNull Task task) {
+                            Log.e(TAG, "SAVE 3");
+
                             ListSize++;
                             if(task.isSuccessful()) {
                                 if(ListSize>=CorposList.size()) {
@@ -59,9 +64,12 @@ public class RupturaCorpoListActivity extends MainActivity {
                                     startActivity(intent);
                                     finish();
                                 }else{
+                                    Log.e(TAG, "Erro");
+
                                     dismissProgress();
                                 }
                             }else{
+                                Log.e(TAG, "Erro");
                                 dismissProgress();
                                 Toast.makeText(context,getString(R.string.server_error),Toast.LENGTH_SHORT).show();
                             }

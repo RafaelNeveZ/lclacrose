@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.lacrose.lc.lclacrose.R;
 
 import java.sql.Ref;
@@ -16,10 +17,12 @@ public class MainActivity extends AppCompatActivity {
 
     public ProgressDialog progressDialog;
     public static String TAG="####################TAG";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
     }
 
     @UiThread

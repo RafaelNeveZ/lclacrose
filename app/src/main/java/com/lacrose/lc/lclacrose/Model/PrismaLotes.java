@@ -27,6 +27,17 @@ public  class PrismaLotes {
     private boolean funcEstrutural;
     private Object dataCreate;
 
+    public HashMap<String, Boolean> getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String Key,Boolean tru) {
+        if(createdBy == null){
+            createdBy = new HashMap<>();
+        }
+        this.createdBy.put(Key,tru);
+    }private HashMap<String, Boolean> createdBy;
+
     public Object getDataCreate() {
         return dataCreate;
     }

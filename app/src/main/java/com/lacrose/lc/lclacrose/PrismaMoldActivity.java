@@ -64,6 +64,7 @@ public class PrismaMoldActivity extends MainActivity implements DatePickerDialog
     private Switch switch_func;
     private EditText edit_local;
     private TextView tv_switch;
+    private FirebaseAuth Auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +77,7 @@ public class PrismaMoldActivity extends MainActivity implements DatePickerDialog
         fabCalendar = Calendar.getInstance();
         grauteCalendar = Calendar.getInstance();
         database = FireBaseUtil.getDatabase();
+        Auth = FirebaseAuth.getInstance();
         initiateViews();
         showProgress(getString(R.string.getting_lote_number));
         getLoteNumber();
@@ -357,6 +359,9 @@ public class PrismaMoldActivity extends MainActivity implements DatePickerDialog
 
                 }
             }
+
+            newLote.setCreatedBy(Auth.getCurrentUser().getUid(),true);
+
             newLote.setDataCreate(ServerValue.TIMESTAMP);
             ref_lote.push().setValue(newLote).addOnCompleteListener(this,new OnCompleteListener(){
                 @Override

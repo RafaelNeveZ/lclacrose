@@ -63,13 +63,13 @@ public class RupturaBlocoAdapter extends ArrayAdapter<Blocos> {
                 carga.setText(blocos.getCarga()+"");
             }
             if (altura != null) {
-                altura.setText(""+blocos.getAltura());
+                altura.setText(""+blocos.getDim().get("altura"));
             }
             if (largura != null) {
-                largura.setText(""+blocos.getLargura());
+                largura.setText(""+blocos.getDim().get("largura"));
             }
             if (comprimiento != null) {
-                comprimiento.setText(""+blocos.getComprimento());
+                comprimiento.setText(""+blocos.getDim().get("comprimento"));
             }
             if (esp_long != null) {
                 esp_long.setText(""+blocos.getEspessura_longitudinal());

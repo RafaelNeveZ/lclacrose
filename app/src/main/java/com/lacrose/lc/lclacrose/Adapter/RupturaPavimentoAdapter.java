@@ -60,13 +60,13 @@ public class RupturaPavimentoAdapter extends ArrayAdapter<Pavimentos> {
                 carga.setText(pavimentos.getCarga()+"");
             }
             if (altura != null) {
-                altura.setText(""+pavimentos.getAltura());
+                altura.setText(""+pavimentos.getDim().get("altura"));
             }
             if (largura != null) {
-                largura.setText(""+pavimentos.getLargura());
+                largura.setText(""+pavimentos.getDim().get("largura"));
             }
             if (comprimiento != null) {
-                comprimiento.setText(""+pavimentos.getComprimento());
+                comprimiento.setText(""+pavimentos.getDim().get("comprimento"));
             }
             if (data != null) {
                 SimpleDateFormat fmtOut = new SimpleDateFormat("dd/MM/yyyy");

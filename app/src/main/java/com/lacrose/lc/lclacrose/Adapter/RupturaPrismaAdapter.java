@@ -60,13 +60,13 @@ public class RupturaPrismaAdapter extends ArrayAdapter<Prismas> {
                 carga.setText(prismas.getCarga()+"");
             }
             if (altura != null) {
-                altura.setText(""+prismas.getAltura());
+                altura.setText(""+prismas.getDim().get("altura"));
             }
             if (largura != null) {
-                largura.setText(""+prismas.getLargura());
+                largura.setText(""+prismas.getDim().get("largura"));
             }
             if (comprimiento != null) {
-                comprimiento.setText(""+prismas.getComprimento());
+                comprimiento.setText(""+prismas.getDim().get("comprimento"));
             }
             if (data != null) {
                 SimpleDateFormat fmtOut = new SimpleDateFormat("dd/MM/yyyy");

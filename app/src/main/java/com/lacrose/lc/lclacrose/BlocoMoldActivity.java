@@ -58,6 +58,7 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
     ArrayList<String> dimen;
     public boolean isFab=true;
     long date, fabDate;
+    private FirebaseAuth Auth;
 
 
     @Override
@@ -69,6 +70,7 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
         finalCalendar = Calendar.getInstance();
         fabCalendar = Calendar.getInstance();
         database = FireBaseUtil.getDatabase();
+        Auth = FirebaseAuth.getInstance();
         initiateViews();
         showProgress(getString(R.string.getting_lote_number));
         getLoteNumber();
@@ -258,7 +260,7 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
                 }
             }
             newLote.setDataCreate(ServerValue.TIMESTAMP);
-
+            newLote.setCreatedBy(Auth.getCurrentUser().getUid(),true);
             ref_lote.push().setValue(newLote).addOnCompleteListener(this,new OnCompleteListener(){
                 @Override
                 public void onComplete(@NonNull Task task) {

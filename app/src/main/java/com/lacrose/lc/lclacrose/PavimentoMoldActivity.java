@@ -50,6 +50,7 @@ public class PavimentoMoldActivity extends MainActivity implements DatePickerDia
     ArrayList<String> dimen;
     public boolean isFab=true;
     long date, fabDate;
+    private FirebaseAuth Auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class PavimentoMoldActivity extends MainActivity implements DatePickerDia
         finalCalendar = Calendar.getInstance();
         fabCalendar = Calendar.getInstance();
         database = FireBaseUtil.getDatabase();
+        Auth = FirebaseAuth.getInstance();
         initiateViews();
         showProgress(getString(R.string.getting_lote_number));
         getLoteNumber();
@@ -218,6 +220,7 @@ public class PavimentoMoldActivity extends MainActivity implements DatePickerDia
                 newLote.setObs(edit_more.getText().toString());
 
             newLote.setDataCreate(ServerValue.TIMESTAMP);
+            newLote.setCreatedBy(Auth.getCurrentUser().getUid(),true);
             HashMap<String, Integer> dimenssionHash = new HashMap<>();
             if(!String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.dimenssion_prompt))) {
                 if (String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.d60_100_200))) {

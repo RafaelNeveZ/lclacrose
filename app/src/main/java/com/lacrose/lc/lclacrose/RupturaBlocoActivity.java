@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.lacrose.lc.lclacrose.Model.BlocoLotes;
@@ -25,7 +26,7 @@ public class RupturaBlocoActivity extends MainActivity {
     EditText edit_carga, edit_altura,edit_largura,edit_comprimento,edit_espc_long,edit_espc_trans;
     FirebaseDatabase database;
     public static long Hoje;
-
+    private FirebaseAuth Auth;
 
 
     @Override
@@ -42,7 +43,7 @@ public class RupturaBlocoActivity extends MainActivity {
         edit_carga = (EditText) findViewById(R.id.carga_edit_text);
         edit_espc_long = (EditText) findViewById(R.id.esp_long_edit_text);
         edit_espc_trans = (EditText) findViewById(R.id.esp_trans_edit_text);
-
+        Auth = FirebaseAuth.getInstance();
 
     }
 
@@ -93,9 +94,11 @@ public class RupturaBlocoActivity extends MainActivity {
         if(validateFields()){
             Blocos newBloco = new Blocos();
             newBloco .setCodigo(code_ET.getText().toString());
-            newBloco .setLargura(Float.parseFloat(edit_largura.getText().toString()));
-            newBloco .setAltura(Float.parseFloat(edit_altura.getText().toString()));
-            newBloco .setComprimento(Float.parseFloat(edit_comprimento.getText().toString()));
+            newBloco .setDim("largura",Float.parseFloat(edit_largura.getText().toString()));
+            newBloco .setDim("altura",Float.parseFloat(edit_altura.getText().toString()));
+            newBloco .setDim("comprimento",Float.parseFloat(edit_comprimento.getText().toString()));
+            newBloco.setCreatedBy(Auth.getCurrentUser().getUid(),true);
+
             newBloco .setCarga(Float.parseFloat(edit_carga.getText().toString()));
             newBloco .setEspessura_longitudinal(Float.parseFloat(edit_espc_long.getText().toString()));
             newBloco .setEspessura_transvessal(Float.parseFloat(edit_espc_trans.getText().toString()));

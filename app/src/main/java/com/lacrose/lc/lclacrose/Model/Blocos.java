@@ -12,9 +12,32 @@ public class Blocos {
     private String codigo;
     private float carga;
     private Object dataCreate;
-    private float altura,largura,comprimento;
     private float espessura_longitudinal, espessura_transvessal;
+    public HashMap<String, Boolean> getCreatedBy() {
+        return createdBy;
+    }
 
+    public void setCreatedBy(String Key,Boolean tru) {
+        if(createdBy == null){
+            createdBy = new HashMap<>();
+        }
+        this.createdBy.put(Key,tru);
+    }
+
+    private HashMap<String, Float> dimenssions;
+
+    public HashMap<String, Float> getDim() {
+        return dimenssions;
+    }
+
+    public void setDim(String Key,Float value) {
+        if(dimenssions == null){
+            dimenssions = new HashMap<>();
+        }
+        this.dimenssions.put(Key,value);
+    }
+
+    private HashMap<String, Boolean> createdBy;
     public Object getDataCreate() {
         return dataCreate;
     }
@@ -23,29 +46,6 @@ public class Blocos {
         this.dataCreate = dataCreate;
     }
 
-    public float getAltura() {
-        return altura;
-    }
-
-    public void setAltura(float altura) {
-        this.altura = altura;
-    }
-
-    public float getLargura() {
-        return largura;
-    }
-
-    public void setLargura(float largura) {
-        this.largura = largura;
-    }
-
-    public float getComprimento() {
-        return comprimento;
-    }
-
-    public void setComprimento(float comprimento) {
-        this.comprimento = comprimento;
-    }
 
     public float getEspessura_longitudinal() {
         return espessura_longitudinal;
