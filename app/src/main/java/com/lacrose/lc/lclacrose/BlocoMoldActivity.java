@@ -6,6 +6,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,6 +29,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.lacrose.lc.lclacrose.Model.BlocoLotes;
 import com.lacrose.lc.lclacrose.Model.Obras;
 import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
@@ -36,6 +43,7 @@ import com.lacrose.lc.lclacrose.Util.MainActivity;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -45,8 +53,9 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
 
 
     private final Context context = this;
-    DatabaseReference lote_ref;
-    FirebaseDatabase database;
+    CollectionReference lote_ref;
+    FirebaseFirestore database;
+    FirebaseDatabase database2;
     CheckBox check_dimenssion,check_nota,check_dataFab, check_fbk,check_lote,check_fab,check_func,check_date,check_idade;
     Spinner spinner_dimenssion;
     TextView tv_code, tv_switch;
@@ -69,7 +78,8 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
         tempCalendar = Calendar.getInstance();
         finalCalendar = Calendar.getInstance();
         fabCalendar = Calendar.getInstance();
-        database = FireBaseUtil.getDatabase();
+        database = FireBaseUtil.getFireDatabase();
+        database2 = FireBaseUtil.getDatabase();
         Auth = FirebaseAuth.getInstance();
         initiateViews();
         showProgress(getString(R.string.getting_lote_number));
@@ -99,39 +109,37 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
     }
 
     private void getLoteNumber() {
+         Log.d(TAG,ServerValue.TIMESTAMP+"");
         final List<BlocoLotes> loteList = new ArrayList<>();
-        lote_ref = database.getReference(getString(R.string.work_tag)).child(HomeActivity.WorkId+"").child(getString(R.string.lote_bloco_tag));
-        lote_ref.keepSynced(true);
-        lote_ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    for(DataSnapshot d : dataSnapshot.getChildren()) {
-                        BlocoLotes blocoLotes = d.getValue(BlocoLotes.class);
-                        blocoLotes.setId(d.getKey());
-                        loteList.add(blocoLotes);
+        database.collection(getString(R.string.work_tag)+"/"+HomeActivity.WorkId+"/"+getString(R.string.lote_tag))
+                .whereEqualTo("tipo","bloco")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+
+                            int last = task.getResult().size();
+                            Log.d(TAG,getString(R.string.work_tag)+"/"+HomeActivity.WorkId+"/"+getString(R.string.lote_tag));
+                            if (last < 10)
+                                tv_code.setText("000" + last);
+                            else if (last < 100)
+                                tv_code.setText("00" + last);
+                            else if (last < 1000)
+                                tv_code.setText("0" + last);
+                            else if (last < 1000)
+                                tv_code.setText("" + last);
+
+                            dismissProgress();
+                        } else {
+                            dismissProgress();
+                            int last =  0;
+                            tv_code.setText(last+"000");
+
+                        }
                     }
-                    int last =  loteList.get(loteList.size()-1).getCodigo()+1;
-                    if(last<10)
-                        tv_code.setText("000"+last);
-                    else  if(last<100)
-                        tv_code.setText("00"+last);
-                    else  if(last<1000)
-                        tv_code.setText("0"+last);
-                    else  if(last<1000)
-                        tv_code.setText(""+last);
-                    dismissProgress();
-                }else{
-                    dismissProgress();
-                    int last =  0;
-                    tv_code.setText(last+"000");
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                dismissProgress();
-            }
-        });
+                });
+
     }
 
 
@@ -209,7 +217,8 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
     public void loteCreate(View view) {
         showProgress(getString(R.string.create_lote));
         if(validateFields()){
-            final DatabaseReference ref_lote = database.getReference(getString(R.string.work_tag)).child(HomeActivity.WorkId+"").child(getString(R.string.lote_bloco_tag));
+            final CollectionReference ref_lote = database.collection(getString(R.string.work_tag)+"/"+HomeActivity.WorkId+"/"+getString(R.string.lote_tag));
+
             newLote = new BlocoLotes();
             newLote.setCodigo(Integer.parseInt(tv_code.getText().toString()));
 
@@ -259,21 +268,25 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
                     newLote.setDimenssoes(dimenssionHash);
                 }
             }
-            newLote.setDataCreate(ServerValue.TIMESTAMP);
-            newLote.setCreatedBy(Auth.getCurrentUser().getUid(),true);
-            ref_lote.push().setValue(newLote).addOnCompleteListener(this,new OnCompleteListener(){
-                @Override
-                public void onComplete(@NonNull Task task) {
-                    dismissProgress();
-                    if(task.isSuccessful()) {
-                        Toast.makeText(context,getString(R.string.lote_create_sucess),Toast.LENGTH_SHORT).show();
-                        finish();
-                    }else{
-                        Toast.makeText(context,getString(R.string.server_error),Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-
+            newLote.setValid(true);
+            newLote.setTipo("bloco");
+            long todau = Calendar.getInstance().getTime().getTime();
+            Log.d(TAG,todau+"");
+            newLote.setDataCreate(todau);
+            newLote.setCreatedBy(Auth.getCurrentUser().getUid());
+            ref_lote.add(newLote)
+                    .addOnCompleteListener(this,new OnCompleteListener(){
+                        @Override
+                        public void onComplete(@NonNull Task task) {
+                            dismissProgress();
+                            if(task.isSuccessful()) {
+                                Toast.makeText(context,getString(R.string.lote_create_sucess),Toast.LENGTH_SHORT).show();
+                                finish();
+                            }else{
+                                Toast.makeText(context,getString(R.string.server_error),Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
         }else{
             dismissProgress();
         }

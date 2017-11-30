@@ -47,14 +47,14 @@ public class WorkAdapter extends ArrayAdapter<Obras> {
         if (obras != null) {
             TextView work_name = (TextView) view.findViewById(R.id.button_work);
             if (work_name != null) {
-                work_name.setText(context.getString(R.string.work)+": "+obras.getCodigo());
+                work_name.setText(obras.getNome());
             }
             work_name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context,HomeActivity.class);
                     HomeActivity.WorkId = obras.getId();
-                    HomeActivity.label = context.getString(R.string.work)+": "+ obras.getCodigo();
+                    HomeActivity.label = obras.getNome();
                     context.startActivity(intent);
                 }
             });

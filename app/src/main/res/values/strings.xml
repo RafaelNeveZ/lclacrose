@@ -103,10 +103,13 @@
     <string name="body_code">Código do corpo de prova</string>
     <string name="construc_prompt">Selecione a construtora</string>
     <string-array name="construc_arrays">
-        <item>Selecione a construtora</item>
-        <item>Leno Barreto</item>
-        <item>Supermix</item>
-        <item>Terceira</item> <!--//TODO ver o nome-->
+        <item>Massa Fort – MF</item>
+        <item>Lenobetão – LE</item>
+        <item>Polimix – PO</item>
+        <item>Concreserv – CO</item>
+        <item>Supermix – SU</item>
+        <item>EMPOLMIX – EM</item>
+        <item>INPACTOMIX- IN</item> <!--//TODO ver o nome-->
     </string-array>
 
     <string name="carga_text">Carga</string>
@@ -199,6 +202,7 @@
     <string name="list_pavimento_label">PAVIMENTOS ROMPIDOS</string>
     <string name="terms">Agradecemos por usar nossos produtos e serviços (“Serviços”). Os Serviços serão fornecidos pelo Google LLC (“Google”), localizado em 1600 Amphitheatre Parkway, Mountain View, CA 94043, Estados Unidos.  Ao usar nossos Serviços, você está concordando com estes termos. Leia-os com atenção.  Nossos Serviços são muito diversos, portanto, às vezes, podem aplicar-se termos adicionais ou exigências de produtos (inclusive exigências de idade). Os termos adicionais estarão disponíveis com os Serviços relevantes e esses termos adicionais se tornarão parte de nosso contrato com você, caso você use esses Serviços.</string>
     <string name="logo_text">logo</string>
+    <string name="lote_tag">lotes</string>
 
     <string-array name="type_arrays">
         <item>Selecione o tipo</item>

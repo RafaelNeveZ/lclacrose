@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -25,6 +26,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.lacrose.lc.lclacrose.Model.BlocoLotes;
 import com.lacrose.lc.lclacrose.Model.PavimentoLotes;
 import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
@@ -38,8 +43,8 @@ import java.util.List;
 public class PavimentoMoldActivity extends MainActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
 
     private final Context context = this;
-    DatabaseReference lote_ref;
-    FirebaseDatabase database;
+    CollectionReference lote_ref;
+    FirebaseFirestore database;
     CheckBox check_dimenssion,check_nota,check_dataFab, check_fpk,check_lote,check_fab,check_date,check_idade;
     Spinner spinner_dimenssion;
     TextView tv_code;
@@ -60,7 +65,7 @@ public class PavimentoMoldActivity extends MainActivity implements DatePickerDia
         tempCalendar = Calendar.getInstance();
         finalCalendar = Calendar.getInstance();
         fabCalendar = Calendar.getInstance();
-        database = FireBaseUtil.getDatabase();
+        database = FireBaseUtil.getFireDatabase();
         Auth = FirebaseAuth.getInstance();
         initiateViews();
         showProgress(getString(R.string.getting_lote_number));
@@ -79,39 +84,36 @@ public class PavimentoMoldActivity extends MainActivity implements DatePickerDia
     }
 
     private void getLoteNumber() {
-        final List<PavimentoLotes> loteList = new ArrayList<>();
-        lote_ref = database.getReference(getString(R.string.work_tag)).child(HomeActivity.WorkId+"").child(getString(R.string.lote_pavimento_tag));
-        lote_ref.keepSynced(true);
-        lote_ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    for(DataSnapshot d : dataSnapshot.getChildren()) {
-                        PavimentoLotes pavimentoLotes = d.getValue(PavimentoLotes.class);
-                        pavimentoLotes.setId(d.getKey());
-                        loteList.add(pavimentoLotes);
+        Log.d(TAG,ServerValue.TIMESTAMP+"");
+        final List<BlocoLotes> loteList = new ArrayList<>();
+        database.collection(getString(R.string.work_tag)+"/"+HomeActivity.WorkId+"/"+getString(R.string.lote_tag))
+                .whereEqualTo("tipo","pavimento")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+
+                            int last = task.getResult().size();
+                            Log.d(TAG,getString(R.string.work_tag)+"/"+HomeActivity.WorkId+"/"+getString(R.string.lote_tag));
+                            if (last < 10)
+                                tv_code.setText("000" + last);
+                            else if (last < 100)
+                                tv_code.setText("00" + last);
+                            else if (last < 1000)
+                                tv_code.setText("0" + last);
+                            else if (last < 1000)
+                                tv_code.setText("" + last);
+
+                            dismissProgress();
+                        } else {
+                            dismissProgress();
+                            int last =  0;
+                            tv_code.setText(last+"000");
+
+                        }
                     }
-                    int last =  loteList.get(loteList.size()-1).getCodigo()+1;
-                    if(last<10)
-                        tv_code.setText("000"+last);
-                    else  if(last<100)
-                        tv_code.setText("00"+last);
-                    else  if(last<1000)
-                        tv_code.setText("0"+last);
-                    else  if(last<1000)
-                        tv_code.setText(""+last);
-                    dismissProgress();
-                }else{
-                    dismissProgress();
-                    int last =  0;
-                    tv_code.setText(last+"000");
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                dismissProgress();
-            }
-        });
+                });
     }
 
 
@@ -188,7 +190,7 @@ public class PavimentoMoldActivity extends MainActivity implements DatePickerDia
     public void loteCreate(View view) {
         showProgress(getString(R.string.create_lote));
         if(validateFields()){
-            DatabaseReference ref_lote = database.getReference(getString(R.string.work_tag)).child(HomeActivity.WorkId+"").child(getString(R.string.lote_pavimento_tag));
+            final CollectionReference ref_lote = database.collection(getString(R.string.work_tag)+"/"+HomeActivity.WorkId+"/"+getString(R.string.lote_tag));
             newLote = new PavimentoLotes();
             newLote.setCodigo(Integer.parseInt(tv_code.getText().toString()));
 
@@ -219,8 +221,6 @@ public class PavimentoMoldActivity extends MainActivity implements DatePickerDia
             if(!edit_more.getText().toString().isEmpty())
                 newLote.setObs(edit_more.getText().toString());
 
-            newLote.setDataCreate(ServerValue.TIMESTAMP);
-            newLote.setCreatedBy(Auth.getCurrentUser().getUid(),true);
             HashMap<String, Integer> dimenssionHash = new HashMap<>();
             if(!String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.dimenssion_prompt))) {
                 if (String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.d60_100_200))) {
@@ -231,19 +231,25 @@ public class PavimentoMoldActivity extends MainActivity implements DatePickerDia
                 }
             }
 
-            ref_lote.push().setValue(newLote).addOnCompleteListener(this,new OnCompleteListener(){
-                @Override
-                public void onComplete(@NonNull Task task) {
-                    dismissProgress();
-                    if(task.isSuccessful()) {
-                        Toast.makeText(context,getString(R.string.lote_create_sucess),Toast.LENGTH_SHORT).show();
-                        finish();
-                    }else{
-                        Toast.makeText(context,getString(R.string.server_error),Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-
+            newLote.setValid(true);
+            newLote.setTipo("pavimento");
+            long todau = Calendar.getInstance().getTime().getTime();
+            Log.d(TAG,todau+"");
+            newLote.setDataCreate(todau);
+            newLote.setCreatedBy(Auth.getCurrentUser().getUid());
+            ref_lote.add(newLote)
+                    .addOnCompleteListener(this,new OnCompleteListener(){
+                        @Override
+                        public void onComplete(@NonNull Task task) {
+                            dismissProgress();
+                            if(task.isSuccessful()) {
+                                Toast.makeText(context,getString(R.string.lote_create_sucess),Toast.LENGTH_SHORT).show();
+                                finish();
+                            }else{
+                                Toast.makeText(context,getString(R.string.server_error),Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
         }else{
             dismissProgress();
         }

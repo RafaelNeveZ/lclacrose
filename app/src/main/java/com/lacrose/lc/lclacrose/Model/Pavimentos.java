@@ -11,8 +11,10 @@ import java.util.HashMap;
 public class Pavimentos {
     private String codigo;
     private float carga;
+    private long dataCreate;
+    private String createdBy;
+    private boolean isValid;
 
-    private Object dataCreate;
 
     private HashMap<String, Float> dimenssions;
 
@@ -28,28 +30,28 @@ public class Pavimentos {
     }
 
 
-
-    public HashMap<String, Boolean> getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String Key,Boolean tru) {
-        if(createdBy == null){
-            createdBy = new HashMap<>();
-        }
-        this.createdBy.put(Key,tru);
-    }
-
-    private HashMap<String, Boolean> createdBy;
-
-
-
-    public Object getDataCreate() {
+    public long getDataCreate() {
         return dataCreate;
     }
 
-    public void setDataCreate(Object dataCreate) {
+    public void setDataCreate(long dataCreate) {
         this.dataCreate = dataCreate;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public boolean isValid() {
+        return isValid;
+    }
+
+    public void setValid(boolean valid) {
+        isValid = valid;
     }
 
     public String getCodigo() {

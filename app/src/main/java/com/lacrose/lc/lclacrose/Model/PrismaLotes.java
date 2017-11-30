@@ -25,24 +25,18 @@ public  class PrismaLotes {
     private String tipo;
     private HashMap<String, Integer> dimenssoes;
     private boolean funcEstrutural;
-    private Object dataCreate;
+    private long dataCreate;
+    private boolean isValid;
+    private String createdBy;
+    private String tipo_de_prisma;
 
-    public HashMap<String, Boolean> getCreatedBy() {
-        return createdBy;
-    }
 
-    public void setCreatedBy(String Key,Boolean tru) {
-        if(createdBy == null){
-            createdBy = new HashMap<>();
-        }
-        this.createdBy.put(Key,tru);
-    }private HashMap<String, Boolean> createdBy;
 
-    public Object getDataCreate() {
+    public long getDataCreate() {
         return dataCreate;
     }
 
-    public void setDataCreate(Object dataCreate) {
+    public void setDataCreate(long dataCreate) {
         this.dataCreate = dataCreate;
     }
 
@@ -178,5 +172,29 @@ public  class PrismaLotes {
     }
 
     public PrismaLotes() {
+    }
+
+    public boolean isValid() {
+        return isValid;
+    }
+
+    public void setValid(boolean valid) {
+        isValid = valid;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getTipo_de_prisma() {
+        return tipo_de_prisma;
+    }
+
+    public void setTipo_de_prisma(String tipo_de_prisma) {
+        this.tipo_de_prisma = tipo_de_prisma;
     }
 }

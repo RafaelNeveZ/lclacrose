@@ -150,5 +150,6 @@
     <string name="list_prismas_label">PRISMAS ROMPIDOS</string>
     <string name="list_pavimento_label">PAVIMENTOS ROMPIDOS</string>
     <string name="logo_text">logo</string>
+    <string name="lote_tag">lotes</string>
 
 </resources>

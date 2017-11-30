@@ -18,6 +18,7 @@ import com.lacrose.lc.lclacrose.Model.Prismas;
 import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
+import java.util.Calendar;
 
 
 public class RupturaPrismaActivity extends MainActivity {
@@ -100,10 +101,11 @@ public class RupturaPrismaActivity extends MainActivity {
             newPrisma .setDim("largura",Float.parseFloat(edit_largura.getText().toString()));
             newPrisma .setDim("altura",Float.parseFloat(edit_altura.getText().toString()));
             newPrisma .setDim("comprimento",Float.parseFloat(edit_comprimento.getText().toString()));
-            newPrisma .setCreatedBy(Auth.getCurrentUser().getUid(),true);
+            newPrisma .setCreatedBy(Auth.getCurrentUser().getUid());
 
             newPrisma .setCarga(Float.parseFloat(edit_carga.getText().toString()));
-            newPrisma .setDataCreate(ServerValue.TIMESTAMP);
+            newPrisma .setDataCreate(Calendar.getInstance().getTime().getTime());
+            newPrisma .setValid(true);
             RupturaPrismasListActivity.prismasList.add(newPrisma);
             dismissProgress();
             Intent intent = new Intent(RupturaPrismaActivity.this, Continue ? ScanActivity.class : RupturaPrismasListActivity.class);

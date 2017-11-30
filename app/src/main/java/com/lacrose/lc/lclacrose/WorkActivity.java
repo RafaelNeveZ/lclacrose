@@ -3,6 +3,8 @@ package com.lacrose.lc.lclacrose;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +16,9 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -22,18 +27,35 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.lacrose.lc.lclacrose.Adapter.WorkAdapter;
 import com.lacrose.lc.lclacrose.Model.Obras;
 import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class WorkActivity extends AppCompatActivity {
     private FirebaseAuth Auth;
     private final Context context = this;
-    FirebaseDatabase database;
-    DatabaseReference user_works_ref ,works_ref;
+    FirebaseFirestore database;
+    CollectionReference user_works_ref;
+
     private ProgressBar spinner;
     public TextView textEmpty;
 
@@ -48,7 +70,7 @@ public class WorkActivity extends AppCompatActivity {
         spinner=(ProgressBar)findViewById(R.id.progressBar);
         textEmpty=(TextView) findViewById(R.id.empyt_text);
         Auth = FirebaseAuth.getInstance();
-        database = FireBaseUtil.getDatabase();
+        database = FireBaseUtil.getFireDatabase();
         showListOfWorks();
 
 
@@ -62,9 +84,42 @@ public class WorkActivity extends AppCompatActivity {
         workListView.setDivider(null);
         final WorkAdapter workAdapter = new WorkAdapter(this, R.layout.item_work, worksList);
         workListView.setAdapter(workAdapter);
-        user_works_ref = database.getReference(getString(R.string.user_tag)).child(Auth.getCurrentUser().getUid()).child(getString(R.string.work_tag));
-        user_works_ref.keepSynced(true);
-        works_ref = database.getReference(getString(R.string.work_tag));
+
+        user_works_ref = database.collection(getString(R.string.user_tag)+"/"+Auth.getCurrentUser().getUid()+"/"+getString(R.string.work_tag));
+        user_works_ref
+        .addSnapshotListener(new EventListener<QuerySnapshot>() {
+
+            @Override
+            public void onEvent(@Nullable QuerySnapshot querySnapshot,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.w(TAG, "Listen error", e);
+                    return;
+                }
+
+                for (DocumentChange change : querySnapshot.getDocumentChanges()) {
+                    if (change.getType() == DocumentChange.Type.ADDED) {
+                        Log.d(TAG, "WORK" + change.getDocument().getId());
+                        DocumentReference works_ref;
+                        final String obraiD = change.getDocument().getId();
+                        works_ref = database.document(getString(R.string.work_tag) + "/" + obraiD);
+                        works_ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                Obras obra = documentSnapshot.toObject(Obras.class);
+                                obra.setId(obraiD);
+                                worksList.add(obra);
+                                spinner.setVisibility(View.GONE);
+                                workAdapter.notifyDataSetChanged();
+                            }
+                        });
+
+                    }
+
+                }
+            }
+        });
+        /*works_ref = database.getReference(getString(R.string.work_tag));
         Log.e(TAG,"before");
         user_works_ref.addChildEventListener(new ChildEventListener() {
             @Override
@@ -117,7 +172,7 @@ public class WorkActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
                 spinner.setVisibility(View.GONE);
             }
-        });
+        });*/
     }
 
 

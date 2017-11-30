@@ -13,31 +13,32 @@ public class Corpos {
     private String codigo;
     private float carga;
     private String tipo;
-    private Object dataCreate;
+    private long dataCreate;
+    private String createdBy;
+    private boolean isValid;
 
-    public HashMap<String, Boolean> getCreatedBy() {
-        return createdBy;
+    public boolean isValid() {
+        return isValid;
     }
 
-    public void setCreatedBy(String Key,Boolean tru) {
-        if(createdBy == null){
-            createdBy = new HashMap<>();
-        }
-        this.createdBy.put(Key,tru);
+    public void setValid(boolean valid) {
+        isValid = valid;
     }
 
-    private HashMap<String, Boolean> createdBy;
-
-
-
-
-
-    public Object getDataCreate() {
+    public long getDataCreate() {
         return dataCreate;
     }
 
-    public void setDataCreate(Object dataCreate) {
+    public void setDataCreate(long dataCreate) {
         this.dataCreate = dataCreate;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
     public String getCodigo() {

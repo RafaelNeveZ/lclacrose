@@ -14,7 +14,7 @@ public  class BlocoLotes {
     private long idade;
     private long notaFiscal;
     private String lote;
-    private String local;
+
     private int FBK;
     private long data;
     private long dataFab;
@@ -22,26 +22,13 @@ public  class BlocoLotes {
     private String obs;
     private HashMap<String, Integer> dimenssoes;
     private boolean funcEstrutural;
-    private Object dataCreate;
+    private long dataCreate;
+    private boolean isValid;
+    private String tipo;
 
-    public HashMap<String, Boolean> getCreatedBy() {
-        return createdBy;
-    }
+    private String createdBy;
 
-    public void setCreatedBy(String Key,Boolean tru) {
-        if(createdBy == null){
-            createdBy = new HashMap<>();
-        }
-        this.createdBy.put(Key,tru);
-    }private HashMap<String, Boolean> createdBy;
 
-    public Object getDataCreate() {
-        return dataCreate;
-    }
-
-    public void setDataCreate(Object dataCreate) {
-        this.dataCreate = dataCreate;
-    }
 
 
     public String getLote() {
@@ -58,14 +45,6 @@ public  class BlocoLotes {
 
     public void setObs(String obs) {
         this.obs = obs;
-    }
-
-    public String getLocal() {
-        return local;
-    }
-
-    public void setLocal(String local) {
-        this.local = local;
     }
 
     public String getId() {
@@ -150,6 +129,39 @@ public  class BlocoLotes {
     }
 
     public BlocoLotes() {
+        isValid = true;
     }
 
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public boolean isValid() {
+        return isValid;
+    }
+
+    public void setValid(boolean valid) {
+        isValid = valid;
+    }
+
+    public long getDataCreate() {
+        return dataCreate;
+    }
+
+    public void setDataCreate(long dataCreate) {
+        this.dataCreate = dataCreate;
+    }
 }

@@ -19,6 +19,8 @@ import com.lacrose.lc.lclacrose.Model.CorpoLotes;
 import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
+import java.util.Calendar;
+
 
 public class RupturaCorpoActivity extends MainActivity {
     public static String CODE;
@@ -100,8 +102,9 @@ public class RupturaCorpoActivity extends MainActivity {
             newCorpo.setCodigo(code_ET.getText().toString());
             newCorpo.setCarga(Float.parseFloat(edit_carga.getText().toString()));
             newCorpo.setTipo(String.valueOf(spinner_type.getSelectedItem()));
-            newCorpo.setDataCreate(ServerValue.TIMESTAMP);
-            newCorpo.setCreatedBy(Auth.getCurrentUser().getUid(),true);
+            newCorpo.setDataCreate(Calendar.getInstance().getTime().getTime());
+            newCorpo.setCreatedBy(Auth.getCurrentUser().getUid());
+            newCorpo .setValid(true);
             RupturaCorpoListActivity.CorposList.add(newCorpo);
             dismissProgress();
             Intent intent = new Intent(RupturaCorpoActivity.this, Continue ? ScanActivity.class : RupturaCorpoListActivity.class);

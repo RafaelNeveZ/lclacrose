@@ -16,26 +16,30 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.lacrose.lc.lclacrose.Adapter.RupturaBlocoAdapter;
 import com.lacrose.lc.lclacrose.Model.Blocos;
 import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
+import java.util.Collection;
 import java.util.List;
 
 
 public class RupturaBlocoListActivity extends MainActivity {
-    public static  List<Blocos> BlocosList;
-    private final Context context=this;
-    DatabaseReference corpo_ref;
-    FirebaseDatabase database;
+    public static List<Blocos> BlocosList;
+    private final Context context = this;
+    CollectionReference corpo_ref;
+    FirebaseFirestore database;
     int ListSize = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ruptura_list);
-        database = FireBaseUtil.getDatabase();
+        database = FireBaseUtil.getFireDatabase();
         ListView rupturaListView = (ListView) findViewById(R.id.ruptura_list);
         rupturaListView.setDivider(null);
         RupturaBlocoAdapter blocosAdapter = new RupturaBlocoAdapter(this, R.layout.item_ruptura_bloco, BlocosList);
@@ -44,30 +48,32 @@ public class RupturaBlocoListActivity extends MainActivity {
 
     public void saveRuptura(View view) {
         showProgress(getString(R.string.saving));
-        corpo_ref = database.getReference(getString(R.string.work_tag)).child(HomeActivity.WorkId+"").child(getString(R.string.lote_bloco_tag)).child(RupturaBlocoActivity.atualLote.getId());
-        for (Blocos blocos:BlocosList) {
-            corpo_ref.child(getString(R.string.corpos)).push().setValue(blocos).addOnCompleteListener(this,new OnCompleteListener(){
-                        @Override
-                        public void onComplete(@NonNull Task task) {
-                            ListSize++;
-                            if(task.isSuccessful()) {
-                                if(ListSize>=BlocosList.size()) {
-                                    dismissProgress();
-                                    Toast.makeText(context,getString(R.string.rupturas_create_sucess),Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(RupturaBlocoListActivity.this, HomeActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }else{
-                                    dismissProgress();
-                                }
-                            }else{
-                                dismissProgress();
-                                Toast.makeText(context,getString(R.string.server_error),Toast.LENGTH_SHORT).show();
-                            }
+        corpo_ref = database.collection(getString(R.string.work_tag) + "/" + HomeActivity.WorkId + "/" + getString(R.string.lote_tag) + "/" + RupturaBlocoActivity.atualLote.getId() + "/corpos");
+        for (Blocos blocos : BlocosList) {
+            corpo_ref.add(blocos).addOnCompleteListener(this, new OnCompleteListener() {
+                @Override
+                public void onComplete(@NonNull Task task) {
+                    ListSize++;
+                    if (task.isSuccessful()) {
+                        if(ListSize>=BlocosList.size()) {
+                        dismissProgress();
+                        Toast.makeText(context,getString(R.string.rupturas_create_sucess),Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(RupturaBlocoListActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                        }else{
+                            dismissProgress();
                         }
-        });
+                    } else {
+                        dismissProgress();
+                    }
 
-    }
+                }
+            });
+        }
+
+
+
 }
 
     @Override

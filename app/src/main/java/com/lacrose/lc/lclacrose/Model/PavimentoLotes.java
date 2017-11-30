@@ -20,26 +20,13 @@ public  class PavimentoLotes {
     private String fabricante;
     private String obs;
     private HashMap<String, Integer> dimenssoes;
-    private Object dataCreate;
+    private long dataCreate;
+    private boolean isValid;
+    private String createdBy;
+    private String tipo;
 
-    public HashMap<String, Boolean> getCreatedBy() {
-        return createdBy;
-    }
 
-    public void setCreatedBy(String Key,Boolean tru) {
-        if(createdBy == null){
-            createdBy = new HashMap<>();
-        }
-        this.createdBy.put(Key,tru);
-    }private HashMap<String, Boolean> createdBy;
 
-    public Object getDataCreate() {
-        return dataCreate;
-    }
-
-    public void setDataCreate(Object dataCreate) {
-        this.dataCreate = dataCreate;
-    }
 
     public String getLote() {
         return lote;
@@ -132,5 +119,37 @@ public  class PavimentoLotes {
     }
 
     public PavimentoLotes() {
+    }
+
+    public long getDataCreate() {
+        return dataCreate;
+    }
+
+    public void setDataCreate(long dataCreate) {
+        this.dataCreate = dataCreate;
+    }
+
+    public boolean isValid() {
+        return isValid;
+    }
+
+    public void setValid(boolean valid) {
+        isValid = valid;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 }

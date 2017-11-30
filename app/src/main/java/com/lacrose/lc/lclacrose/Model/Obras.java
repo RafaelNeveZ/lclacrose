@@ -14,18 +14,18 @@ public class Obras {
     }
 
     String id;
-    int codigo;
+    String nome;
     String centro_de_custo;
 
     public Obras() {
     }
 
-    public int getCodigo() {
-        return codigo;
+    public String getNome() {
+        return nome;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getCentro_de_custo() {

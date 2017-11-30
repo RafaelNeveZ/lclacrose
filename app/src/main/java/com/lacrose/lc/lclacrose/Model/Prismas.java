@@ -12,20 +12,9 @@ public class Prismas {
     private String codigo;
     private float carga;
 
-    private Object dataCreate;
-
-    public HashMap<String, Boolean> getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String Key,Boolean tru) {
-        if(createdBy == null){
-            createdBy = new HashMap<>();
-        }
-        this.createdBy.put(Key,tru);
-    }
-
-    private HashMap<String, Boolean> createdBy;
+    private long dataCreate;
+    private String createdBy;
+    private boolean isValid;
 
     private HashMap<String, Float> dimenssions;
 
@@ -40,12 +29,29 @@ public class Prismas {
         this.dimenssions.put(Key,value);
     }
 
-    public Object getDataCreate() {
+
+    public long getDataCreate() {
         return dataCreate;
     }
 
-    public void setDataCreate(Object dataCreate) {
+    public void setDataCreate(long dataCreate) {
         this.dataCreate = dataCreate;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public boolean isValid() {
+        return isValid;
+    }
+
+    public void setValid(boolean valid) {
+        isValid = valid;
     }
 
     public String getCodigo() {

@@ -22,16 +22,16 @@ public class HomeActivity extends MainActivity {
     private static final int PERMISSION_REQUEST_CODE = 7;
     public static String label;
     public static  String WorkId;
-    FirebaseDatabase database;
+   // FirebaseDatabase database;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         setTitle(label);
-        DatabaseReference user_works_ref;
+       /* DatabaseReference user_works_ref;
         database = FireBaseUtil.getDatabase();
         user_works_ref = database.getReference(getString(R.string.work_tag)).child(WorkId);
-        user_works_ref.keepSynced(true);
+        user_works_ref.keepSynced(true);*/
     }
 
     public void scanButton(View view) {
@@ -64,7 +64,7 @@ public class HomeActivity extends MainActivity {
                 if (grantResults.length > 0) {
                     boolean cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     if (cameraAccepted) {
-                        Intent intent = new Intent(HomeActivity.this, ScanActivity.class);
+                        Intent intent = new Intent(HomeActivity.this, LotesActivity.class);
                         startActivity(intent);
                     }else {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

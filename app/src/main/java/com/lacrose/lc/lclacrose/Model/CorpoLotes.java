@@ -10,7 +10,6 @@ public  class CorpoLotes {
     private String id;
     private int codigo;
     private String material;
-    private String dimenssoes_nominais;
     private String concreteira;
     private long idade;
     private long notaFiscal;
@@ -22,18 +21,12 @@ public  class CorpoLotes {
     private String local_concretado;
     private String obs;
     private HashMap<String, Integer> dimenssoes;
-    private Object dataCreate;
+    private long dataCreate;
+    private boolean isValid;
+    private String createdBy;
+    private String tipo;
 
-    public HashMap<String, Boolean> getCreatedBy() {
-        return createdBy;
-    }
 
-    public void setCreatedBy(String Key,Boolean tru) {
-        if(createdBy == null){
-            createdBy = new HashMap<>();
-        }
-        this.createdBy.put(Key,tru);
-    }private HashMap<String, Boolean> createdBy;
 
     public long getIdade() {
         return idade;
@@ -43,13 +36,7 @@ public  class CorpoLotes {
         this.idade = idade;
     }
 
-    public Object getDataCreate() {
-        return dataCreate;
-    }
 
-    public void setDataCreate(Object dataCreate) {
-        this.dataCreate = dataCreate;
-    }
 
     public HashMap<String, Integer> getDimenssoes() {
         return dimenssoes;
@@ -94,13 +81,7 @@ public  class CorpoLotes {
         this.material = material;
     }
 
-    public String getDimenssoes_nominais() {
-        return dimenssoes_nominais;
-    }
 
-    public void setDimenssoes_nominais(String dimenssoes_nominais) {
-        this.dimenssoes_nominais = dimenssoes_nominais;
-    }
 
     public String getConcreteira() {
         return concreteira;
@@ -173,5 +154,37 @@ public  class CorpoLotes {
             dimenssoes = new HashMap<>();
 
         dimenssoes.put(Key, value);
+    }
+
+    public boolean isValid() {
+        return isValid;
+    }
+
+    public void setValid(boolean valid) {
+        isValid = valid;
+    }
+
+    public long getDataCreate() {
+        return dataCreate;
+    }
+
+    public void setDataCreate(long dataCreate) {
+        this.dataCreate = dataCreate;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 }

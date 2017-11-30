@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -27,6 +28,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.lacrose.lc.lclacrose.Model.BlocoLotes;
 import com.lacrose.lc.lclacrose.Model.CorpoLotes;
 import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
@@ -41,8 +46,8 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
 
 
     private final Context context = this;
-    DatabaseReference lote_ref, ref_lote;
-    FirebaseDatabase database;
+    CollectionReference lote_ref;
+    FirebaseFirestore database;
     CheckBox check_material,check_dimenssion,check_construc,check_nota,check_volume,check_fck,check_slump,check_slump_flow,check_date,check_local, check_idade;
     Spinner spinner_material,spinner_dimenssion,spinner_contruc;
     EditText edit_nota,edit_volume,edit_fck,edit_slump,edit_slump_flow,edit_local,edit_more,edit_idade;
@@ -62,7 +67,7 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
         refCalendar = Calendar.getInstance();
         tempCalendar = Calendar.getInstance();
         finalCalendar = Calendar.getInstance();
-        database = FireBaseUtil.getDatabase();
+        database = FireBaseUtil.getFireDatabase();
         Auth = FirebaseAuth.getInstance();
         initiateViews();
         showProgress(getString(R.string.getting_lote_number));
@@ -144,41 +149,36 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
     }
 
     private void getLoteNumber() {
-        final List<CorpoLotes> loteList = new ArrayList<>();
-        lote_ref = database.getReference(getString(R.string.work_tag)).child(HomeActivity.WorkId+"").child(getString(R.string.lote_corpo_tag));
-        lote_ref.keepSynced(true);
-        lote_ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    for(DataSnapshot d : dataSnapshot.getChildren()) {
-                        CorpoLotes corpoLotes = d.getValue(CorpoLotes.class);
-                        corpoLotes.setId(d.getKey());
-                        loteList.add(corpoLotes);
+        Log.d(TAG,ServerValue.TIMESTAMP+"");
+        final List<BlocoLotes> loteList = new ArrayList<>();
+        database.collection(getString(R.string.work_tag)+"/"+HomeActivity.WorkId+"/"+getString(R.string.lote_tag))
+                .whereEqualTo("tipo","cp")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+
+                            int last = task.getResult().size();
+                            Log.d(TAG,getString(R.string.work_tag)+"/"+HomeActivity.WorkId+"/"+getString(R.string.lote_tag));
+                            if (last < 10)
+                                tv_code.setText("000" + last);
+                            else if (last < 100)
+                                tv_code.setText("00" + last);
+                            else if (last < 1000)
+                                tv_code.setText("0" + last);
+                            else if (last < 1000)
+                                tv_code.setText("" + last);
+
+                            dismissProgress();
+                        } else {
+                            dismissProgress();
+                            int last =  0;
+                            tv_code.setText(last+"000");
+
+                        }
                     }
-                    int last =  loteList.get(loteList.size()-1).getCodigo()+1;
-
-                    if(last<10)
-                    tv_code.setText("000"+last);
-                    else  if(last<100)
-                        tv_code.setText("00"+last);
-                    else  if(last<1000)
-                            tv_code.setText("0"+last);
-                    else  if(last<1000)
-                                tv_code.setText(""+last);
-                    dismissProgress();
-
-                }else{
-                    dismissProgress();
-                    int last =  0;
-                    tv_code.setText(last+"000");
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                dismissProgress();
-            }
-        });
+                });
     }
 
     public void initiateViews(){
@@ -253,7 +253,7 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
     public void loteCreate(View view) {
         showProgress(getString(R.string.create_lote));
         if(validateFields()){
-            ref_lote = database.getReference(getString(R.string.work_tag)).child(HomeActivity.WorkId+"").child(getString(R.string.lote_corpo_tag));
+            final CollectionReference ref_lote = database.collection(getString(R.string.work_tag)+"/"+HomeActivity.WorkId+"/"+getString(R.string.lote_tag));
             newLote = new CorpoLotes();
             newLote.setCodigo(Integer.parseInt(tv_code.getText().toString()));
 
@@ -297,8 +297,12 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
             if(!edit_more.getText().toString().isEmpty())
             newLote.setObs(edit_more.getText().toString());
 
-            newLote.setDataCreate(ServerValue.TIMESTAMP);
-            newLote.setCreatedBy(Auth.getCurrentUser().getUid(),true);
+            newLote.setValid(true);
+            newLote.setTipo("cp");
+            long todau = Calendar.getInstance().getTime().getTime();
+            Log.d(TAG,todau+"");
+            newLote.setDataCreate(todau);
+            newLote.setCreatedBy(Auth.getCurrentUser().getUid());
             HashMap<String, Integer> dimenssionHash = new HashMap<>();
             if(!String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.dimenssion_prompt))) {
                 if (String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.d40_40))) {
@@ -315,19 +319,19 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
                     newLote.setDimenssoes(dimenssionHash);
                 }
             }
-            ref_lote.push().setValue(newLote).addOnCompleteListener(this,new OnCompleteListener(){
-                @Override
-                public void onComplete(@NonNull Task task) {
-                    dismissProgress();
-                    if(task.isSuccessful()) {
-                        Toast.makeText(context,getString(R.string.lote_create_sucess),Toast.LENGTH_SHORT).show();
-                        finish();
-                    }else{
-                        Toast.makeText(context,getString(R.string.server_error),Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-
+            ref_lote.add(newLote)
+                    .addOnCompleteListener(this,new OnCompleteListener(){
+                        @Override
+                        public void onComplete(@NonNull Task task) {
+                            dismissProgress();
+                            if(task.isSuccessful()) {
+                                Toast.makeText(context,getString(R.string.lote_create_sucess),Toast.LENGTH_SHORT).show();
+                                finish();
+                            }else{
+                                Toast.makeText(context,getString(R.string.server_error),Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
         }else{
             dismissProgress();
         }

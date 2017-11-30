@@ -16,7 +16,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.lacrose.lc.lclacrose.Adapter.RupturaPrismaAdapter;
+import com.lacrose.lc.lclacrose.Model.Corpos;
 import com.lacrose.lc.lclacrose.Model.Prismas;
 import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
@@ -27,8 +30,8 @@ import java.util.List;
 public class RupturaPrismasListActivity extends MainActivity {
     public static  List<Prismas> prismasList;
     private final Context context=this;
-    DatabaseReference corpo_ref;
-    FirebaseDatabase database;
+    CollectionReference corpo_ref;
+    FirebaseFirestore database;
     int ListSize = 0;
 
 
@@ -36,7 +39,7 @@ public class RupturaPrismasListActivity extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ruptura_list);
-        database = FireBaseUtil.getDatabase();
+        database = FireBaseUtil.getFireDatabase();
         ListView rupturaListView = (ListView) findViewById(R.id.ruptura_list);
         rupturaListView.setDivider(null);
         RupturaPrismaAdapter prismasAdapter = new RupturaPrismaAdapter(this, R.layout.item_ruptura_prisma, prismasList);
@@ -45,30 +48,29 @@ public class RupturaPrismasListActivity extends MainActivity {
 
     public void saveRuptura(View view) {
         showProgress(getString(R.string.saving));
-        corpo_ref = database.getReference(getString(R.string.work_tag)).child(HomeActivity.WorkId+"").child(getString(R.string.lote_prisma_tag)).child(RupturaPrismaActivity.atualLote.getId());
-        for (Prismas prismas: prismasList) {
-            corpo_ref.child(getString(R.string.corpos)).push().setValue(prismas).addOnCompleteListener(this,new OnCompleteListener(){
-                        @Override
-                        public void onComplete(@NonNull Task task) {
-                            ListSize++;
-                            if(task.isSuccessful()) {
-                                if(ListSize>= prismasList.size()) {
-                                    dismissProgress();
-                                    Toast.makeText(context,getString(R.string.rupturas_create_sucess),Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(RupturaPrismasListActivity.this, HomeActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }else{
-                                    dismissProgress();
-                                }
-                            }else{
-                                dismissProgress();
-                                Toast.makeText(context,getString(R.string.server_error),Toast.LENGTH_SHORT).show();
-                            }
+        corpo_ref = database.collection(getString(R.string.work_tag) + "/" + HomeActivity.WorkId + "/" + getString(R.string.lote_tag) + "/" + RupturaPrismaActivity.atualLote.getId() + "/corpos");
+        for (Prismas prismas : prismasList) {
+            corpo_ref.add(prismas).addOnCompleteListener(this, new OnCompleteListener() {
+                @Override
+                public void onComplete(@NonNull Task task) {
+                    ListSize++;
+                    if (task.isSuccessful()) {
+                        if(ListSize>=prismasList.size()) {
+                            dismissProgress();
+                            Toast.makeText(context,getString(R.string.rupturas_create_sucess),Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(RupturaPrismasListActivity.this, HomeActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else{
+                            dismissProgress();
                         }
-        });
+                    } else {
+                        dismissProgress();
+                    }
 
-    }
+                }
+            });
+        }
 }
 
     @Override

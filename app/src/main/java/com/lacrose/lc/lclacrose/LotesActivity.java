@@ -2,6 +2,8 @@ package com.lacrose.lc.lclacrose;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,17 +15,25 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.lacrose.lc.lclacrose.Adapter.BlocoLoteAdapter;
 import com.lacrose.lc.lclacrose.Adapter.CorpoLoteAdapter;
 import com.lacrose.lc.lclacrose.Adapter.PavimentoLoteAdapter;
 import com.lacrose.lc.lclacrose.Adapter.PrismaLoteAdapter;
 import com.lacrose.lc.lclacrose.Model.BlocoLotes;
 import com.lacrose.lc.lclacrose.Model.CorpoLotes;
+import com.lacrose.lc.lclacrose.Model.Obras;
 import com.lacrose.lc.lclacrose.Model.PavimentoLotes;
 import com.lacrose.lc.lclacrose.Model.PrismaLotes;
 import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
@@ -33,8 +43,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LotesActivity extends MainActivity {
-    FirebaseDatabase database;
-    DatabaseReference work_lotes_corpo_ref;
+    FirebaseFirestore database;
+    CollectionReference work_lotes_corpo_ref;
     private ProgressBar spinner;
     public TextView textEmpty;
     public Spinner spinner_tipo_lote;
@@ -59,7 +69,7 @@ public class LotesActivity extends MainActivity {
         spinner=(ProgressBar)findViewById(R.id.progressBar);
         textEmpty=(TextView) findViewById(R.id.empyt_text);
         spinner_tipo_lote = (Spinner)findViewById(R.id.spinner_tipo_lote);
-        database = FireBaseUtil.getDatabase();
+        database = FireBaseUtil.getFireDatabase();
         tipoLoteList = new ArrayList<>();
         tipoLoteList.add(getString(R.string.body));
         tipoLoteList.add(getString(R.string.bloco));
@@ -76,20 +86,20 @@ public class LotesActivity extends MainActivity {
                 ondeEstou = position;
                 switch (position) {
                     case 0:
-                        tipoLote = getString(R.string.lote_corpo_tag);
-                        showListOfLotes(getString(R.string.lote_corpo_tag),position);
+                        tipoLote = "cp";
+                        showListOfLotes("cp",position);
                         break;
                     case 1:
-                        tipoLote = getString(R.string.lote_bloco_tag);
-                        showListOfLotes(getString(R.string.lote_bloco_tag),position);
+                        tipoLote = "bloco";
+                        showListOfLotes("bloco",position);
                         break;
                     case 2:
-                        tipoLote = getString(R.string.lote_prisma_tag);
-                        showListOfLotes(getString(R.string.lote_prisma_tag),position);
+                        tipoLote = "prisma";
+                        showListOfLotes("prisma",position);
                         break;
                     case 3:
-                        tipoLote = getString(R.string.lote_pavimento_tag);
-                        showListOfLotes(getString(R.string.lote_pavimento_tag),position);
+                        tipoLote = "pavimento";
+                        showListOfLotes("pavimento",position);
                         break;
 
                 }
@@ -134,9 +144,70 @@ public class LotesActivity extends MainActivity {
                 pavimentoListView.setAdapter(pavimentoAdapter);
                 break;
         }
-        work_lotes_corpo_ref = database.getReference(getString(R.string.work_tag)).child(HomeActivity.WorkId).child(LoteTypetag);
-        work_lotes_corpo_ref.keepSynced(true);
-        work_lotes_corpo_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        work_lotes_corpo_ref = database.collection(getString(R.string.work_tag)+"/"+HomeActivity.WorkId+"/"+getString(R.string.lote_tag));
+        work_lotes_corpo_ref
+                .whereEqualTo("tipo",LoteTypetag)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot documentSnapshot) {
+                        if (!documentSnapshot.isEmpty() && documentSnapshot != null) {
+                            switch (ondeEstou) {
+                                case 0:
+                                    for (DocumentSnapshot d : documentSnapshot.getDocuments()) {
+                                        CorpoLotes corpoLotes = d.toObject(CorpoLotes.class);
+                                        corpoLotes.setId(d.getId());
+                                        corpoList.add(corpoLotes);
+                                    }
+                                    corpoAdapter.notifyDataSetChanged();
+                                    break;
+                                case 1:
+                                    for (DocumentSnapshot d : documentSnapshot.getDocuments()) {
+                                        BlocoLotes blocoLotes = d.toObject(BlocoLotes.class);
+                                        blocoLotes.setId(d.getId());
+                                        blocoList.add(blocoLotes);
+                                    }
+                                    blocoAdapter.notifyDataSetChanged();
+                                    break;
+                                case 2:
+                                    for (DocumentSnapshot d : documentSnapshot.getDocuments()) {
+                                        PrismaLotes prismaLotes = d.toObject(PrismaLotes.class);
+                                        prismaLotes.setId(d.getId());
+                                        prismaList.add(prismaLotes);
+                                    }
+                                    prismaAdapter.notifyDataSetChanged();
+                                    break;
+                                case 3:
+                                    for (DocumentSnapshot d : documentSnapshot.getDocuments()) {
+                                        PavimentoLotes pavimentoLotes = d.toObject(PavimentoLotes.class);
+                                        pavimentoLotes.setId(d.getId());
+                                        pavimentoList.add(pavimentoLotes);
+                                    }
+                                    pavimentoAdapter.notifyDataSetChanged();
+                                    break;
+                            }
+                        } else {
+                            switch (ondeEstou) {
+                                case 0:
+                                    corpoAdapter.notifyDataSetChanged();
+                                    break;
+                                case 1:
+                                    blocoAdapter.notifyDataSetChanged();
+                                    break;
+                                case 2:
+                                    prismaAdapter.notifyDataSetChanged();
+                                    break;
+                                case 3:
+                                    pavimentoAdapter.notifyDataSetChanged();
+                                    break;
+                            }
+                            textEmpty.setVisibility(View.VISIBLE);
+                        }
+                        spinner.setVisibility(View.GONE);
+                    }
+                });
+
+           /*     .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -198,7 +269,7 @@ public class LotesActivity extends MainActivity {
             public void onCancelled(DatabaseError databaseError) {
                 spinner.setVisibility(View.GONE);
             }
-        });
+        });*/
     }
 
 

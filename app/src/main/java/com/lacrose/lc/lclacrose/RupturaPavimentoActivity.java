@@ -19,6 +19,8 @@ import com.lacrose.lc.lclacrose.Model.Pavimentos;
 import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
+import java.util.Calendar;
+
 public class RupturaPavimentoActivity extends MainActivity {
     public static String CODE;
     public static PavimentoLotes atualLote;
@@ -97,9 +99,10 @@ public class RupturaPavimentoActivity extends MainActivity {
             newPavimento .setDim("largura",Float.parseFloat(edit_largura.getText().toString()));
             newPavimento .setDim("altura",Float.parseFloat(edit_altura.getText().toString()));
             newPavimento .setDim("comprimento",Float.parseFloat(edit_comprimento.getText().toString()));
-            newPavimento.setCreatedBy(Auth.getCurrentUser().getUid(),true);
+            newPavimento.setCreatedBy(Auth.getCurrentUser().getUid());
             newPavimento .setCarga(Float.parseFloat(edit_carga.getText().toString()));
-            newPavimento .setDataCreate(ServerValue.TIMESTAMP);
+            newPavimento .setDataCreate(Calendar.getInstance().getTime().getTime());
+            newPavimento .setValid(true);
             RupturaPavimentoListActivity.pavimentoList.add(newPavimento);
             dismissProgress();
             Intent intent = new Intent(RupturaPavimentoActivity.this, Continue ? ScanActivity.class : RupturaPavimentoListActivity.class);

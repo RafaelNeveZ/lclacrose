@@ -11,23 +11,22 @@ import java.util.HashMap;
 public class Blocos {
     private String codigo;
     private float carga;
-    private Object dataCreate;
+
     private float espessura_longitudinal, espessura_transvessal;
-    public HashMap<String, Boolean> getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String Key,Boolean tru) {
-        if(createdBy == null){
-            createdBy = new HashMap<>();
-        }
-        this.createdBy.put(Key,tru);
-    }
-
+    private String createdBy;
     private HashMap<String, Float> dimenssions;
-
+    private long dataCreate;
     public HashMap<String, Float> getDim() {
         return dimenssions;
+    }
+    private boolean isValid;
+
+    public boolean isValid() {
+        return isValid;
+    }
+
+    public void setValid(boolean valid) {
+        isValid = valid;
     }
 
     public void setDim(String Key,Float value) {
@@ -37,15 +36,21 @@ public class Blocos {
         this.dimenssions.put(Key,value);
     }
 
-    private HashMap<String, Boolean> createdBy;
-    public Object getDataCreate() {
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public long getDataCreate() {
         return dataCreate;
     }
 
-    public void setDataCreate(Object dataCreate) {
+    public void setDataCreate(long dataCreate) {
         this.dataCreate = dataCreate;
     }
-
 
     public float getEspessura_longitudinal() {
         return espessura_longitudinal;

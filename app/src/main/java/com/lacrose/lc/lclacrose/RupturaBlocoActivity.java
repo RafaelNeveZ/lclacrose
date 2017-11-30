@@ -17,6 +17,8 @@ import com.lacrose.lc.lclacrose.Model.Blocos;
 import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
+import java.util.Calendar;
+
 
 public class RupturaBlocoActivity extends MainActivity {
     public static String CODE;
@@ -97,12 +99,13 @@ public class RupturaBlocoActivity extends MainActivity {
             newBloco .setDim("largura",Float.parseFloat(edit_largura.getText().toString()));
             newBloco .setDim("altura",Float.parseFloat(edit_altura.getText().toString()));
             newBloco .setDim("comprimento",Float.parseFloat(edit_comprimento.getText().toString()));
-            newBloco.setCreatedBy(Auth.getCurrentUser().getUid(),true);
+            newBloco.setCreatedBy(Auth.getCurrentUser().getUid());
 
             newBloco .setCarga(Float.parseFloat(edit_carga.getText().toString()));
             newBloco .setEspessura_longitudinal(Float.parseFloat(edit_espc_long.getText().toString()));
             newBloco .setEspessura_transvessal(Float.parseFloat(edit_espc_trans.getText().toString()));
-            newBloco .setDataCreate(ServerValue.TIMESTAMP);
+            newBloco .setDataCreate(Calendar.getInstance().getTime().getTime());
+            newBloco .setValid(true);
             RupturaBlocoListActivity.BlocosList.add(newBloco);
             dismissProgress();
             Intent intent = new Intent(RupturaBlocoActivity.this, Continue ? ScanActivity.class : RupturaBlocoListActivity.class);

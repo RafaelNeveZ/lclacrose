@@ -17,7 +17,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.lacrose.lc.lclacrose.Adapter.RupturaCorpoAdapter;
+import com.lacrose.lc.lclacrose.Model.Blocos;
 import com.lacrose.lc.lclacrose.Model.Corpos;
 import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
@@ -28,15 +31,15 @@ import java.util.List;
 public class RupturaCorpoListActivity extends MainActivity {
     public static  List<Corpos> CorposList;
     private final Context context=this;
-    DatabaseReference corpo_ref;
-    FirebaseDatabase database;
+    CollectionReference corpo_ref;
+    FirebaseFirestore database;
     int ListSize = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ruptura_list);
-        database = FireBaseUtil.getDatabase();
+        database = FireBaseUtil.getFireDatabase();
         ListView rupturaListView = (ListView) findViewById(R.id.ruptura_list);
 
         rupturaListView.setDivider(null);
@@ -46,36 +49,29 @@ public class RupturaCorpoListActivity extends MainActivity {
 
     public void saveRuptura(View view) {
         showProgress(getString(R.string.saving));
-        corpo_ref = database.getReference(getString(R.string.work_tag)).child(HomeActivity.WorkId+"").child(getString(R.string.lote_corpo_tag)).child(RupturaCorpoActivity.atualLote.getId());
+        corpo_ref = database.collection(getString(R.string.work_tag) + "/" + HomeActivity.WorkId + "/" + getString(R.string.lote_tag) + "/" + RupturaCorpoActivity.atualLote.getId() + "/corpos");
         Log.e(TAG, "SAVE 1");
-        for (Corpos corpo:CorposList) {
-            Log.e(TAG, "SAVE 2");
-            corpo_ref.child(getString(R.string.corpos)).push().setValue(corpo).addOnCompleteListener(this,new OnCompleteListener(){
-                        @Override
-                        public void onComplete(@NonNull Task task) {
-                            Log.e(TAG, "SAVE 3");
-
-                            ListSize++;
-                            if(task.isSuccessful()) {
-                                if(ListSize>=CorposList.size()) {
-                                    dismissProgress();
-                                    Toast.makeText(context,getString(R.string.rupturas_create_sucess),Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(RupturaCorpoListActivity.this, HomeActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }else{
-                                    Log.e(TAG, "Erro");
-
-                                    dismissProgress();
-                                }
-                            }else{
-                                Log.e(TAG, "Erro");
-                                dismissProgress();
-                                Toast.makeText(context,getString(R.string.server_error),Toast.LENGTH_SHORT).show();
-                            }
+        for (Corpos corpos : CorposList) {
+            corpo_ref.add(corpos).addOnCompleteListener(this, new OnCompleteListener() {
+                @Override
+                public void onComplete(@NonNull Task task) {
+                    ListSize++;
+                    if (task.isSuccessful()) {
+                        if(ListSize>=CorposList.size()) {
+                            dismissProgress();
+                            Toast.makeText(context,getString(R.string.rupturas_create_sucess),Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(RupturaCorpoListActivity.this, HomeActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else{
+                            dismissProgress();
                         }
-        });
+                    } else {
+                        dismissProgress();
+                    }
 
+                }
+            });
         }
     }
 
