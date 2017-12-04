@@ -1,6 +1,57 @@
 <resources>
     <string name="app_name">LC LACROSE</string>
-
+    <string name="work">WORK</string>
+    <string name="buttom_ruptura">RUPTURA:\n Ruptura de corpos de prova</string>
+    <string name="material_prompt">Selecione o material</string>
+    <string-array name="material_arrays">
+        <item>Selecione o material</item>
+        <item>Argamassa</item>
+        <item>Concreto</item>
+        <item>Graute</item>
+    </string-array>
+    <string name="dimenssion_prompt">Selecione as dimenssões</string>
+    <string-array name="dimenssion_arrays_argamassa">
+        <item>Selecione as dimenssões</item>
+        <item>50x100</item>
+        <item>40x40</item>
+    </string-array>
+    <string name="d50_100">50x100</string>
+    <string name="d40_40">40x40</string>
+    <string name="d100_200">100x200</string>
+    <string-array name="dimenssion_arrays_graute">
+        <item>Selecione as dimenssões</item>
+        <item>100x200</item>
+        <item>50x100</item>
+    </string-array>
+    <string-array name="dimenssion_arrays_cimento">
+        <item>Selecione as dimenssões</item>
+        <item>100x200</item>
+    </string-array>
+    <string name="construc_prompt">Selecione a construtora</string>
+    <string-array name="construc_arrays">
+        <item>Massa Fort – MF</item>
+        <item>Lenobetão – LE</item>
+        <item>Polimix – PO</item>
+        <item>Concreserv – CO</item>
+        <item>Supermix – SU</item>
+        <item>EMPOLMIX – EM</item>
+        <item>INPACTOMIX- IN</item> <!--//TODO ver o nome-->
+    </string-array>
+    <string name="concreto">Concreto</string>
+    <string name="type_prompt">Selecione o tipo</string>
+    <string name="lote_bloco_tag">blocoLotes</string>
+    <string name="d140_390_390">140x390x390</string>
+    <string name="terms">Agradecemos por usar nossos produtos e serviços (“Serviços”). Os Serviços serão fornecidos pelo Google LLC (“Google”), localizado em 1600 Amphitheatre Parkway, Mountain View, CA 94043, Estados Unidos.  Ao usar nossos Serviços, você está concordando com estes termos. Leia-os com atenção.  Nossos Serviços são muito diversos, portanto, às vezes, podem aplicar-se termos adicionais ou exigências de produtos (inclusive exigências de idade). Os termos adicionais estarão disponíveis com os Serviços relevantes e esses termos adicionais se tornarão parte de nosso contrato com você, caso você use esses Serviços.</string>
+    <string-array name="type_arrays">
+        <item>Selecione o tipo</item>
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+        <item>E</item>
+        <item>F</item>
+        <item>G</item>
+    </string-array>
     <!--Login Screen-->
     <string name="user_edit_box">User</string>
     <string name="pass_edit_box">Password</string>
