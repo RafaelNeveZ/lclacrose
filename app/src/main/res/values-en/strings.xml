@@ -202,5 +202,6 @@
     <string name="list_pavimento_label">PAVIMENTOS ROMPIDOS</string>
     <string name="logo_text">logo</string>
     <string name="lote_tag">lotes</string>
+    <string name="cancel_dialog_confirm">Você tem certeza que quer cancelar? Todas as rupturas serão perdidas.</string>
 
 </resources>

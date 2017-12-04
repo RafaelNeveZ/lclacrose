@@ -67,6 +67,7 @@ public class CorpoLoteAdapter extends ArrayAdapter<CorpoLotes> {
                             RupturaCorpoActivity.Hoje = (long) dataSnapshot.getValue();
                             RupturaCorpoActivity.atualLote = corpoLotes;
                             ScanActivity.ondeEstou = 0;
+                            ScanActivity.primeiraVez = true;
                             Intent intent = new Intent(context, ScanActivity.class);
                             RupturaCorpoListActivity.CorposList = new ArrayList<>();
                             context.startActivity(intent);

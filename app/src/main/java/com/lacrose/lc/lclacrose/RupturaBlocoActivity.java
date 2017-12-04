@@ -23,6 +23,7 @@ import java.util.Calendar;
 public class RupturaBlocoActivity extends MainActivity {
     public static String CODE;
     public static BlocoLotes atualLote;
+    public static boolean jaPerguntei;
     public TextView code_ET;
     private final Context context = this;
     EditText edit_carga, edit_altura,edit_largura,edit_comprimento,edit_espc_long,edit_espc_trans;
@@ -36,7 +37,9 @@ public class RupturaBlocoActivity extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bloco_rulptura);
         database = FireBaseUtil.getDatabase();
-        isThisForNow();
+        if(!jaPerguntei){
+            isThisForNow();
+        }
         code_ET = (TextView) findViewById(R.id.code_edit_text);
         code_ET.setText(CODE);
         edit_largura = (EditText) findViewById(R.id.largura_edit_text);
@@ -50,6 +53,7 @@ public class RupturaBlocoActivity extends MainActivity {
     }
 
     private void isThisForNow() {
+        jaPerguntei = true;
         long idade = atualLote.getIdade();
         long criacao = atualLote.getDataFab();
         long tempoHoje = getDateWithoutHoursAndMinutes(Hoje);
@@ -73,7 +77,6 @@ public class RupturaBlocoActivity extends MainActivity {
             btCancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     Intent intent = new Intent(context, HomeActivity.class);
                     startActivity(intent);
                     finish();
@@ -88,6 +91,7 @@ public class RupturaBlocoActivity extends MainActivity {
     }
 
     public void saveContinue(View view) {
+        ScanActivity.primeiraVez = false;
         saveResults(true);
     }
 
@@ -144,6 +148,32 @@ public class RupturaBlocoActivity extends MainActivity {
         }
 
         return true;
+    }
+    @Override
+    public void onBackPressed() {
+        final Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.dialog_two_choice);
+        dialog.setTitle(getString(R.string.dialog_cancel_ruptura));
+        dialog.show();
+        TextView title = (TextView) dialog.findViewById(R.id.dialog_title);
+        title.setText(getString(R.string.dialog_cancel_ruptura));
+        Button btCancel = (Button) dialog.findViewById(R.id.button_no);
+        Button btYes = (Button) dialog.findViewById(R.id.button_yes);
+        btYes.setText(getString(R.string.yes));
+        btYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        btCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 
 }

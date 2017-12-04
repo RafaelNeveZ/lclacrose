@@ -203,6 +203,7 @@
     <string name="terms">Agradecemos por usar nossos produtos e serviços (“Serviços”). Os Serviços serão fornecidos pelo Google LLC (“Google”), localizado em 1600 Amphitheatre Parkway, Mountain View, CA 94043, Estados Unidos.  Ao usar nossos Serviços, você está concordando com estes termos. Leia-os com atenção.  Nossos Serviços são muito diversos, portanto, às vezes, podem aplicar-se termos adicionais ou exigências de produtos (inclusive exigências de idade). Os termos adicionais estarão disponíveis com os Serviços relevantes e esses termos adicionais se tornarão parte de nosso contrato com você, caso você use esses Serviços.</string>
     <string name="logo_text">logo</string>
     <string name="lote_tag">lotes</string>
+    <string name="cancel_dialog_confirm">Você tem certeza que quer cancelar? Todas as rupturas serão perdidas.</string>
 
     <string-array name="type_arrays">
         <item>Selecione o tipo</item>

@@ -69,6 +69,7 @@ public class PavimentoLoteAdapter extends ArrayAdapter<PavimentoLotes> {
                             RupturaPavimentoActivity.Hoje = (long) dataSnapshot.getValue();
                             RupturaPavimentoActivity.atualLote = pavimentoLotes;
                             ScanActivity.ondeEstou = 3;
+                            ScanActivity.primeiraVez = true;
                             Intent intent = new Intent(context, ScanActivity.class);
                             RupturaPavimentoListActivity.pavimentoList = new ArrayList<Pavimentos>();
                             context.startActivity(intent);

@@ -68,6 +68,7 @@ public class BlocoLoteAdapter extends ArrayAdapter<BlocoLotes> {
                             RupturaBlocoActivity.Hoje = (long) dataSnapshot.getValue();
                             RupturaBlocoActivity.atualLote = blocoLotes;
                             ScanActivity.ondeEstou = 1;
+                            ScanActivity.primeiraVez = true;
                             Intent intent = new Intent(context, ScanActivity.class);
                             RupturaBlocoListActivity.BlocosList = new ArrayList<>();
                             context.startActivity(intent);

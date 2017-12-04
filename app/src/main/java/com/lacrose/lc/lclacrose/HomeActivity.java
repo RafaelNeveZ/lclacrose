@@ -22,12 +22,18 @@ public class HomeActivity extends MainActivity {
     private static final int PERMISSION_REQUEST_CODE = 7;
     public static String label;
     public static  String WorkId;
+
    // FirebaseDatabase database;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         setTitle(label);
+        ScanActivity.primeiraVez = true;
+        RupturaBlocoActivity.jaPerguntei = false;
+        RupturaCorpoActivity.jaPerguntei = false;
+        RupturaPavimentoActivity.jaPerguntei = false;
+        RupturaPrismaActivity.jaPerguntei = false;
        /* DatabaseReference user_works_ref;
         database = FireBaseUtil.getDatabase();
         user_works_ref = database.getReference(getString(R.string.work_tag)).child(WorkId);

@@ -30,14 +30,16 @@ public class RupturaPrismaActivity extends MainActivity {
     FirebaseDatabase database;
     public static long Hoje;
     private FirebaseAuth Auth;
-
+    public static boolean jaPerguntei;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prisma_rulptura);
         database = FireBaseUtil.getDatabase();
-        isThisForNow();
+        if(!jaPerguntei){
+            isThisForNow();
+        }
         code_ET = (TextView) findViewById(R.id.code_edit_text);
         code_ET.setText(CODE);
         edit_largura = (EditText) findViewById(R.id.largura_edit_text);
@@ -48,6 +50,7 @@ public class RupturaPrismaActivity extends MainActivity {
     }
 
     private void isThisForNow() {
+        jaPerguntei = true;
         long idade = atualLote.getIdade();
         Log.e(TAG,"idade "+idade);
         //Descobrir com que data comparar
@@ -90,6 +93,8 @@ public class RupturaPrismaActivity extends MainActivity {
     }
 
     public void saveContinue(View view) {
+        ScanActivity.primeiraVez = false;
+
         saveResults(true);
     }
 
@@ -136,6 +141,32 @@ public class RupturaPrismaActivity extends MainActivity {
             return false;
         }
         return true;
+    }
+    @Override
+    public void onBackPressed() {
+        final Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.dialog_two_choice);
+        dialog.setTitle(getString(R.string.dialog_cancel_ruptura));
+        dialog.show();
+        TextView title = (TextView) dialog.findViewById(R.id.dialog_title);
+        title.setText(getString(R.string.dialog_cancel_ruptura));
+        Button btCancel = (Button) dialog.findViewById(R.id.button_no);
+        Button btYes = (Button) dialog.findViewById(R.id.button_yes);
+        btYes.setText(getString(R.string.yes));
+        btYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        btCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 
 }

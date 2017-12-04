@@ -71,6 +71,7 @@ public class PrismaLoteAdapter extends ArrayAdapter<PrismaLotes> {
                             RupturaPrismaActivity.Hoje = (long) dataSnapshot.getValue();
                             RupturaPrismaActivity.atualLote = prismaLotes;
                             ScanActivity.ondeEstou = 2;
+                            ScanActivity.primeiraVez = true;
                             Intent intent = new Intent(context, ScanActivity.class);
                             RupturaPrismasListActivity.prismasList = new ArrayList<Prismas>();
                             context.startActivity(intent);

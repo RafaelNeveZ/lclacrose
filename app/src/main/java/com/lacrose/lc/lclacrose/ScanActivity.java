@@ -1,7 +1,12 @@
 package com.lacrose.lc.lclacrose;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
@@ -11,7 +16,8 @@ import me.dm7.barcodescanner.zbar.ZBarScannerView;
 public class ScanActivity extends MainActivity implements ZBarScannerView.ResultHandler {
     private ZBarScannerView mScannerView;
     public static int ondeEstou;
-
+    public static boolean primeiraVez;
+    private final Context context = this;
     @Override
     public void onCreate(Bundle state) {
         super.onCreate(state);
@@ -66,5 +72,35 @@ public class ScanActivity extends MainActivity implements ZBarScannerView.Result
         }
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(!primeiraVez) {
+            final Dialog dialog = new Dialog(context);
+            dialog.setContentView(R.layout.dialog_two_choice);
+            dialog.setTitle(getString(R.string.dialog_logout_title));
+            TextView tv = (TextView) dialog.findViewById(R.id.dialog_title);
+            tv.setText(getString(R.string.cancel_dialog_confirm));
+            dialog.show();
+            Button btCancel = (Button) dialog.findViewById(R.id.button_no);
+            Button btLogOut = (Button) dialog.findViewById(R.id.button_yes);
+            btLogOut.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, HomeActivity.class);
+                    context.startActivity(intent);
+                    finish();
+                }
+            });
+            btCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+        }else{
+            super.onBackPressed();
+        }
     }
 }
