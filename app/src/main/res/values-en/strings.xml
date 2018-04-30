@@ -151,7 +151,7 @@
     <string name="bloco">BLOCO</string>
     <string name="prisma">PRISMA</string>
     <string name="pavimento_intertravado">PAVIMENTO INTERTRAVADO</string>
-    <string name="body">CORPO</string>
+    <string name="body">CP</string>
     <string name="moldagem_bloco_label">MOLDAGEM DE BLOCO</string>
     <string name="moldagem_type_label">TIPO DE LOTE</string>
     <string name="moldagem_pavimento_label">MOLDAGEM DE PAVIMENTO</string>
@@ -203,5 +203,18 @@
     <string name="logo_text">logo</string>
     <string name="lote_tag">lotes</string>
     <string name="cancel_dialog_confirm">Você tem certeza que quer cancelar? Todas as rupturas serão perdidas.</string>
+    <string name="diretor">diretor</string>
+    <string name="gestor">gestor</string>
+    <string name="centro_de_custo">centro_de_custo</string>
+    <string name="cliente_tag">cliente</string>
+    <string name="get_clientes">Carregando clientes...</string>
+    <string name="cliente_prompt">Selecione o cliente</string>
+    <string name="blocoTipo">BLOCO</string>
+    <string name="prismaTipo">PRISMA</string>
+    <string name="blocoTIpo">BLOCO</string>
+    <string name="cpTipo">CP</string>
+    <string name="classe_text">Classe do bloco</string>
+    <string name="classe_prompt">Selecione a classe</string>
+    <string name="quantidade_text">Quantidade de corpos de provas</string>
 
 </resources>

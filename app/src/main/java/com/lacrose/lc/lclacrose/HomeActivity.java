@@ -13,6 +13,7 @@ import android.view.View;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.lacrose.lc.lclacrose.Model.Obras;
 import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 import static android.Manifest.permission.CAMERA;
@@ -22,7 +23,7 @@ public class HomeActivity extends MainActivity {
     private static final int PERMISSION_REQUEST_CODE = 7;
     public static String label;
     public static  String WorkId;
-
+    public static Obras Work;
    // FirebaseDatabase database;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

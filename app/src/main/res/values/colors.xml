@@ -3,6 +3,7 @@
     <color name="colorPrimary">#F26221</color>
     <color name="colorPrimaryDark">#C25A19</color>
     <color name="colorAccent">#F26221</color>
+    <color name="colorDisable">#d4774d</color>
     <color name="border_edit_login_text">#bdbabb</color>
     <color name="border_gray">#d0cecf</color>
     <color name="back_gray_almost_white">#f6f6f6</color>

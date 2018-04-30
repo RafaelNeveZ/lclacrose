@@ -17,6 +17,7 @@
         android:orientation="vertical">
 
     <Button
+        android:id="@+id/cp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
@@ -24,8 +25,8 @@
         android:textColor="@drawable/selector_white_text_button"
         android:text="@string/body"
         android:onClick="btCorpo"/>
-
     <Button
+        android:id="@+id/bloco"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
@@ -33,8 +34,8 @@
         android:textColor="@drawable/selector_white_text_button"
         android:text="@string/bloco"
         android:onClick="btBloco"/>
-
     <Button
+        android:id="@+id/prisma"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
@@ -44,6 +45,7 @@
         android:onClick="btPrisma"/>
 
     <Button
+        android:id="@+id/pav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
@@ -51,6 +53,5 @@
         android:textColor="@drawable/selector_white_text_button"
         android:text="@string/pavimento_intertravado"
         android:onClick="btPavimento"/>
-
     </LinearLayout>
 </LinearLayout>

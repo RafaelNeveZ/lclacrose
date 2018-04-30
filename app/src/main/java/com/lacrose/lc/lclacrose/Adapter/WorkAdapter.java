@@ -54,7 +54,8 @@ public class WorkAdapter extends ArrayAdapter<Obras> {
                 public void onClick(View v) {
                     Intent intent = new Intent(context,HomeActivity.class);
                     HomeActivity.WorkId = obras.getId();
-                    HomeActivity.label = obras.getNome();
+                    HomeActivity.Work = obras;
+                    HomeActivity.label = obras.getClienteNome()+": "+obras.getNome();
                     context.startActivity(intent);
                 }
             });

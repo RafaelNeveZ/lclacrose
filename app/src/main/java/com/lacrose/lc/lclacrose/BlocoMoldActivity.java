@@ -145,13 +145,13 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
 
     public void initiateViews(){
         //CHECKBOX
-        check_dimenssion = (CheckBox) findViewById(R.id.check_dimenssion);
+      //  check_dimenssion = (CheckBox) findViewById(R.id.check_dimenssion);
         check_nota = (CheckBox) findViewById(R.id.check_nota_fiscal);
         check_dataFab = (CheckBox) findViewById(R.id.checkfab_date);
-        check_idade = (CheckBox) findViewById(R.id.check_idade);
+       // check_idade = (CheckBox) findViewById(R.id.check_idade);
         check_lote = (CheckBox) findViewById(R.id.check_lote);
         check_fbk = (CheckBox) findViewById(R.id.check_fbk);
-        check_date = (CheckBox) findViewById(R.id.check_date);
+      //  check_date = (CheckBox) findViewById(R.id.check_date);
         check_fab = (CheckBox) findViewById(R.id.check_fab);
         check_func = (CheckBox) findViewById(R.id.check_func);
 
@@ -182,7 +182,7 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         tempCalendar.set(year,month,dayOfMonth);
-/*        if(tempCalendar.getTime().getTime()>= refCalendar.getTime().getTime()){*/
+
             SimpleDateFormat fmtOut = new SimpleDateFormat("dd/MM/yyyy");
             if(isFab) {
                 button_datefab.setText(fmtOut.format(tempCalendar.getTime()));
@@ -193,10 +193,7 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
                 finalCalendar = tempCalendar;
                 date = getDateWithoutHoursAndMinutes(tempCalendar.getTime().getTime());
             }
-       /* }else{
-            tempCalendar = Calendar.getInstance();
-            showAlert(getString(R.string.dialog_date_error_title),getString(R.string.date_before_error));
-        }*/
+
     }
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -214,7 +211,7 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
         dpd.show();
     }
 
-    public void loteCreate(View view) {
+   /* public void loteCreate(View view) {
         showProgress(getString(R.string.create_lote));
         if(validateFields()){
             final CollectionReference ref_lote = database.collection(getString(R.string.work_tag)+"/"+HomeActivity.WorkId+"/"+getString(R.string.lote_tag));
@@ -290,7 +287,7 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
         }else{
             dismissProgress();
         }
-    }
+    }*/
 
     private boolean validateFields() {
 
@@ -304,7 +301,7 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
             return false;
         }
 
-        if(edit_idade.getText().toString().isEmpty() && !check_idade.isChecked()){
+        if(edit_idade.getText().toString().isEmpty()){
             errorAndRequestFocustoEditText(edit_idade);
             return false;
         }

@@ -54,6 +54,7 @@ public class LoginActivity extends MainActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
+
                     Intent intent = new Intent(context,WorkActivity.class);
                     context.startActivity(intent);
                     finish();

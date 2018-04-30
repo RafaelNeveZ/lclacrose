@@ -54,7 +54,7 @@ public class RupturaBlocoActivity extends MainActivity {
 
     private void isThisForNow() {
         jaPerguntei = true;
-        long idade = atualLote.getIdade();
+        /*long idade = atualLote.getIdade();
         long criacao = atualLote.getDataFab();
         long tempoHoje = getDateWithoutHoursAndMinutes(Hoje);
         if(tempoHoje - criacao < idade - criacao) {
@@ -82,7 +82,7 @@ public class RupturaBlocoActivity extends MainActivity {
                     finish();
                 }
             });
-        }
+        }*/
     }
 
 

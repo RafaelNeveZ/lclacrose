@@ -207,69 +207,7 @@ public class LotesActivity extends MainActivity {
                     }
                 });
 
-           /*     .addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    spinner.setVisibility(View.GONE);
-                    switch (ondeEstou){
-                        case 0:
-                            for (DataSnapshot d : dataSnapshot.getChildren()) {
-                                CorpoLotes corpoLotes = d.getValue(CorpoLotes.class);
-                                corpoLotes.setId(d.getKey());
-                                corpoList.add(corpoLotes);
-                            }
-                            corpoAdapter.notifyDataSetChanged();
-                            break;
-                        case 1:
-                            for (DataSnapshot d : dataSnapshot.getChildren()) {
-                                BlocoLotes blocoLotes = d.getValue(BlocoLotes.class);
-                                blocoLotes.setId(d.getKey());
-                                blocoList.add(blocoLotes);
-                            }
-                            blocoAdapter.notifyDataSetChanged();
-                            break;
-                        case 2:
-                            for (DataSnapshot d : dataSnapshot.getChildren()) {
-                                PrismaLotes prismaLotes = d.getValue(PrismaLotes.class);
-                                prismaLotes.setId(d.getKey());
-                                prismaList.add(prismaLotes);
-                            }
-                            prismaAdapter.notifyDataSetChanged();
-                            break;
-                        case 3:
-                            for (DataSnapshot d : dataSnapshot.getChildren()) {
-                                PavimentoLotes pavimentoLotes = d.getValue(PavimentoLotes.class);
-                                pavimentoLotes.setId(d.getKey());
-                                pavimentoList.add(pavimentoLotes);
-                            }
-                            pavimentoAdapter.notifyDataSetChanged();
-                            break;
-                    }
-                } else {
-                    switch (ondeEstou) {
-                        case 0:
-                            corpoAdapter.notifyDataSetChanged();
-                            break;
-                        case 1:
-                            blocoAdapter.notifyDataSetChanged();
-                            break;
-                        case 2:
-                            prismaAdapter.notifyDataSetChanged();
-                            break;
-                        case 3:
-                            pavimentoAdapter.notifyDataSetChanged();
-                            break;
-                    }
-                    textEmpty.setVisibility(View.VISIBLE);
-                    spinner.setVisibility(View.GONE);
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                spinner.setVisibility(View.GONE);
-            }
-        });*/
+
     }
 
 
