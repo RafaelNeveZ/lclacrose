@@ -57,11 +57,11 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
     FirebaseFirestore database;
     FirebaseDatabase database2;
     CheckBox check_dimenssion,check_nota,check_dataFab, check_fbk,check_lote,check_fab,check_func,check_date,check_idade;
-    Spinner spinner_dimenssion;
+    Spinner spinner_dimenssion,spinner_classe;
     TextView tv_code, tv_switch;
     Switch switch_func;
-    EditText edit_nota,edit_lote, edit_fbk,edit_fab,edit_more,edit_idade;
-    Button button_date, button_datefab;
+    EditText edit_nota,edit_lote, edit_fbk,edit_fab,edit_more,edit_idade,edit_quantidade,edit_hora,edit_altura,edit_largra,edit_comprimeto;
+    Button button_date, button_datefab,button_hora;
     Calendar refCalendar,tempCalendar,finalCalendar,fabCalendar;
     BlocoLotes newLote;
     ArrayList<String> dimen;
@@ -158,7 +158,7 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
 
         //SPINNER
         spinner_dimenssion=(Spinner) findViewById(R.id.dimenssion_spinner);
-
+        spinner_classe=(Spinner) findViewById(R.id.classe_spinner);
         //EDITTEXT
         edit_nota = (EditText) findViewById(R.id.nota_edit_text);
         edit_idade = (EditText) findViewById(R.id.idade_edit_text);
@@ -326,12 +326,12 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
             return false;
         }
 
-        if(button_date.getText().equals(getString(R.string.date_default)) && !check_date.isChecked()){
+        if(button_date.getText().equals(getString(R.string.date_default))){
             Toast.makeText(context,getString(R.string.date_notput_error),Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        if(!button_date.getText().equals(getString(R.string.date_default)) && !check_date.isChecked()
+        if(!button_date.getText().equals(getString(R.string.date_default))
                 && !button_datefab.getText().equals(getString(R.string.date_default)) && !check_dataFab.isChecked() && date < fabDate) {
                 showAlert(getString(R.string.dialog_date_error_title), getString(R.string.dialog_date_error));
                 return false;
