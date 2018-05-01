@@ -31,6 +31,9 @@
             android:name=".ScanActivity"
             android:theme="@style/AppThemeFullscreen" />
         <activity
+            android:name=".ScanAddCorpoActivity"
+            android:theme="@style/AppThemeFullscreen" />
+        <activity
             android:name=".AboutActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/about_title"

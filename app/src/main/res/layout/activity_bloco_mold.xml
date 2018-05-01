@@ -182,7 +182,7 @@
                     android:layout_marginEnd="50dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/rounded_gray_edit_text"
-                    android:inputType="number"
+                    android:inputType="text"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
                     android:textColor="@android:color/black" />
@@ -542,6 +542,8 @@
                     android:paddingRight="20dp"
                     android:textColor="@android:color/black" />
 
+
+
            <!--     <CheckBox
                     android:id="@+id/check_idade"
                     android:layout_width="match_parent"
@@ -549,6 +551,38 @@
                     android:layout_alignStart="@+id/idade_edit_text"
                     android:layout_below="@+id/idade_edit_text"
                     android:text="@string/not_info" />-->
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:id="@+id/relative_hora"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/hora_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/hora_buttom"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/hora_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/hora_buttom"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/hora_text_view"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/selector_white_button"
+                    android:onClick="horaChange"
+                    android:text="@string/hora_default"
+                    android:textColor="@drawable/selector_orange_text_button" />
+
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/rela_list"

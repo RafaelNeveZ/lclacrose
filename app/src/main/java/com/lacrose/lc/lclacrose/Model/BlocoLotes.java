@@ -15,17 +15,17 @@ public  class BlocoLotes {
     public boolean boletim_gerado = false;
     public String centro_de_custo = "";
     public String classe = "";
-    public Double codigo = null;
+    public String codigo = "";
     public List<HashMap<String, String>> corpos = new ArrayList<>();
     public String createdBy = "";
-    public Double data = null;
-    public Double dataCreate = null;
-    public Double dataFab = null;
-    public HashMap<String, Integer> dimenssoes;
+    public Long data = null;
+    public Long dataCreate = null;
+    public Long dataFab = null;
+    public HashMap<String, Integer> dimenssion;
     public String fabricante = "";
     public Double fbk = null;
     public String funcEstrutural = "";
-    public Double hora = null;
+    public Long hora = null;
     public Double idade = null;
     public String is24 = "";
     public boolean isValid = false;
@@ -35,7 +35,7 @@ public  class BlocoLotes {
     public Double quantidade = null;
     public boolean rompido = false;
     public String tipo = "";
-
+    public String obs = "";
     public String getId() {
         return id;
     }
@@ -68,11 +68,11 @@ public  class BlocoLotes {
         this.classe = classe;
     }
 
-    public Double getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(Double codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
@@ -92,36 +92,36 @@ public  class BlocoLotes {
         this.createdBy = createdBy;
     }
 
-    public Double getData() {
+    public Long getData() {
         return data;
     }
 
-    public void setData(Double data) {
+    public void setData(Long data) {
         this.data = data;
     }
 
-    public Double getDataCreate() {
+    public Long getDataCreate() {
         return dataCreate;
     }
 
-    public void setDataCreate(Double dataCreate) {
+    public void setDataCreate(Long dataCreate) {
         this.dataCreate = dataCreate;
     }
 
-    public Double getDataFab() {
+    public Long getDataFab() {
         return dataFab;
     }
 
-    public void setDataFab(Double dataFab) {
+    public void setDataFab(Long dataFab) {
         this.dataFab = dataFab;
     }
 
     public HashMap<String, Integer> getDimenssoes() {
-        return dimenssoes;
+        return dimenssion;
     }
 
     public void setDimenssoes(HashMap<String, Integer> dimenssoes) {
-        this.dimenssoes = dimenssoes;
+        this.dimenssion = dimenssoes;
     }
 
     public String getFabricante() {
@@ -148,11 +148,11 @@ public  class BlocoLotes {
         this.funcEstrutural = funcEstrutural;
     }
 
-    public Double getHora() {
+    public Long getHora() {
         return hora;
     }
 
-    public void setHora(Double hora) {
+    public void setHora(Long hora) {
         this.hora = hora;
     }
 
@@ -226,5 +226,13 @@ public  class BlocoLotes {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public String getObs() {
+        return obs;
+    }
+
+    public void setObs(String obs) {
+        this.obs = obs;
     }
 }
