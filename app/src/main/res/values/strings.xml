@@ -217,6 +217,11 @@
     <string name="classe_text">Classe do bloco</string>
     <string name="classe_prompt">Selecione a classe</string>
     <string name="quantidade_text">Quantidade de corpos de provas</string>
+    <string name="outras_dim">Outras dimenssões</string>
+    <string name="tipo">tipo</string>
+    <string name="bloco_minusculo">bloco</string>
+    <string name="corpo">Corpos de prova</string>
+    <string name="code_dois_pontos">Código:</string>
 
     <string-array name="type_arrays">
         <item>Selecione o tipo</item>

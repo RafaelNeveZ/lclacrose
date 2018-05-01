@@ -14,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -35,6 +36,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.lacrose.lc.lclacrose.Adapter.CodigoCorpoAdapter;
+import com.lacrose.lc.lclacrose.Adapter.RupturaBlocoAdapter;
 import com.lacrose.lc.lclacrose.Model.BlocoLotes;
 import com.lacrose.lc.lclacrose.Model.Obras;
 import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
@@ -56,6 +59,7 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
     CollectionReference lote_ref;
     FirebaseFirestore database;
     FirebaseDatabase database2;
+    CodigoCorpoAdapter codigoCorpoAdapter;
     CheckBox check_dimenssion,check_nota,check_dataFab, check_fbk,check_lote,check_fab,check_func,check_date,check_idade;
     Spinner spinner_dimenssion,spinner_classe;
     TextView tv_code, tv_switch;
@@ -64,12 +68,12 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
     Button button_date, button_datefab,button_hora;
     Calendar refCalendar,tempCalendar,finalCalendar,fabCalendar;
     BlocoLotes newLote;
-    ArrayList<String> dimen;
+    ArrayList<String> dimen,classe;
     public boolean isFab=true;
     long date, fabDate;
     private FirebaseAuth Auth;
-
-
+    ListView lista_corpos;
+    List<String>corpos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,11 +95,24 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
         dimen.add(getString(R.string.dimenssion_prompt));
         dimen.add(getString(R.string.d120_190_390));
         dimen.add(getString(R.string.d140_190_390));
+        dimen.add(getString(R.string.outras_dim));
+        classe = new ArrayList<>();
+        classe.add("A");
+        classe.add("B");
+        classe.add("C");
+        classe.add("D");
         final ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_dimenssion.setAdapter(spinnerAdapter);
         spinnerAdapter.addAll(dimen);
         spinnerAdapter.notifyDataSetChanged();
+
+        final ArrayAdapter<String> spinnerAdapterClasse = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_classe.setAdapter(spinnerAdapterClasse);
+        spinnerAdapterClasse.addAll(classe);
+        spinnerAdapterClasse.notifyDataSetChanged();
+
         switch_func.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -111,8 +128,9 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
     private void getLoteNumber() {
          Log.d(TAG,ServerValue.TIMESTAMP+"");
         final List<BlocoLotes> loteList = new ArrayList<>();
-        database.collection(getString(R.string.work_tag)+"/"+HomeActivity.WorkId+"/"+getString(R.string.lote_tag))
-                .whereEqualTo("tipo","bloco")
+        database.collection(getString(R.string.lote_tag))
+                .whereEqualTo("obraId",HomeActivity.WorkId)
+                .whereEqualTo(getString(R.string.tipo),getString(R.string.bloco_minusculo))
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -120,7 +138,6 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
                         if (task.isSuccessful()) {
 
                             int last = task.getResult().size();
-                            Log.d(TAG,getString(R.string.work_tag)+"/"+HomeActivity.WorkId+"/"+getString(R.string.lote_tag));
                             if (last < 10)
                                 tv_code.setText("000" + last);
                             else if (last < 100)
@@ -159,13 +176,16 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
         //SPINNER
         spinner_dimenssion=(Spinner) findViewById(R.id.dimenssion_spinner);
         spinner_classe=(Spinner) findViewById(R.id.classe_spinner);
+
         //EDITTEXT
-        edit_nota = (EditText) findViewById(R.id.nota_edit_text);
-        edit_idade = (EditText) findViewById(R.id.idade_edit_text);
         edit_lote = (EditText) findViewById(R.id.lote_edit_text);
-        edit_fbk = (EditText) findViewById(R.id.fbk_edit_text);
+        edit_nota = (EditText) findViewById(R.id.nota_edit_text);
         edit_fab = (EditText) findViewById(R.id.fab_edit_text);
+        edit_fbk = (EditText) findViewById(R.id.fbk_edit_text);
+        edit_idade = (EditText) findViewById(R.id.idade_edit_text);
+        edit_quantidade = (EditText) findViewById(R.id.quantidade_edit_text);
         edit_more = (EditText) findViewById(R.id.more_edit_text);
+
 
         //BUTTOM
         button_date = (Button) findViewById(R.id.date_buttom);
@@ -176,6 +196,12 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
         tv_switch = (TextView) findViewById(R.id.func_choose_text_view);
         //Switch
         switch_func = (Switch) findViewById(R.id.swit_func);
+        lista_corpos = (ListView) findViewById(R.id.corpo_list);
+        lista_corpos.setDivider(null);
+
+        corpos = new ArrayList<>();
+        codigoCorpoAdapter = new CodigoCorpoAdapter(this, R.layout.item_codigo_corpos, corpos);
+        lista_corpos.setAdapter(codigoCorpoAdapter);
 
     }
 
@@ -344,4 +370,8 @@ public class BlocoMoldActivity extends MainActivity implements DatePickerDialog.
     }
 
 
+    public void addCorpo(View view) {
+        corpos.add("ads");
+        codigoCorpoAdapter.notifyDataSetChanged();
+    }
 }
