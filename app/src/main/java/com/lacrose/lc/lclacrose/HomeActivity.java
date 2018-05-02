@@ -20,7 +20,7 @@ import static android.Manifest.permission.CAMERA;
 
 
 public class HomeActivity extends MainActivity {
-    private static final int PERMISSION_REQUEST_CODE = 7;
+
     public static String label;
     public static  String WorkId;
     public static Obras Work;

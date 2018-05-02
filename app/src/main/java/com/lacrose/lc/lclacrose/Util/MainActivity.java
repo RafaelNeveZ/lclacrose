@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     public ProgressDialog progressDialog;
     public static String TAG="####################TAG";
-
+    public static final int PERMISSION_REQUEST_CODE = 7;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

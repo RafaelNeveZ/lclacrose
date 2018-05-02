@@ -4,12 +4,19 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -56,6 +63,8 @@ import java.util.List;
 import me.dm7.barcodescanner.zbar.BarcodeFormat;
 import me.dm7.barcodescanner.zbar.ZBarScannerView;
 
+import static android.Manifest.permission.CAMERA;
+
 
 public class BlocoMoldActivity extends MainActivity implements
         DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
@@ -71,7 +80,7 @@ public class BlocoMoldActivity extends MainActivity implements
     Spinner spinner_dimenssion,spinner_classe;
     TextView tv_code, tv_switch;
     Switch switch_func;
-    RelativeLayout relative_hora;
+    RelativeLayout relative_hora,relative_largura,relative_altura,relative_comprimento;
     EditText edit_nota,edit_lote, edit_fbk,edit_fab,edit_more,edit_idade,edit_quantidade,edit_hora,edit_altura,edit_largra,edit_comprimeto;
     Button button_date, button_datefab,button_hora;
     Calendar refCalendar,tempCalendar,finalCalendar,fabCalendar,horaCalendar;
@@ -80,7 +89,7 @@ public class BlocoMoldActivity extends MainActivity implements
     private ZBarScannerView mScannerView;
 
     public boolean isFab=true;
-    long date, fabDate;
+    long date, fabDate,hora;
     private FirebaseAuth Auth;
     ListView lista_corpos;
     List<String>corpos;
@@ -104,7 +113,6 @@ public class BlocoMoldActivity extends MainActivity implements
     }
     public void regrasNegocios(){
         dimen = new ArrayList<>();
-        dimen.add(getString(R.string.dimenssion_prompt));
         dimen.add(getString(R.string.d120_190_390));
         dimen.add(getString(R.string.d140_190_390));
         dimen.add(getString(R.string.outras_dim));
@@ -134,6 +142,26 @@ public class BlocoMoldActivity extends MainActivity implements
                     tv_switch.setText(getString(R.string.no_uper));
             }
         });
+        spinner_dimenssion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+              if(position == 2){
+                  relative_altura.setVisibility(View.VISIBLE);
+                  relative_comprimento.setVisibility(View.VISIBLE);
+                  relative_largura.setVisibility(View.VISIBLE);
+                }else{
+                  relative_altura.setVisibility(View.GONE);
+                  relative_comprimento.setVisibility(View.GONE);
+                  relative_largura.setVisibility(View.GONE);
+              }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
 
     }
 
@@ -150,20 +178,23 @@ public class BlocoMoldActivity extends MainActivity implements
                         if (task.isSuccessful()) {
 
                             int last = task.getResult().size();
-                            if (last < 10)
+                            tv_code.setText("" + last);
+
+                            /*if (last < 10)
                                 tv_code.setText("000" + last);
                             else if (last < 100)
                                 tv_code.setText("00" + last);
                             else if (last < 1000)
                                 tv_code.setText("0" + last);
                             else if (last < 1000)
-                                tv_code.setText("" + last);
+                                tv_code.setText("" + last);*/
 
                             dismissProgress();
                         } else {
                             dismissProgress();
-                            int last =  0;
-                            tv_code.setText(last+"000");
+                            /*int last =  0;*/
+                            tv_code.setText(0);
+                            /*tv_code.setText(last+"000");*/
 
                         }
                     }
@@ -185,6 +216,9 @@ public class BlocoMoldActivity extends MainActivity implements
         check_func = (CheckBox) findViewById(R.id.check_func);
 
         //Relative
+        relative_comprimento = (RelativeLayout) findViewById(R.id.relative_comprimento);
+        relative_altura = (RelativeLayout) findViewById(R.id.relative_altura);
+        relative_largura = (RelativeLayout) findViewById(R.id.relative_largura);
         relative_hora = (RelativeLayout) findViewById(R.id.relative_hora);
         if(HomeActivity.Work.getIs24().equals("Sim")){
             relative_hora.setVisibility(View.VISIBLE);
@@ -195,6 +229,9 @@ public class BlocoMoldActivity extends MainActivity implements
         spinner_classe=(Spinner) findViewById(R.id.classe_spinner);
 
         //EDITTEXT
+        edit_comprimeto = (EditText) findViewById(R.id.comprimento_edit_text);
+        edit_altura = (EditText) findViewById(R.id.altura_edit_text);
+        edit_largra = (EditText) findViewById(R.id.largura_edit_text);
         edit_lote = (EditText) findViewById(R.id.lote_edit_text);
         edit_nota = (EditText) findViewById(R.id.nota_edit_text);
         edit_fab = (EditText) findViewById(R.id.fab_edit_text);
@@ -244,8 +281,13 @@ public class BlocoMoldActivity extends MainActivity implements
     }
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        tempCalendar.set(Calendar.getInstance().get(Calendar.YEAR),Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DATE),hourOfDay,minute);
+
         button_hora.setText(((hourOfDay<10)?0+hourOfDay:hourOfDay)+":"+((minute<10)?0+minute:minute));
-        horaCalendar.set(Calendar.YEAR,Calendar.MONTH,Calendar.DAY_OF_MONTH,hourOfDay,minute);
+        horaCalendar = tempCalendar;
+        hora = tempCalendar.getTime().getTime();
+
     }
 
     public void dataChamge(View view) {
@@ -261,7 +303,7 @@ public class BlocoMoldActivity extends MainActivity implements
     }
 
     public void horaChange(View view) {
-        TimePickerDialog tpd = new TimePickerDialog(context, this, Calendar.HOUR, Calendar.MINUTE, true);
+        TimePickerDialog tpd = new TimePickerDialog(context, this, Calendar.getInstance().get(Calendar.HOUR), Calendar.getInstance().get(Calendar.MINUTE), true);
         tpd.show();
     }
     public void loteCreate(View view) {
@@ -282,7 +324,10 @@ public class BlocoMoldActivity extends MainActivity implements
                     dimenssionHash.put(getString(R.string.comprimento), 390);
                     newLote.setDimenssoes(dimenssionHash);
                 } else if(String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.outras_dim))){
-
+                    dimenssionHash.put(getString(R.string.largura), Integer.parseInt(edit_largra.getText().toString()));
+                    dimenssionHash.put(getString(R.string.altura), Integer.parseInt(edit_altura.getText().toString()));
+                    dimenssionHash.put(getString(R.string.comprimento), Integer.parseInt(edit_comprimeto.getText().toString()));
+                    newLote.setDimenssoes(dimenssionHash);
                 }
             }
 
@@ -299,7 +344,7 @@ public class BlocoMoldActivity extends MainActivity implements
             if(!edit_fbk.getText().toString().isEmpty() && !check_fbk.isChecked())
                 newLote.setFbk(Double.parseDouble(edit_fbk.getText().toString()));
 
-            newLote.setFuncEstrutural("");
+            newLote.setFuncEstrutural(getString(R.string.nao_informado));
             if(switch_func.isChecked() && !check_func.isChecked() )
                 newLote.setFuncEstrutural("Sim");
             else if(!switch_func.isChecked() && !check_func.isChecked())
@@ -320,7 +365,7 @@ public class BlocoMoldActivity extends MainActivity implements
             }
 
             if(!button_hora.getText().toString().equals(getString(R.string.hora_default)) && (relative_hora.getVisibility() != View.GONE)){
-                newLote.setHora(horaCalendar.getTime().getTime());
+                newLote.setHora(hora);
 
             }
 
@@ -367,10 +412,27 @@ public class BlocoMoldActivity extends MainActivity implements
 
     private boolean validateFields() {
 
-        if(String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.dimenssion_prompt)) && !check_dimenssion.isChecked()){
+       /* if(String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.dimenssion_prompt))){
             Toast.makeText(context,getString(R.string.dimenssion_prompt),Toast.LENGTH_SHORT).show();
             return false;
+        }*/
+
+        if(String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.outras_dim))){
+            if(edit_altura.getText().toString().isEmpty()){
+                errorAndRequestFocustoEditText(edit_altura);
+                return false;
+            }
+            if(edit_comprimeto.getText().toString().isEmpty()){
+                errorAndRequestFocustoEditText(edit_comprimeto);
+                return false;
+            }
+            if(edit_largra.getText().toString().isEmpty()){
+                errorAndRequestFocustoEditText(edit_largra);
+                return false;
+            }
+
         }
+
 
         if(button_datefab.getText().equals(getString(R.string.date_default)) && !check_dataFab.isChecked()){
             Toast.makeText(context,getString(R.string.date_fab_notput_error),Toast.LENGTH_SHORT).show();
@@ -430,9 +492,17 @@ public class BlocoMoldActivity extends MainActivity implements
     }
 
     public void addCorpo(View view) {
+        ScanAddCorpoActivity.vimdeCP = false;
+        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+        if (currentapiVersion >= android.os.Build.VERSION_CODES.M) {
+            if (checkPermission()) {
+                Intent intent = new Intent(BlocoMoldActivity.this, ScanAddCorpoActivity.class);
+                startActivityForResult(intent,10);
+            } else {
+                requestPermission();
+            }
+        }
 
-        Intent intent = new Intent(BlocoMoldActivity.this, ScanAddCorpoActivity.class);
-        startActivityForResult(intent,10);
 
     }
 
@@ -448,7 +518,52 @@ public class BlocoMoldActivity extends MainActivity implements
             Toast.makeText(this,getString(R.string.cancelada),Toast.LENGTH_SHORT);
         }
     }
+    //PERMISSIONS===============================================================
+    private boolean checkPermission() {
+        int result = ContextCompat.checkSelfPermission(getApplicationContext(), CAMERA);
+        return result == PackageManager.PERMISSION_GRANTED;
+    }
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(this, new String[]{CAMERA}, PERMISSION_REQUEST_CODE);
+    }
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],@NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0) {
+                    boolean cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    if (cameraAccepted) {
+                        Intent intent = new Intent(BlocoMoldActivity.this, ScanAddCorpoActivity.class);
+                        startActivityForResult(intent,10);
+                    }else {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            if (shouldShowRequestPermissionRationale(CAMERA)) {
+                                showMessageOKCancel(getString(R.string.dialog_permission),
+                                        new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                                    requestPermissions(new String[]{CAMERA},
+                                                            PERMISSION_REQUEST_CODE);
+                                                }
+                                            }
+                                        });
+                                return;
+                            }
+                        }
 
+                    }
+                }
+                break;
+        }
+    }
+    private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
+        new AlertDialog.Builder(BlocoMoldActivity.this)
+                .setMessage(message)
+                .setPositiveButton(R.string.ok, okListener)
+                .setNegativeButton(R.string.cancel, null)
+                .create()
+                .show();
+    }
 
 
 }

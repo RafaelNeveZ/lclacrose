@@ -227,6 +227,7 @@
     <string name="hora_text">hora</string>
     <string name="hora_default">HORA</string>
     <string name="hora_notput_error">Por favor, insira a hora!</string>
+    <string name="nao_informado">Não informado</string>
 
     <string-array name="type_arrays">
         <item>Selecione o tipo</item>

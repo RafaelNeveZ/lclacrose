@@ -15,8 +15,7 @@ import me.dm7.barcodescanner.zbar.ZBarScannerView;
 
 public class ScanAddCorpoActivity extends MainActivity implements ZBarScannerView.ResultHandler {
     private ZBarScannerView mScannerView;
-    public static int ondeEstou;
-    public static boolean primeiraVez;
+    public static boolean vimdeCP;
     private final Context context = this;
     @Override
     public void onCreate(Bundle state) {
