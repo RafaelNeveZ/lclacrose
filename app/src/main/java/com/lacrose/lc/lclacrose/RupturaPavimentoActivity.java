@@ -52,7 +52,7 @@ public class RupturaPavimentoActivity extends MainActivity {
 
     private void isThisForNow() {
         jaPerguntei = true;
-        //TODO Que data comparar?
+      /*  //TODO Que data comparar?
         long idade = atualLote.getIdade();
         long criacao = atualLote.getDataFab();
         long tempoHoje = getDateWithoutHoursAndMinutes(Hoje);
@@ -82,7 +82,7 @@ public class RupturaPavimentoActivity extends MainActivity {
                     finish();
                 }
             });
-        }
+        }*/
     }
 
 

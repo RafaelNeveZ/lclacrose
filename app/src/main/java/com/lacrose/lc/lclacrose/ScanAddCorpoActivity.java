@@ -53,7 +53,6 @@ public class ScanAddCorpoActivity extends MainActivity implements ZBarScannerVie
 
     @Override
     public void onBackPressed() {
-            super.onBackPressed();
             Intent returnIntent = new Intent();
             setResult(8,returnIntent);
             finish();

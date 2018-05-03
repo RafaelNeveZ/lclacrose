@@ -227,5 +227,8 @@
     <string name="hora_default">HORA</string>
     <string name="hora_notput_error">Por favor, insira a hora!</string>
     <string name="nao_informado">Não informado</string>
+    <string name="pavimento_minusculo">pavimento</string>
+    <string name="d100_100_200">100x100x200</string>
+    <string name="add">Adicionar +</string>
 
 </resources>

@@ -250,13 +250,13 @@ public class BlocoMoldActivity extends MainActivity implements
         //TEXTVIEW
         tv_code = (TextView) findViewById(R.id.code_edit_text);
         tv_switch = (TextView) findViewById(R.id.func_choose_text_view);
+
         //Switch
         switch_func = (Switch) findViewById(R.id.swit_func);
+
+
         lista_corpos = (ListView) findViewById(R.id.corpo_list);
         lista_corpos.setDivider(null);
-
-
-
         corpos = new ArrayList<>();
         codigoCorpoAdapter = new CodigoCorpoAdapter(this, R.layout.item_codigo_corpos, corpos);
         lista_corpos.setAdapter(codigoCorpoAdapter);
@@ -284,7 +284,7 @@ public class BlocoMoldActivity extends MainActivity implements
         tempCalendar.set(Calendar.getInstance().get(Calendar.YEAR),Calendar.getInstance().get(Calendar.MONTH),
                 Calendar.getInstance().get(Calendar.DATE),hourOfDay,minute);
 
-        button_hora.setText(((hourOfDay<10)?0+hourOfDay:hourOfDay)+":"+((minute<10)?0+minute:minute));
+        button_hora.setText(((hourOfDay<10)?"0"+hourOfDay:hourOfDay)+":"+((minute<10)?"0"+minute:minute));
         horaCalendar = tempCalendar;
         hora = tempCalendar.getTime().getTime();
 
@@ -474,16 +474,21 @@ public class BlocoMoldActivity extends MainActivity implements
             }
         }
 
-        if(corpos.size() <  Integer.parseInt(edit_quantidade.getText().toString())){
-            Toast.makeText(context,getString(R.string.corpos_erros),Toast.LENGTH_SHORT).show();
-            return false;
-        }
+
 
         if(!button_date.getText().equals(getString(R.string.date_default))
-                && !button_datefab.getText().equals(getString(R.string.date_default)) && !check_dataFab.isChecked() && date < fabDate) {
+                && !button_datefab.getText().equals(getString(R.string.date_default)) && !check_dataFab.isChecked()) {
+            if(date < fabDate){
                 showAlert(getString(R.string.dialog_date_error_title), getString(R.string.dialog_date_error));
                 return false;
+            }
 
+
+        }
+
+        if(corpos.size() !=  Integer.parseInt(edit_quantidade.getText().toString())){
+            Toast.makeText(context,getString(R.string.corpos_erros),Toast.LENGTH_SHORT).show();
+            return false;
         }
 
 
