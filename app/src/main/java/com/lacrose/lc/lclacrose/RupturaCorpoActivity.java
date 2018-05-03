@@ -57,7 +57,7 @@ public class RupturaCorpoActivity extends MainActivity {
         Calendar idadeCalendar = Calendar.getInstance();
         idadeCalendar.setTime(new Date(Hoje));
         idadeCalendar.add(Calendar.DATE, +idade);*/
-        long idade = atualLote.getIdade();
+      /*  long idade = atualLote.getIdade();
         long criacao = getDateWithoutHoursAndMinutes((long)atualLote.getDataCreate());
         long tempoHoje = getDateWithoutHoursAndMinutes(Hoje);
         if(tempoHoje - criacao < idade - criacao) {
@@ -86,7 +86,7 @@ public class RupturaCorpoActivity extends MainActivity {
                     finish();
                 }
             });
-        }
+        }*/
     }
 
 

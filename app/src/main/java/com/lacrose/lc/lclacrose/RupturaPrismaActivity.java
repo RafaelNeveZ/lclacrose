@@ -51,7 +51,7 @@ public class RupturaPrismaActivity extends MainActivity {
 
     private void isThisForNow() {
         jaPerguntei = true;
-        long idade = atualLote.getIdade();
+        /*long idade = atualLote.getIdade();
         Log.e(TAG,"idade "+idade);
         //Descobrir com que data comparar
         long criacao = atualLote.getDataFab();
@@ -84,7 +84,7 @@ public class RupturaPrismaActivity extends MainActivity {
                     finish();
                 }
             });
-        }
+        }*/
     }
 
 

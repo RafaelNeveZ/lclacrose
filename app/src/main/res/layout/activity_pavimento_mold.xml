@@ -411,13 +411,14 @@
                     android:text="@string/date_default"
                     android:textColor="@drawable/selector_orange_text_button" />
 
-               <!-- <CheckBox
+                <CheckBox
                     android:id="@+id/check_date"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+                    android:layout_height="5dp"
                     android:layout_alignStart="@+id/date_buttom"
                     android:layout_below="@+id/date_buttom"
-                    android:text="@string/not_info" />-->
+                    android:text="@string/not_info" />
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -558,7 +559,14 @@
                     android:onClick="horaChange"
                     android:text="@string/hora_default"
                     android:textColor="@drawable/selector_orange_text_button" />
-
+                <CheckBox
+                    android:id="@+id/check_hora"
+                    android:layout_width="match_parent"
+                    android:visibility="invisible"
+                    android:layout_height="5dp"
+                    android:layout_alignStart="@+id/hora_buttom"
+                    android:layout_below="@+id/hora_buttom"
+                    android:text="@string/not_info" />
             </RelativeLayout>
 
 

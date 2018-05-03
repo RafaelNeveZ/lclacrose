@@ -17,38 +17,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:id="@+id/code_relative"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/code_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignStart="@+id/code_edit_text"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/lote_code"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/code_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_below="@+id/code_text_view"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginEnd="50dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/rounded_full_white_edit_text"
-                    android:paddingTop="10dp"
-                    android:text="@string/default_lote"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="18sp" />
-            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -99,13 +68,116 @@
                         android:src="@drawable/ic_keyboard_arrow_down_black_24dp" />
                 </RelativeLayout>
 
-                <CheckBox
+              <!--  <CheckBox
                     android:id="@+id/check_dimenssion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignStart="@+id/dimenssion_text_view"
                     android:layout_below="@+id/dimenssion_spinner_relative"
-                    android:text="@string/not_info" />
+                    android:text="@string/not_info" />-->
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative_altura"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/altura_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/altura_edit_text"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/altura_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/altura_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/altura_text_view"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_gray_edit_text"
+                    android:inputType="number"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@android:color/black" />
+
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/relative_largura"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/largura_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/largura_edit_text"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/largura_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/largura_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/largura_text_view"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_gray_edit_text"
+                    android:inputType="number"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@android:color/black" />
+
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/relative_comprimento"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/comprimento_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/comprimento_edit_text"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/comprimento_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/comprimento_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/comprimento_text_view"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_gray_edit_text"
+                    android:inputType="number"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@android:color/black" />
+
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -143,46 +215,6 @@
                     android:layout_height="wrap_content"
                     android:layout_alignStart="@+id/datefab_buttom"
                     android:layout_below="@+id/datefab_buttom"
-                    android:text="@string/not_info" />
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/idade_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignStart="@+id/idade_edit_text"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/age_text"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/idade_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_below="@+id/idade_text_view"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginEnd="50dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/rounded_gray_edit_text"
-                    android:inputType="number"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:textColor="@android:color/black" />
-
-                <CheckBox
-                    android:id="@+id/check_idade"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/idade_edit_text"
-                    android:layout_below="@+id/idade_edit_text"
                     android:text="@string/not_info" />
             </RelativeLayout>
 
@@ -225,6 +257,10 @@
                     android:text="@string/not_info" />
             </RelativeLayout>
 
+
+
+
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -250,7 +286,7 @@
                     android:layout_marginEnd="50dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/rounded_gray_edit_text"
-                    android:inputType="number"
+                    android:inputType="text"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
                     android:textColor="@android:color/black" />
@@ -347,146 +383,6 @@
                     android:layout_below="@+id/fpk_edit_text"
                     android:text="@string/not_info" />
             </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tipo_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignStart="@+id/tipo_spinner_relative"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/tipo_prisma_text"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <RelativeLayout
-                    android:id="@+id/tipo_spinner_relative"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tipo_text_view"
-
-                    >
-
-                    <Spinner
-                        android:id="@+id/tipo_spinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginEnd="50dp"
-                        android:layout_marginTop="5dp"
-                        android:background="@drawable/rounded_gray_edit_text"
-                        android:paddingLeft="20dp"
-                        android:prompt="@string/tipo_prompt"
-                        android:text="@string/material_prompt"
-                        android:textColor="@android:color/black" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignEnd="@+id/tipo_spinner"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="11dp"
-                        android:paddingTop="8dp"
-                        android:src="@drawable/ic_keyboard_arrow_down_black_24dp" />
-                </RelativeLayout>
-                <CheckBox
-                    android:id="@+id/check_tipo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/tipo_text_view"
-                    android:layout_below="@+id/tipo_spinner_relative"
-                    android:text="@string/not_info" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/dateGraute_relate"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/dateGraute_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignStart="@+id/dateGraute_buttom"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/dateGraute_text"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/dateGraute_buttom"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_below="@+id/dateGraute_text_view"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginEnd="50dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/selector_white_button"
-                    android:onClick="dateGrauteChamge"
-                    android:text="@string/date_default"
-                    android:textColor="@drawable/selector_orange_text_button" />
-
-                <CheckBox
-                    android:id="@+id/check_dateGraute"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/dateGraute_buttom"
-                    android:layout_below="@+id/dateGraute_buttom"
-                    android:text="@string/not_info" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/local_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignStart="@+id/local_edit_text"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/local_prisma_text"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/local_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/local_text_view"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginEnd="50dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/rounded_gray_edit_text"
-                    android:inputType="textMultiLine|textCapSentences"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="10dp"
-                    android:paddingRight="20dp"
-                    android:textColor="@android:color/black" />
-
-                <CheckBox
-                    android:id="@+id/check_local"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/local_edit_text"
-                    android:layout_below="@+id/local_edit_text"
-                    android:text="@string/not_info" />
-                />
-            </RelativeLayout>
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -552,7 +448,6 @@
                     android:text="@string/not_info" />
                 />
             </RelativeLayout>
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -583,14 +478,14 @@
                     android:textColor="@drawable/selector_orange_text_button" />
 
                 <CheckBox
-                    android:id="@+id/check_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/date_buttom"
-                    android:layout_below="@+id/date_buttom"
-                    android:text="@string/not_info" />
+                      android:id="@+id/check_date"
+                      android:layout_width="match_parent"
+                      android:visibility="invisible"
+                      android:layout_height="5dp"
+                      android:layout_alignStart="@+id/date_buttom"
+                      android:layout_below="@+id/date_buttom"
+                      android:text="@string/not_info" />
             </RelativeLayout>
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -627,6 +522,344 @@
                     android:layout_alignStart="@+id/dateAssent_buttom"
                     android:layout_below="@+id/dateAssent_buttom"
                     android:text="@string/not_info" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tipo_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/tipo_spinner_relative"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/tipo_prisma_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:id="@+id/tipo_spinner_relative"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tipo_text_view"
+
+                    >
+
+                    <Spinner
+                        android:id="@+id/tipo_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginEnd="50dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/rounded_gray_edit_text"
+                        android:paddingLeft="20dp"
+                        android:prompt="@string/tipo_prompt"
+                        android:text="@string/material_prompt"
+                        android:textColor="@android:color/black" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/tipo_spinner"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="11dp"
+                        android:paddingTop="8dp"
+                        android:src="@drawable/ic_keyboard_arrow_down_black_24dp" />
+                </RelativeLayout>
+               <!-- <CheckBox
+                    android:id="@+id/check_tipo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/tipo_text_view"
+                    android:layout_below="@+id/tipo_spinner_relative"
+                    android:text="@string/not_info" />-->
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/dateGraute_relate"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/dateGraute_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/dateGraute_buttom"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/dateGraute_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/dateGraute_buttom"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/dateGraute_text_view"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/selector_white_button"
+                    android:onClick="dateGrauteChamge"
+                    android:text="@string/date_default"
+                    android:textColor="@drawable/selector_orange_text_button" />
+
+                <CheckBox
+                    android:id="@+id/check_dateGraute"
+                    android:layout_width="match_parent"
+                    android:visibility="invisible"
+                    android:layout_height="5dp"
+                    android:layout_alignStart="@+id/dateGraute_buttom"
+                    android:layout_below="@+id/dateGraute_buttom"
+                    android:text="@string/not_info" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/local_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/local_edit_text"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/local_prisma_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/local_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/local_text_view"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_gray_edit_text"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@android:color/black" />
+
+                <CheckBox
+                    android:id="@+id/check_local"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/local_edit_text"
+                    android:layout_below="@+id/local_edit_text"
+                    android:text="@string/not_info" />
+                />
+            </RelativeLayout>
+
+
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/idade_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/idade_edit_text"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/age_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/idade_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/idade_text_view"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_gray_edit_text"
+                    android:inputType="number"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@android:color/black" />
+
+                <!--  <CheckBox
+                      android:id="@+id/check_idade"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_alignStart="@+id/idade_edit_text"
+                      android:layout_below="@+id/idade_edit_text"
+                      android:text="@string/not_info" />-->
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:id="@+id/relative_hora"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/hora_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/hora_buttom"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/hora_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/hora_buttom"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/hora_text_view"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/selector_white_button"
+                    android:onClick="horaChange"
+                    android:text="@string/hora_default"
+                    android:textColor="@drawable/selector_orange_text_button" />
+                <CheckBox
+                   android:id="@+id/check_hora"
+                   android:layout_width="match_parent"
+                   android:visibility="invisible"
+                   android:layout_height="5dp"
+                   android:layout_alignStart="@+id/hora_buttom"
+                   android:layout_below="@+id/hora_buttom"
+                   android:text="@string/not_info" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/quantidade_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/quantidade_edit_text"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/quantidade_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/quantidade_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/quantidade_text_view"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_gray_edit_text"
+                    android:inputType="number"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@android:color/black" />
+
+                <!--  <CheckBox
+                      android:id="@+id/check_quantidade"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_alignStart="@+id/quantidade_edit_text"
+                      android:layout_below="@+id/quantidade_edit_text"
+                      android:text="@string/not_info" />-->
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/code_relative"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/code_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/code_edit_text"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/lote_code"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/code_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/code_text_view"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_full_white_edit_text"
+                    android:paddingTop="10dp"
+                    android:text="@string/default_lote"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rela_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/corpo_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/corpo_list"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/corpo"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+                <Button
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_alignEnd="@+id/corpo_list"
+                    android:layout_centerHorizontal="true"
+                    android:onClick="addCorpo"
+                    android:backgroundTint="@android:color/holo_green_light"
+                    android:background="@drawable/ic_plus_circle_outline_black_18dp"/>
+                <ListView
+                    android:id="@+id/corpo_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/corpo_text_view"
+                    android:background="@drawable/rounded_full_white_edit_text"
+                    android:textColor="@color/colorPrimary"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp"
+                    >
+
+
+                </ListView>
+
             </RelativeLayout>
 
 

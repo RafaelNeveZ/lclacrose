@@ -113,10 +113,12 @@ public class BlocoMoldActivity extends MainActivity implements
     }
     public void regrasNegocios(){
         dimen = new ArrayList<>();
+        dimen.add(getString(R.string.dimenssion_prompt));
         dimen.add(getString(R.string.d120_190_390));
         dimen.add(getString(R.string.d140_190_390));
         dimen.add(getString(R.string.outras_dim));
         classe = new ArrayList<>();
+        classe.add(getString(R.string.classe_prompt));
         classe.add("A");
         classe.add("B");
         classe.add("C");
@@ -145,7 +147,7 @@ public class BlocoMoldActivity extends MainActivity implements
         spinner_dimenssion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-              if(position == 2){
+              if(position == 3){
                   relative_altura.setVisibility(View.VISIBLE);
                   relative_comprimento.setVisibility(View.VISIBLE);
                   relative_largura.setVisibility(View.VISIBLE);
@@ -356,6 +358,7 @@ public class BlocoMoldActivity extends MainActivity implements
             if(!edit_quantidade.getText().toString().isEmpty())
                 newLote.setQuantidade(Double.parseDouble(edit_quantidade.getText().toString()));
 
+            if(!String.valueOf(spinner_classe.getSelectedItem()).equals(getString(R.string.classe_prompt)))
             newLote.setClasse(String.valueOf(spinner_classe.getSelectedItem()));
 
             newLote.setCodigo(tv_code.getText().toString());
@@ -412,10 +415,10 @@ public class BlocoMoldActivity extends MainActivity implements
 
     private boolean validateFields() {
 
-       /* if(String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.dimenssion_prompt))){
+        if(String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.dimenssion_prompt))){
             Toast.makeText(context,getString(R.string.dimenssion_prompt),Toast.LENGTH_SHORT).show();
             return false;
-        }*/
+        }
 
         if(String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.outras_dim))){
             if(edit_altura.getText().toString().isEmpty()){
@@ -459,8 +462,21 @@ public class BlocoMoldActivity extends MainActivity implements
             Toast.makeText(context,getString(R.string.date_notput_error),Toast.LENGTH_SHORT).show();
             return false;
         }
+        if(!button_date.getText().equals(getString(R.string.date_default))
+                && !button_datefab.getText().equals(getString(R.string.date_default)) && !check_dataFab.isChecked()) {
+            if(date < fabDate){
+                showAlert(getString(R.string.dialog_date_error_title), getString(R.string.dialog_date_error));
+                return false;
+            }
+
+
+        }
         if(edit_quantidade.getText().toString().isEmpty() ){
             errorAndRequestFocustoEditText(edit_quantidade);
+            return false;
+        }
+        if(String.valueOf(spinner_classe.getSelectedItem()).equals(getString(R.string.classe_prompt))){
+            Toast.makeText(context,getString(R.string.classe_prompt),Toast.LENGTH_SHORT).show();
             return false;
         }
         if(edit_idade.getText().toString().isEmpty()){
@@ -476,15 +492,7 @@ public class BlocoMoldActivity extends MainActivity implements
 
 
 
-        if(!button_date.getText().equals(getString(R.string.date_default))
-                && !button_datefab.getText().equals(getString(R.string.date_default)) && !check_dataFab.isChecked()) {
-            if(date < fabDate){
-                showAlert(getString(R.string.dialog_date_error_title), getString(R.string.dialog_date_error));
-                return false;
-            }
 
-
-        }
 
         if(corpos.size() !=  Integer.parseInt(edit_quantidade.getText().toString())){
             Toast.makeText(context,getString(R.string.corpos_erros),Toast.LENGTH_SHORT).show();

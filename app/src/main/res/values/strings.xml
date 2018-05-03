@@ -91,7 +91,7 @@
     <string name="dimenssion_text">Dimenssões nominais</string>
     <string name="constru_text">Concreteira</string>
     <string name="nota_text">Nota fiscal</string>
-    <string name="volume_text">Volume do caminhão</string>
+    <string name="volume_text">Volume (m³)</string>
     <string name="fck_text">FCK de projeto</string>
     <string name="slump_text">Slump</string>
     <string name="slump_flow_text">Slump flow</string>
@@ -158,7 +158,7 @@
     <string name="datafab_text">Data de fabricação</string>
     <string name="lote_text">Lote interno do cliente</string>
     <string name="fab_text">Fabricante</string>
-    <string name="func_text">Teve função estrutural?</string>
+    <string name="func_text">Função estrutural?</string>
     <string name="no_uper">NÂO</string>
     <string name="d120_190_390">120x190x390</string>
     <string name="d140_190_390">140x190x390</string>
@@ -224,7 +224,7 @@
     <string name="code_dois_pontos">Código:</string>
     <string name="cancelada">Captura cancelada!</string>
     <string name="corpos_erros">Favor registrar todos os corpos!</string>
-    <string name="hora_text">hora</string>
+    <string name="hora_text">Hora</string>
     <string name="hora_default">HORA</string>
     <string name="hora_notput_error">Por favor, insira a hora!</string>
     <string name="nao_informado">Não informado</string>
@@ -232,6 +232,8 @@
     <string name="d100_100_200">100x100x200</string>
     <string name="d80_100_200">80x100x200</string>
     <string name="add">Adicionar +</string>
+    <string name="prisma_minusculo">prisma</string>
+    <string name="oco">Oco</string>
 
     <string-array name="type_arrays">
         <item>Selecione o tipo</item>

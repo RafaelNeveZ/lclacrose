@@ -92,6 +92,7 @@ public class PavimentoMoldActivity extends MainActivity implements DatePickerDia
     }
     public void regrasNegocios(){
         dimen = new ArrayList<>();
+        dimen.add(getString(R.string.dimenssion_prompt));
         dimen.add(getString(R.string.d60_100_200));
         dimen.add(getString(R.string.d80_100_200));
         dimen.add(getString(R.string.d100_100_200));
@@ -104,7 +105,7 @@ public class PavimentoMoldActivity extends MainActivity implements DatePickerDia
         spinner_dimenssion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                if(position == 3){
+                if(position == 4){
                     relative_altura.setVisibility(View.VISIBLE);
                     relative_comprimento.setVisibility(View.VISIBLE);
                     relative_largura.setVisibility(View.VISIBLE);
@@ -124,8 +125,7 @@ public class PavimentoMoldActivity extends MainActivity implements DatePickerDia
     }
 
     private void getLoteNumber() {
-        Log.d(TAG,ServerValue.TIMESTAMP+"");
-        final List<BlocoLotes> loteList = new ArrayList<>();
+
         database.collection(getString(R.string.lote_tag))
                 .whereEqualTo("obraId",HomeActivity.WorkId)
                 .whereEqualTo(getString(R.string.tipo),getString(R.string.pavimento_minusculo))
@@ -368,10 +368,10 @@ public class PavimentoMoldActivity extends MainActivity implements DatePickerDia
 
     private boolean validateFields() {
 
-       /* if(String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.dimenssion_prompt)) && !check_dimenssion.isChecked()){
+       if(String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.dimenssion_prompt))){
             Toast.makeText(context,getString(R.string.dimenssion_prompt),Toast.LENGTH_SHORT).show();
             return false;
-        }*/
+        }
         if(String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.outras_dim))){
             if(edit_altura.getText().toString().isEmpty()){
                 errorAndRequestFocustoEditText(edit_altura);
@@ -418,6 +418,17 @@ public class PavimentoMoldActivity extends MainActivity implements DatePickerDia
             Toast.makeText(context,getString(R.string.date_notput_error),Toast.LENGTH_SHORT).show();
             return false;
         }
+        if(!button_date.getText().equals(getString(R.string.date_default))
+                && !button_datefab.getText().equals(getString(R.string.date_default)) && !check_dataFab.isChecked()) {
+            if(date < fabDate){
+                showAlert(getString(R.string.dialog_date_error_title), getString(R.string.dialog_date_error));
+                return false;
+            }
+        }
+        if(edit_quantidade.getText().toString().isEmpty() ){
+            errorAndRequestFocustoEditText(edit_quantidade);
+            return false;
+        }
         if(edit_idade.getText().toString().isEmpty()){
             errorAndRequestFocustoEditText(edit_idade);
             return false;
@@ -428,21 +439,10 @@ public class PavimentoMoldActivity extends MainActivity implements DatePickerDia
                 return false;
             }
         }
-        if(edit_quantidade.getText().toString().isEmpty() ){
-            errorAndRequestFocustoEditText(edit_quantidade);
-            return false;
-        }
 
 
-        if(!button_date.getText().equals(getString(R.string.date_default))
-                && !button_datefab.getText().equals(getString(R.string.date_default)) && !check_dataFab.isChecked()) {
-            if(date < fabDate){
-                showAlert(getString(R.string.dialog_date_error_title), getString(R.string.dialog_date_error));
-                return false;
-            }
 
 
-        }
 
         if(corpos.size() !=  Integer.parseInt(edit_quantidade.getText().toString())){
             Toast.makeText(context,getString(R.string.corpos_erros),Toast.LENGTH_SHORT).show();
@@ -475,8 +475,7 @@ public class PavimentoMoldActivity extends MainActivity implements DatePickerDia
         if (resultCode == 10) {
             String result=data.getStringExtra("result");
             corpos.add(result);
-
-
+            codigoCorpoAdapter.notifyDataSetChanged();
         }
         if (resultCode == 8) {
             Toast.makeText(this,getString(R.string.cancelada),Toast.LENGTH_SHORT);
