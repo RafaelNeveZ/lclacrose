@@ -136,6 +136,74 @@
                     android:text="@string/not_info" />-->
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/relative_altura"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/altura_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/altura_edit_text"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/altura_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/altura_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/altura_text_view"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_gray_edit_text"
+                    android:inputType="number"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@android:color/black" />
+
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/relative_largura"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/largura_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/largura_edit_text"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/largura_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/largura_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/largura_text_view"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_gray_edit_text"
+                    android:inputType="number"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@android:color/black" />
+
+
+            </RelativeLayout>
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -204,7 +272,6 @@
                         android:layout_marginEnd="50dp"
                         android:layout_marginTop="5dp"
                         android:background="@drawable/rounded_gray_edit_text"
-                        android:entries="@array/construc_arrays"
                         android:paddingLeft="20dp"
                         android:prompt="@string/construc_prompt"
                         android:text="@string/material_prompt"
@@ -291,7 +358,7 @@
                     android:layout_marginEnd="50dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/rounded_gray_edit_text"
-                    android:inputType="number"
+                    android:inputType="text"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
                     android:textColor="@android:color/black" />
@@ -344,6 +411,125 @@
                     android:layout_alignStart="@+id/fck_edit_text"
                     android:layout_below="@+id/fck_edit_text"
                     android:text="@string/not_info" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/relative_alvenaria"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/alvenaria_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/alvenaria_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:id="@+id/alvenaria_spinner_relative"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/alvenaria_text_view"
+
+                    >
+
+                    <Spinner
+                        android:id="@+id/alvenaria_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginEnd="50dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/rounded_gray_edit_text"
+                        android:entries="@array/material_arrays"
+                        android:paddingLeft="20dp"
+                        android:prompt="@string/alvenaria_prompt"
+                        android:text="@string/alvenaria_prompt"
+                        android:textColor="@android:color/black" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/alvenaria_spinner"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="11dp"
+                        android:paddingTop="8dp"
+                        android:src="@drawable/ic_keyboard_arrow_down_black_24dp" />
+                </RelativeLayout>
+
+                <!--<CheckBox
+                    android:id="@+id/check_material"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/material_text_view"
+                    android:layout_below="@+id/material_spinner_relative"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/not_info" />-->
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/relative_slump"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/slump_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/slump_spinner_relative"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/slump_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:id="@+id/slump_spinner_relative"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/slump_text_view"
+
+                    >
+
+                    <Spinner
+                        android:id="@+id/slump_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginEnd="50dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/rounded_gray_edit_text"
+                        android:paddingLeft="20dp"
+                        android:prompt="@string/slump_prompt"
+                        android:text="@string/slump_prompt"
+                        android:textColor="@android:color/black" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/slump_spinner"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="11dp"
+                        android:paddingTop="8dp"
+                        android:src="@drawable/ic_keyboard_arrow_down_black_24dp" />
+                </RelativeLayout>
+
+                <!-- <CheckBox
+                     android:id="@+id/check_dimenssion"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_alignStart="@+id/dimenssion_text_view"
+                     android:layout_below="@+id/dimenssion_spinner_relative"
+                     android:text="@string/not_info" />-->
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"

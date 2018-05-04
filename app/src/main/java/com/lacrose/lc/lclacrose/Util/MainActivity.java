@@ -6,6 +6,7 @@ import android.support.annotation.UiThread;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,6 +53,13 @@ public class MainActivity extends AppCompatActivity {
     public void errorAndRequestFocustoEditText(EditText edit_text){
         edit_text.setError(getString(R.string.empty_field_error));
         edit_text.requestFocus();
+    }
+
+    public void log(String msg){
+        Log.d(TAG,msg);
+    }
+    public void log_err(String msg){
+        Log.e(TAG,msg);
     }
 
     public long getDateWithoutHoursAndMinutes(long date){

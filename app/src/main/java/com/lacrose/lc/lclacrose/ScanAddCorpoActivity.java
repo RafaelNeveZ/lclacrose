@@ -1,13 +1,19 @@
 package com.lacrose.lc.lclacrose;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
 import me.dm7.barcodescanner.zbar.BarcodeFormat;
@@ -39,13 +45,15 @@ public class ScanAddCorpoActivity extends MainActivity implements ZBarScannerVie
     }
 
     @Override
-    public void handleResult(me.dm7.barcodescanner.zbar.Result result) {
+    public void handleResult(final me.dm7.barcodescanner.zbar.Result result) {
         final MediaPlayer barcodeSound = MediaPlayer.create(this, R.raw.barcode_reader);
         barcodeSound.start();
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra("result",result.getContents());
-        setResult(10,returnIntent);
-        finish();
+        final Intent returnIntent = new Intent();
+
+            returnIntent.putExtra("result",result.getContents());
+            setResult(10,returnIntent);
+            finish();
+
 
     }
 

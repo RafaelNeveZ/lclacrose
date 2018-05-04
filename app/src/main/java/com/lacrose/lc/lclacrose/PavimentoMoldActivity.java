@@ -105,7 +105,7 @@ public class PavimentoMoldActivity extends MainActivity implements DatePickerDia
         spinner_dimenssion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                if(position == 4){
+                if(String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.outras_dim))){
                     relative_altura.setVisibility(View.VISIBLE);
                     relative_comprimento.setVisibility(View.VISIBLE);
                     relative_largura.setVisibility(View.VISIBLE);
@@ -127,7 +127,7 @@ public class PavimentoMoldActivity extends MainActivity implements DatePickerDia
     private void getLoteNumber() {
 
         database.collection(getString(R.string.lote_tag))
-                .whereEqualTo("obraId",HomeActivity.WorkId)
+                .whereEqualTo(getString(R.string.obraid),HomeActivity.WorkId)
                 .whereEqualTo(getString(R.string.tipo),getString(R.string.pavimento_minusculo))
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

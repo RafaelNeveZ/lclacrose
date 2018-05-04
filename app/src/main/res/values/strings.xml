@@ -101,7 +101,7 @@
     <string name="lote_create">CRIAR LOTE</string>
     <string name="ruptura">RUPTURA</string>
     <string name="body_code">Código do corpo de prova</string>
-    <string name="construc_prompt">Selecione a construtora</string>
+    <string name="construc_prompt">Selecione a concreteira</string>
     <string-array name="construc_arrays">
         <item>Massa Fort – MF</item>
         <item>Lenobetão – LE</item>
@@ -169,7 +169,7 @@
     <string name="fpk_text">FPK de projeto</string>
     <string name="d60_100_200">60x100x200</string>
     <string name="lote_pavimento_tag">pavimentoLotes</string>
-    <string name="date_fab_notput_error">Coloque a data de fabricação</string>
+    <string name="date_fab_notput_error">Coloque a data de fabricação.</string>
     <string name="fbk_text">FBK de projeto</string>
     <string name="dialog_date_error_title">Error: Data</string>
     <string name="dialog_date_error">A data de recebimento não pode ser menor do que a de fabricação.</string>
@@ -234,6 +234,28 @@
     <string name="add">Adicionar +</string>
     <string name="prisma_minusculo">prisma</string>
     <string name="oco">Oco</string>
+    <string name="slump_prompt">Selecione o tipo de slump</string>
+    <string name="cp_minusculo">cp</string>
+    <string name="obraid">obraId</string>
+    <string name="select_material">Selecione o material</string>
+    <string name="alvenaria_prompt">Selecione</string>
+    <string name="alvenaria_text">É pra alvenaria estrural?</string>
+    <string name="sim">Sim</string>
+    <string name="nao">Não</string>
+    <string name="slump">Slump</string>
+    <string name="slump_flow">Slump Flow</string>
+    <string name="concrec_tag">concreteiras</string>
+    <string name="nao_possui">Não possui</string>
+    <string name="feito_obra">feito em obra</string>
+    <string name="dialog_idade_title">Insira a idade:</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="idade_dois_pontos">Idade:</string>
+    <string name="erro_28">Deve existir pelo menos 1 cp com idade 28</string>
+    <string name="erro">ERRO!</string>
+    <string name="erro_3">Para a criação do lote só é possivel o cadastro de no máximo 3 idades diferentes.</string>
+    <string name="alvenaria_erro">Selecione o campo de alvenaria.</string>
+    <string name="slump_erro">Selecione o tipo de slump</string>
+    <string name="date_re_notput_error">Coloque a data de recebimento!</string>
 
     <string-array name="type_arrays">
         <item>Selecione o tipo</item>

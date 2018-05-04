@@ -110,7 +110,7 @@ public class PrismaMoldActivity extends MainActivity implements DatePickerDialog
         spinner_dimenssion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                if(position == 3){
+                if(String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.outras_dim))){
                     relative_altura.setVisibility(View.VISIBLE);
                     relative_comprimento.setVisibility(View.VISIBLE);
                     relative_largura.setVisibility(View.VISIBLE);
@@ -178,7 +178,7 @@ public class PrismaMoldActivity extends MainActivity implements DatePickerDialog
     private void getLoteNumber() {
 
         database.collection(getString(R.string.lote_tag))
-                .whereEqualTo("obraId",HomeActivity.WorkId)
+                .whereEqualTo(getString(R.string.obraid),HomeActivity.WorkId)
                 .whereEqualTo(getString(R.string.tipo),getString(R.string.prisma_minusculo))
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -215,9 +215,9 @@ public class PrismaMoldActivity extends MainActivity implements DatePickerDialog
 
 
         //CHECKBOX
-        check_dimenssion = (CheckBox) findViewById(R.id.check_dimenssion);
+       // check_dimenssion = (CheckBox) findViewById(R.id.check_dimenssion);
         check_dataFab = (CheckBox) findViewById(R.id.checkfab_date);
-        check_idade = (CheckBox) findViewById(R.id.check_idade);
+       // check_idade = (CheckBox) findViewById(R.id.check_idade);
         check_lote = (CheckBox) findViewById(R.id.check_lote);
         check_nota = (CheckBox) findViewById(R.id.check_nota_fiscal);
         check_fab = (CheckBox) findViewById(R.id.check_fab);

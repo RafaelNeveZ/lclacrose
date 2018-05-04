@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/dialog_title"
-        android:text="@string/dialog_forgot_pass_title"
+        android:text="@string/dialog_idade_title"
         android:textAlignment="center"
         android:padding="10dp"
         android:layout_marginTop="10dp"
@@ -22,14 +22,14 @@
     </TextView>
 
     <EditText
-        android:id="@+id/edit_email_reset"
+        android:id="@+id/edit_add_idade"
         android:layout_width="match_parent"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:layout_height="50dp"
         android:background="@drawable/rounded_orange_edit_text"
-        android:inputType="textEmailAddress"
+        android:inputType="number"
         android:textSize="14sp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
@@ -45,7 +45,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/cancel_forgot"
+            android:id="@+id/button_no"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -56,14 +56,14 @@
             android:textColor="@drawable/selector_orange_text_button" />
 
         <Button
-            android:id="@+id/confirm_send_email"
+            android:id="@+id/button_yes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_weight="1"
             android:layout_margin="5dp"
             android:background="@drawable/selector_orange_button"
-            android:text="@string/send_email"
+            android:text="@string/confirmar"
             android:textColor="@drawable/selector_white_text_button" />
 
 
