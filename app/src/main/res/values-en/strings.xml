@@ -116,7 +116,7 @@
     <string name="lote_create">CRIAR LOTE</string>
     <string name="ruptura">Ruptura</string>
     <string name="body_code">Código do corpo de prova</string>
-    <string name="carga_text">Carga</string>
+    <string name="carga_text">Carga (N)</string>
     <string name="type_text">Tipo</string>
     <string name="save_continue">Salvar e continuar</string>
     <string name="save_finish">Salvar e finalizar</string>
@@ -253,5 +253,17 @@
     <string name="alvenaria_erro">Selecione o campo de alvenaria.</string>
     <string name="slump_erro">Selecione o tipo de slump</string>
     <string name="date_re_notput_error">Coloque a data de recebimento!</string>
+    <string name="repeate_lote_text">O Lote foi criado com sucesso! Se deseja aproveitar informações do lote anterior, selecione quais e aperte CONTINUAR. Caso contrario aperte FINALIZAR.</string>
+    <string name="finalizar">Finalizar</string>
+    <string name="continuar">Continuar</string>
+    <string name="res_text">Resistência (MPa)</string>
+    <string name="corpos_tag">corpos</string>
+    <string name="erro_salve">Erro ao salvar os corpos de prova!</string>
+    <string name="rompimentos_tag">rompimentos</string>
+    <string name="edit_body">Editando corpo de prova...</string>
+    <string name="editar">Editar</string>
+    <string name="delete">EXCLUIR ROMPIMENTO</string>
+    <string name="delete_rompimento_title">Tem certeza que deseja apagar o rompimento?</string>
+    <string name="delete_bt">EXCLUIR</string>
 
 </resources>

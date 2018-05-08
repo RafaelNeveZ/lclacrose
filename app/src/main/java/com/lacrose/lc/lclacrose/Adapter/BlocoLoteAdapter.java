@@ -60,25 +60,13 @@ public class BlocoLoteAdapter extends ArrayAdapter<BlocoLotes> {
             work_name.setOnClickListener( new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    database.getReference(context.getString(R.string.time_stamp_tag)).setValue(ServerValue.TIMESTAMP);
-                    database.getReference(context.getString(R.string.time_stamp_tag)).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            RupturaBlocoActivity.Hoje = (long) dataSnapshot.getValue();
                             RupturaBlocoActivity.atualLote = blocoLotes;
                             ScanActivity.ondeEstou = 1;
                             ScanActivity.primeiraVez = true;
                             Intent intent = new Intent(context, ScanActivity.class);
                             RupturaBlocoListActivity.BlocosList = new ArrayList<>();
                             context.startActivity(intent);
-                        }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
 
                 }
             });

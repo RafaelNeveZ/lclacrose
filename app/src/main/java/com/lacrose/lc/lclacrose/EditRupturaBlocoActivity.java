@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
 import com.lacrose.lc.lclacrose.Model.BlocoLotes;
 import com.lacrose.lc.lclacrose.Model.Blocos;
 import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
@@ -24,10 +23,10 @@ import java.text.DecimalFormat;
 import java.util.Calendar;
 
 
-public class RupturaBlocoActivity extends MainActivity {
+public class EditRupturaBlocoActivity extends MainActivity {
     public static String CODE;
-    public static BlocoLotes atualLote;
-    public static boolean jaPerguntei;
+    public static Blocos editBloco;
+    public static BlocoLotes editLote;
     public TextView code_ET;
     private final Context context = this;
     EditText edit_carga, edit_altura,edit_largura,edit_comprimento,edit_espc_long,edit_espc_trans,edit_res;
@@ -39,25 +38,30 @@ public class RupturaBlocoActivity extends MainActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bloco_rulptura);
+        setContentView(R.layout.activity_edit_bloco_rulptura);
         database = FireBaseUtil.getDatabase();
-        if(!jaPerguntei){
-            isThisForNow();
-        }
-        //today = Calendar.getInstance();
         code_ET = (TextView) findViewById(R.id.code_edit_text);
-        code_ET.setText(CODE);
+        code_ET.setText(editBloco.getCodigo());
+
         edit_largura = (EditText) findViewById(R.id.largura_edit_text);
+        edit_largura.setText(editBloco.getLargura()+"");
         edit_altura = (EditText) findViewById(R.id.altura_edit_text);
+        edit_altura.setText(editBloco.getAltura()+"");
         edit_comprimento = (EditText) findViewById(R.id.comprimento_edit_text);
+        edit_comprimento.setText(editBloco.getComprimento()+"");
         edit_carga = (EditText) findViewById(R.id.carga_edit_text);
         edit_carga.setText(0+"");
+        edit_carga.setText(editBloco.getCarga()+"");
+
         edit_espc_long = (EditText) findViewById(R.id.esp_long_edit_text);
+        edit_espc_long.setText(editBloco.getEsspesura_Long()+"");
+
         edit_espc_trans = (EditText) findViewById(R.id.esp_trans_edit_text);
+        edit_espc_trans.setText(editBloco.getEsspesura_Tranv()+"");
+
         edit_res = (EditText) findViewById(R.id.res_edit_text);
-        edit_altura.setText(atualLote.getDimenssoes().get("altura")+"");
-        edit_largura.setText(atualLote.getDimenssoes().get("largura")+"");
-        edit_comprimento.setText(atualLote.getDimenssoes().get("comprimento")+"");
+        edit_res.setText(editBloco.getResistencia()+"");
+
         edit_comprimento.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -126,80 +130,62 @@ public class RupturaBlocoActivity extends MainActivity {
 
     }
 
-    private void isThisForNow() {
-        jaPerguntei = true;
-        if(atualLote.getDataFab() !=null) {
-            Double idade = atualLote.getIdade();
-            long criacao = atualLote.getDataFab();
 
 
-            Date dataMoldagem = new Date(atualLote.getDataFab());
-            Date dataRompimentoEsperada = new Date(atualLote.getDataFab());
-            int dateSomada = Integer.valueOf(atualLote.getIdade().intValue());
 
-            dataRompimentoEsperada.setDate(dataMoldagem.getDate() + dateSomada);
-            Date diaSemHora = new Date(today.getTime().getYear(),today.getTime().getMonth(), today.getTime().getDate());
-            Date rompSemHora = new Date(dataRompimentoEsperada.getYear(), dataRompimentoEsperada.getMonth(), dataRompimentoEsperada.getDate());
-            if (rompSemHora.getTime() > diaSemHora.getTime()) {
-                final Dialog dialog = new Dialog(context);
-                dialog.setContentView(R.layout.dialog_two_choice);
-                dialog.setTitle(getString(R.string.dialog_before_age));
-                dialog.show();
-                TextView title = (TextView) dialog.findViewById(R.id.dialog_title);
-                title.setText(getString(R.string.dialog_before_age));
-                Button btCancel = (Button) dialog.findViewById(R.id.button_no);
-                Button btYes = (Button) dialog.findViewById(R.id.button_yes);
-                btYes.setText(getString(R.string.yes));
-                btYes.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-                btCancel.setText(getString(R.string.no));
-                btCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        exit();
-                    }
-                });
-            }
-        }
-    }
-
-
-    public void saveFinish(View view) {
+    public void saveEdit(View view) {
     saveResults(false);
     }
 
-    public void saveContinue(View view) {
+    public void cancel(View view) {
         ScanActivity.primeiraVez = false;
         saveResults(true);
     }
 
+    public void deletar(View view) {
+        final Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.dialog_two_choice);
+        TextView tv = (TextView) dialog.findViewById(R.id.dialog_title);
+        tv.setText(getString(R.string.delete_rompimento_title));
+        dialog.show();
+        Button nao = (Button) dialog.findViewById(R.id.button_no);
+        Button sim = (Button) dialog.findViewById(R.id.button_yes);
+        sim.setText(getString(R.string.delete_bt));
+        nao.setText(getString(R.string.no));
+        sim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RupturaBlocoListActivity.BlocosList.remove(editBloco);
+                RupturaBlocoListActivity.voltei();
+                finish();
+            }
+        });
+        nao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+    }
+
     public void saveResults(final boolean Continue){
-        showProgress(getString(R.string.create_body));
+        showProgress(getString(R.string.edit_body));
         if(validateFields()){
             Blocos newBloco = new Blocos();
+            newBloco = editBloco;
             newBloco.setCodigo(code_ET.getText().toString());
             newBloco.setCarga(Double.parseDouble(edit_carga.getText().toString()));
             newBloco.setAltura(Double.parseDouble(edit_altura.getText().toString()));
             newBloco.setLargura(Double.parseDouble(edit_largura.getText().toString()));
             newBloco.setComprimento(Double.parseDouble(edit_comprimento.getText().toString()));
-            edit_res.setEnabled(true);
             newBloco.setResistencia(Double.parseDouble(edit_res.getText().toString()));
-            edit_res.setEnabled(false);
             newBloco.setEsspesura_Long(Double.parseDouble(edit_espc_long.getText().toString()));
             newBloco.setEsspesura_Tranv(Double.parseDouble(edit_espc_trans.getText().toString()));
-            newBloco.setCreatedBy(Auth.getUid());
-            newBloco.setDataCreate(today.getTime().getTime());
-            newBloco.setCentro_de_custo(HomeActivity.Work.getCentro_de_custo());
-            newBloco.setObraId(HomeActivity.WorkId);
-            newBloco.setLoteId(atualLote.getId());
+            RupturaBlocoListActivity.BlocosList.remove(editBloco);
             RupturaBlocoListActivity.BlocosList.add(newBloco);
+            RupturaBlocoListActivity.voltei();
             dismissProgress();
-            Intent intent = new Intent(RupturaBlocoActivity.this, Continue ? ScanActivity.class : RupturaBlocoListActivity.class);
-            startActivity(intent);
             finish();
         }else{
             dismissProgress();
@@ -262,19 +248,9 @@ public class RupturaBlocoActivity extends MainActivity {
                 dialog.dismiss();
             }
         });*/
-        exit();
+        super.onBackPressed();
     }
 
-    public void exit(){
-        if(RupturaBlocoListActivity.BlocosList.size()>0){
-            Intent intent = new Intent(context, RupturaBlocoListActivity.class);
-            startActivity(intent);
-            finish();
-        }else{
-            Intent intent = new Intent(context, HomeActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
+
 
 }

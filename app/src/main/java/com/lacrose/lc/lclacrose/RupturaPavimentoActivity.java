@@ -19,6 +19,7 @@ import com.lacrose.lc.lclacrose.Model.Pavimentos;
 import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
+import java.sql.Date;
 import java.util.Calendar;
 
 public class RupturaPavimentoActivity extends MainActivity {
@@ -52,37 +53,47 @@ public class RupturaPavimentoActivity extends MainActivity {
 
     private void isThisForNow() {
         jaPerguntei = true;
-      /*  //TODO Que data comparar?
-        long idade = atualLote.getIdade();
-        long criacao = atualLote.getDataFab();
-        long tempoHoje = getDateWithoutHoursAndMinutes(Hoje);
-        if(tempoHoje - criacao < idade - criacao) {
-            final Dialog dialog = new Dialog(context);
-            dialog.setContentView(R.layout.dialog_two_choice);
-            dialog.setTitle(getString(R.string.dialog_before_age));
-            dialog.show();
-            TextView title = (TextView) dialog.findViewById(R.id.dialog_title);
-            title.setText(getString(R.string.dialog_before_age));
-            Button btCancel = (Button) dialog.findViewById(R.id.button_no);
-            Button btYes = (Button) dialog.findViewById(R.id.button_yes);
-            btYes.setText(getString(R.string.yes));
-            btYes.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
-            btCancel.setText(getString(R.string.no));
-            btCancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        if(atualLote.getDataFab() !=null) {
+            Double idade = atualLote.getIdade();
+            long criacao = atualLote.getDataFab();
+            long tempoHoje = getDateWithoutHoursAndMinutes(Hoje);
+            Calendar today = Calendar.getInstance();
+            Date dataMoldagem = new Date(atualLote.getDataFab());
+            Date dataRompimentoEsperada = new Date(atualLote.getDataFab());
+            int dateSomada = Integer.valueOf(atualLote.getIdade().intValue());
 
-                    Intent intent = new Intent(context, HomeActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-            });
-        }*/
+            dataRompimentoEsperada.setDate(dataMoldagem.getDate() + dateSomada);
+            Date diaSemHora = new Date(today.getTime().getYear(),today.getTime().getMonth(), today.getTime().getDate());
+            Date rompSemHora = new Date(dataRompimentoEsperada.getYear(), dataRompimentoEsperada.getMonth(), dataRompimentoEsperada.getDate());
+            log(diaSemHora.getTime()+"");
+            log(rompSemHora.getTime()+"");
+            if (rompSemHora.getTime() > diaSemHora.getTime()) {
+                final Dialog dialog = new Dialog(context);
+                dialog.setContentView(R.layout.dialog_two_choice);
+                dialog.setTitle(getString(R.string.dialog_before_age));
+                dialog.show();
+                TextView title = (TextView) dialog.findViewById(R.id.dialog_title);
+                title.setText(getString(R.string.dialog_before_age));
+                Button btCancel = (Button) dialog.findViewById(R.id.button_no);
+                Button btYes = (Button) dialog.findViewById(R.id.button_yes);
+                btYes.setText(getString(R.string.yes));
+                btYes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                btCancel.setText(getString(R.string.no));
+                btCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(context, HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+            }
+        }
     }
 
 

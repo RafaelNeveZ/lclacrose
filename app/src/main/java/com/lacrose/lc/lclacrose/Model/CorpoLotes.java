@@ -33,6 +33,7 @@ public  class CorpoLotes {
     public Double quantidade = null;
     public boolean rompido = false;
     public String slump = "";
+    public Double slumpNB = null;
     public String tipo = "";
     public Double volume = null;
 
@@ -242,5 +243,13 @@ public  class CorpoLotes {
 
     public void setSlump(String slump) {
         this.slump = slump;
+    }
+
+    public Double getSlumpNB() {
+        return slumpNB;
+    }
+
+    public void setSlumpNB(Double slumpNB) {
+        this.slumpNB = slumpNB;
     }
 }

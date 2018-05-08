@@ -15,13 +15,10 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.lacrose.lc.lclacrose.Adapter.RupturaCorpoAdapter;
-import com.lacrose.lc.lclacrose.Model.Blocos;
-import com.lacrose.lc.lclacrose.Model.Corpos;
+import com.lacrose.lc.lclacrose.Model.CP;
 import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
@@ -29,7 +26,7 @@ import java.util.List;
 
 
 public class RupturaCorpoListActivity extends MainActivity {
-    public static  List<Corpos> CorposList;
+    public static  List<CP> CorposList;
     private final Context context=this;
     CollectionReference corpo_ref;
     FirebaseFirestore database;
@@ -51,7 +48,7 @@ public class RupturaCorpoListActivity extends MainActivity {
         showProgress(getString(R.string.saving));
         corpo_ref = database.collection(getString(R.string.work_tag) + "/" + HomeActivity.WorkId + "/" + getString(R.string.lote_tag) + "/" + RupturaCorpoActivity.atualLote.getId() + "/corpos");
         Log.e(TAG, "SAVE 1");
-        for (Corpos corpos : CorposList) {
+        for (CP corpos : CorposList) {
             corpo_ref.add(corpos).addOnCompleteListener(this, new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task) {

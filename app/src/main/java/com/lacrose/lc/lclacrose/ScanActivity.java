@@ -77,30 +77,67 @@ public class ScanActivity extends MainActivity implements ZBarScannerView.Result
     @Override
     public void onBackPressed() {
         if(!primeiraVez) {
-            final Dialog dialog = new Dialog(context);
-            dialog.setContentView(R.layout.dialog_two_choice);
-            dialog.setTitle(getString(R.string.dialog_logout_title));
-            TextView tv = (TextView) dialog.findViewById(R.id.dialog_title);
-            tv.setText(getString(R.string.cancel_dialog_confirm));
-            dialog.show();
-            Button btCancel = (Button) dialog.findViewById(R.id.button_no);
-            Button btLogOut = (Button) dialog.findViewById(R.id.button_yes);
-            btLogOut.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, HomeActivity.class);
+            if(ondeEstou ==0){
+                if(RupturaCorpoListActivity.CorposList.size()>0){
+                    Intent intent = new Intent(context, RupturaCorpoListActivity.class);
                     context.startActivity(intent);
                     finish();
+
+                }else{
+                    super.onBackPressed();
                 }
-            });
-            btCancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
+            }else if(ondeEstou ==1){
+                if(RupturaBlocoListActivity.BlocosList.size()>0){
+                    Intent intent = new Intent(context, RupturaBlocoListActivity.class);
+                    context.startActivity(intent);
+                    finish();
+
+                }else{
+                    super.onBackPressed();
                 }
-            });
+            }else if(ondeEstou ==2){
+                if(RupturaPrismasListActivity.prismasList.size()>0){
+                    Intent intent = new Intent(context, RupturaPrismasListActivity.class);
+                    context.startActivity(intent);
+                    finish();
+                }else{
+                    super.onBackPressed();
+                }
+            }else if(ondeEstou ==3){
+                if(RupturaPavimentoListActivity.pavimentoList.size()>0){
+                    Intent intent = new Intent(context, RupturaPavimentoListActivity.class);
+                    context.startActivity(intent);
+                    finish();
+                }else{
+                    super.onBackPressed();
+                }
+            }
         }else{
             super.onBackPressed();
         }
     }
+    /*public void exit(){
+        final Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.dialog_two_choice);
+        dialog.setTitle(getString(R.string.dialog_logout_title));
+        TextView tv = (TextView) dialog.findViewById(R.id.dialog_title);
+        tv.setText(getString(R.string.cancel_dialog_confirm));
+        dialog.show();
+        Button btCancel = (Button) dialog.findViewById(R.id.button_no);
+        Button btLogOut = (Button) dialog.findViewById(R.id.button_yes);
+        btLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, HomeActivity.class);
+                context.startActivity(intent);
+                finish();
+            }
+        });
+        btCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }*/
 }

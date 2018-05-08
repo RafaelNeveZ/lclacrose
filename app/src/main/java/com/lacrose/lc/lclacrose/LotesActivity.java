@@ -144,9 +144,10 @@ public class LotesActivity extends MainActivity {
                 pavimentoListView.setAdapter(pavimentoAdapter);
                 break;
         }
-        work_lotes_corpo_ref = database.collection(getString(R.string.work_tag)+"/"+HomeActivity.WorkId+"/"+getString(R.string.lote_tag));
+        work_lotes_corpo_ref = database.collection(getString(R.string.lote_tag));
         work_lotes_corpo_ref
                 .whereEqualTo("tipo",LoteTypetag)
+                .whereEqualTo(getString(R.string.obraid),HomeActivity.WorkId)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override

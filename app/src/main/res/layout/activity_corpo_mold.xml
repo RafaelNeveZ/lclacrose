@@ -533,6 +533,46 @@
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:id="@+id/slump_nb_relative">
+
+                <TextView
+                    android:id="@+id/slump_nb_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/slump_nb_edit_text"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/slump_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/slump_nb_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/slump_nb_text_view"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_gray_edit_text"
+                    android:inputType="number|textMultiLine"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@android:color/black" />
+
+                <!--<CheckBox
+                    android:id="@+id/check_slump"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/slump_edit_text"
+                    android:layout_below="@+id/slump_edit_text"
+                    android:text="@string/not_info" />-->
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
@@ -687,46 +727,9 @@
                     android:layout_below="@+id/hora_buttom"
                     android:text="@string/not_info" />
             </RelativeLayout>
-          <!--  <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/slump_relative">
 
-                <TextView
-                    android:id="@+id/slump_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignStart="@+id/slump_edit_text"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/slump_text"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/slump_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_below="@+id/slump_text_view"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginEnd="50dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/rounded_gray_edit_text"
-                    android:inputType="number|textMultiLine"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:textColor="@android:color/black" />
-
-                <CheckBox
-                    android:id="@+id/check_slump"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/slump_edit_text"
-                    android:layout_below="@+id/slump_edit_text"
-                    android:text="@string/not_info" />
-            </RelativeLayout>
-
+            <!--
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

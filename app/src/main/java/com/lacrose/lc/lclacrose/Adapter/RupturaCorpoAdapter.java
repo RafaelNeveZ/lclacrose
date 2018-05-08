@@ -8,25 +8,24 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.lacrose.lc.lclacrose.Model.Corpos;
+import com.lacrose.lc.lclacrose.Model.CP;
 import com.lacrose.lc.lclacrose.R;
 import com.lacrose.lc.lclacrose.RupturaCorpoActivity;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
  * Created by rafae on 12/10/2017.
  */
 
-public class RupturaCorpoAdapter extends ArrayAdapter<Corpos> {
+public class RupturaCorpoAdapter extends ArrayAdapter<CP> {
     Context context;
     public RupturaCorpoAdapter(Context context, int textViewResourceId) {
         super(context, textViewResourceId);
     }
 
-    public RupturaCorpoAdapter(Context context, int resource, List<Corpos> items) {
+    public RupturaCorpoAdapter(Context context, int resource, List<CP> items) {
         super(context, resource, items);
         this.context = context;
     }
@@ -42,7 +41,7 @@ public class RupturaCorpoAdapter extends ArrayAdapter<Corpos> {
             view = viewLayout.inflate(R.layout.item_ruptura_corpo, null);
         }
 
-        final Corpos corpos = getItem(position);
+        final CP corpos = getItem(position);
 
         if (corpos != null) {
             TextView code = (TextView) view.findViewById(R.id.tv_code);

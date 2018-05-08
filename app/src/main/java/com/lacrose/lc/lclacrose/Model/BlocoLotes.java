@@ -21,7 +21,7 @@ public  class BlocoLotes {
     public Long data = null;
     public Long dataCreate = null;
     public Long dataFab = null;
-    public HashMap<String, Integer> dimenssion;
+    public HashMap<String, Double> dimenssion;
     public String fabricante = "";
     public Double fbk = null;
     public String funcEstrutural = "";
@@ -116,11 +116,11 @@ public  class BlocoLotes {
         this.dataFab = dataFab;
     }
 
-    public HashMap<String, Integer> getDimenssoes() {
+    public HashMap<String, Double> getDimenssoes() {
         return dimenssion;
     }
 
-    public void setDimenssoes(HashMap<String, Integer> dimenssoes) {
+    public void setDimenssoes(HashMap<String, Double> dimenssoes) {
         this.dimenssion = dimenssoes;
     }
 

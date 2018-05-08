@@ -61,13 +61,17 @@
             android:name=".RupturaCorpoActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/ruptura"
-            android:parentActivityName=".LotesActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".RupturaBlocoActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/ruptura"
-            android:parentActivityName=".LotesActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".EditRupturaBlocoActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/ruptura"
+            android:parentActivityName=".RupturaBlocoListActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".RupturaPrismaActivity"
@@ -94,8 +98,7 @@
         <activity
             android:name=".RupturaBlocoListActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/list_bloco_label"
-            android:parentActivityName=".HomeActivity" />
+            android:label="@string/list_bloco_label" />
         <activity
             android:name=".RupturaPrismasListActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"

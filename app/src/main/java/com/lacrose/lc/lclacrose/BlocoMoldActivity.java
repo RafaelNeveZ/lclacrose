@@ -1,6 +1,7 @@
 package com.lacrose.lc.lclacrose;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -16,6 +17,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -112,6 +114,41 @@ public class BlocoMoldActivity extends MainActivity implements
 
     }
     public void regrasNegocios(){
+        Intent intent = getIntent();
+        String dataFabLong = intent.getStringExtra("dataFabLong");
+        String dataFabText = intent.getStringExtra("dataFabText");
+        String dataLong = intent.getStringExtra("dataLong");
+        String dataText = intent.getStringExtra("dataText");
+        String fabricante = intent.getStringExtra("fabricante");
+        String fbk = intent.getStringExtra("fbk");
+        if(dataFabLong !=null && dataFabText !=null){
+            log(dataFabText);
+            if(dataFabLong.equals("NI")){
+                check_dataFab.setChecked(true);
+            }else{
+                fabDate = Long.parseLong(dataFabLong);
+
+                button_datefab.setText(dataFabText);
+            }
+        }
+        if(dataLong !=null && dataText !=null){
+            date = Long.parseLong(dataLong);
+            button_date.setText(dataText);
+        }
+        if(fabricante !=null){
+            if(fabricante.equals("NI")){
+                check_fab.setChecked(true);
+            }else{
+                edit_fab.setText(fabricante);
+            }
+        }
+        if(fbk !=null){
+            if(fbk.equals("NI")){
+                check_fbk.setChecked(true);
+            }else{
+                edit_fbk.setText(fbk);
+            }
+        }
         dimen = new ArrayList<>();
         dimen.add(getString(R.string.dimenssion_prompt));
         dimen.add(getString(R.string.d120_190_390));
@@ -313,22 +350,22 @@ public class BlocoMoldActivity extends MainActivity implements
         if(validateFields()){
             final CollectionReference ref_lote = database.collection(getString(R.string.lote_tag));
             newLote = new BlocoLotes();
-            HashMap<String, Integer> dimenssionHash = new HashMap<>();
+            HashMap<String, Double> dimenssionHash = new HashMap<>();
             if(!String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.dimenssion_prompt))) {
                 if (String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.d120_190_390))) {
-                    dimenssionHash.put(getString(R.string.largura), 120);
-                    dimenssionHash.put(getString(R.string.altura), 190);
-                    dimenssionHash.put(getString(R.string.comprimento), 390);
+                    dimenssionHash.put(getString(R.string.largura), 120.0);
+                    dimenssionHash.put(getString(R.string.altura), 190.0);
+                    dimenssionHash.put(getString(R.string.comprimento), 390.0);
                     newLote.setDimenssoes(dimenssionHash);
                 } else if (String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.d140_190_390))) {
-                    dimenssionHash.put(getString(R.string.largura), 140);
-                    dimenssionHash.put(getString(R.string.altura), 190);
-                    dimenssionHash.put(getString(R.string.comprimento), 390);
+                    dimenssionHash.put(getString(R.string.largura), 140.0);
+                    dimenssionHash.put(getString(R.string.altura), 190.0);
+                    dimenssionHash.put(getString(R.string.comprimento), 390.0);
                     newLote.setDimenssoes(dimenssionHash);
                 } else if(String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.outras_dim))){
-                    dimenssionHash.put(getString(R.string.largura), Integer.parseInt(edit_largra.getText().toString()));
-                    dimenssionHash.put(getString(R.string.altura), Integer.parseInt(edit_altura.getText().toString()));
-                    dimenssionHash.put(getString(R.string.comprimento), Integer.parseInt(edit_comprimeto.getText().toString()));
+                    dimenssionHash.put(getString(R.string.largura), Double.parseDouble(edit_largra.getText().toString()));
+                    dimenssionHash.put(getString(R.string.altura), Double.parseDouble(edit_altura.getText().toString()));
+                    dimenssionHash.put(getString(R.string.comprimento), Double.parseDouble(edit_comprimeto.getText().toString()));
                     newLote.setDimenssoes(dimenssionHash);
                 }
             }
@@ -401,8 +438,70 @@ public class BlocoMoldActivity extends MainActivity implements
                         public void onComplete(@NonNull Task task) {
                             dismissProgress();
                             if(task.isSuccessful()) {
+                                final Dialog dialog = new Dialog(context);
+                                dialog.setContentView(R.layout.dialog_cp_repeat);
+                                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                                lp.copyFrom(dialog.getWindow().getAttributes());
+                                lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                                lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+                                dialog.show();
+                                dialog.getWindow().setAttributes(lp);
+                                final CheckBox dataFab = (CheckBox)dialog.findViewById(R.id.check_dateFab);
+                                final CheckBox data = (CheckBox)dialog.findViewById(R.id.check_date);
+                                final CheckBox fbk = (CheckBox)dialog.findViewById(R.id.check_fbk);
+                                fbk.setVisibility(View.VISIBLE);
+                                final CheckBox fab = (CheckBox)dialog.findViewById(R.id.check_fab);
+                                fab.setVisibility(View.VISIBLE);
+                                Button btCancel = (Button) dialog.findViewById(R.id.button_no);
+                                Button btConfrimar = (Button) dialog.findViewById(R.id.button_yes);
+                                btConfrimar.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent i = new Intent(BlocoMoldActivity.this, BlocoMoldActivity.class);
+                                        if (dataFab.isChecked()) {
+                                            if (check_dataFab.isChecked()) {
+                                                i.putExtra("dataFabLong", "NI");
+                                                i.putExtra("dataFabText", "NI");
+                                            } else {
+                                                i.putExtra("dataFabLong", fabDate+"");
+                                                i.putExtra("dataFabText", button_datefab.getText().toString());
+                                            }
+                                        }
+
+                                        if (data.isChecked()) {
+                                            log(button_date.getText().toString());
+                                            i.putExtra("dataLong", date+"");
+                                            i.putExtra("dataText", button_date.getText().toString());
+                                        }
+                                        if (fbk.isChecked()){
+                                            if (check_fbk.isChecked()) {
+                                                i.putExtra("fbk","NI");
+                                            } else {
+                                                i.putExtra("fbk",edit_fbk.getText().toString());
+                                            }
+                                        }
+                                        if (fab.isChecked()){
+                                            if (check_fab.isChecked()) {
+                                                i.putExtra("fabricante","NI");
+                                            } else {
+                                                i.putExtra("fabricante",edit_fab.getText().toString());
+                                            }
+                                        }
+
+                                        startActivity(i);
+                                        finish();
+                                        dialog.dismiss();
+                                    }
+                                });
+                                btCancel.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        dialog.dismiss();
+                                        finish();
+                                    }
+                                });
                                 Toast.makeText(context,getString(R.string.lote_create_sucess),Toast.LENGTH_SHORT).show();
-                                finish();
+
                             }else{
                                 Toast.makeText(context,getString(R.string.server_error),Toast.LENGTH_SHORT).show();
                             }
@@ -522,12 +621,12 @@ public class BlocoMoldActivity extends MainActivity implements
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (requestCode == 10) {
+        if (resultCode == 10) {
                 String result=data.getStringExtra("result");
                 corpos.add(result);
                 codigoCorpoAdapter.notifyDataSetChanged();
             }
-        if (requestCode == 8) {
+        if (resultCode == 8) {
             Toast.makeText(this,getString(R.string.cancelada),Toast.LENGTH_SHORT);
         }
     }

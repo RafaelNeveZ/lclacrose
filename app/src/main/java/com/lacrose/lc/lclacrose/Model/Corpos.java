@@ -1,36 +1,48 @@
 package com.lacrose.lc.lclacrose.Model;
 
-import com.google.firebase.database.ServerValue;
-
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by rafae on 13/10/2017.
  */
 
 public class Corpos {
-    private String codigo;
-    private float carga;
-    private String tipo;
-    private long dataCreate;
-    private String createdBy;
-    private boolean isValid;
+    public String id = "";
 
-    public boolean isValid() {
-        return isValid;
+    public String centro_de_custo = "";
+    public List<String> alertas = new ArrayList<>();
+    public String createdBy = "";
+    public String contraProva = "";
+    public Long dataCreate = null;
+    public boolean isValid = false;
+    public String loteId = "";
+    public String obraId = "";
+    public String tipo = "";
+
+    public String getId() {
+        return id;
     }
 
-    public void setValid(boolean valid) {
-        isValid = valid;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public long getDataCreate() {
-        return dataCreate;
+    public String getCentro_de_custo() {
+        return centro_de_custo;
     }
 
-    public void setDataCreate(long dataCreate) {
-        this.dataCreate = dataCreate;
+    public void setCentro_de_custo(String centro_de_custo) {
+        this.centro_de_custo = centro_de_custo;
+    }
+
+    public List<String> getAlertas() {
+        return alertas;
+    }
+
+    public void setAlertas(List<String> alertas) {
+        this.alertas = alertas;
     }
 
     public String getCreatedBy() {
@@ -41,20 +53,44 @@ public class Corpos {
         this.createdBy = createdBy;
     }
 
-    public String getCodigo() {
-        return codigo;
+    public String getContraProva() {
+        return contraProva;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setContraProva(String contraProva) {
+        this.contraProva = contraProva;
     }
 
-    public float getCarga() {
-        return carga;
+    public Long getDataCreate() {
+        return dataCreate;
     }
 
-    public void setCarga(float carga) {
-        this.carga = carga;
+    public void setDataCreate(Long dataCreate) {
+        this.dataCreate = dataCreate;
+    }
+
+    public boolean getIsValid() {
+        return isValid;
+    }
+
+    public void setIsValid(boolean valid) {
+        isValid = valid;
+    }
+
+    public String getLoteId() {
+        return loteId;
+    }
+
+    public void setLoteId(String loteId) {
+        this.loteId = loteId;
+    }
+
+    public String getObraId() {
+        return obraId;
+    }
+
+    public void setObraId(String obraId) {
+        this.obraId = obraId;
     }
 
     public String getTipo() {
@@ -64,9 +100,4 @@ public class Corpos {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-
-    public Corpos() {
-    }
-
-
 }

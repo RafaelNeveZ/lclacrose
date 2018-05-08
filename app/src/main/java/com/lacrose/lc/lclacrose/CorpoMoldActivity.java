@@ -68,7 +68,7 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
     CorpoLotes newLote;
     ArrayList<String> concre_dim, argamassa_dim, graute_dim, defaultlist_dim, slump_list, concreteiras_list,alvenarialist,materialsList;
     RelativeLayout relative_slump,relative_alvenaria;
-    RelativeLayout relative_hora,relative_largura,relative_altura,relative_comprimento;
+    RelativeLayout relative_hora,relative_largura,relative_altura,relative_comprimento,relative_nb_slump;
     ListView lista_corpos;
     List<String>concreteirasIDs;
     List<HashMap<String,String>>corpos;
@@ -90,6 +90,9 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
         horaCalendar = Calendar.getInstance();
         database = FireBaseUtil.getFireDatabase();
         Auth = FirebaseAuth.getInstance();
+
+
+
         initiateViews();
         showProgress(getString(R.string.getting_lote_number));
         getLoteNumber();
@@ -97,6 +100,42 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
     }
 
     public void regrasNegocios(){
+        Intent intent = getIntent();
+        String dataFabLong = intent.getStringExtra("dataFabLong");
+        String dataFabText = intent.getStringExtra("dataFabText");
+        final String Concreteira = intent.getStringExtra("Concreteira");
+        String dataLong = intent.getStringExtra("dataLong");
+        String dataText = intent.getStringExtra("dataText");
+        String local = intent.getStringExtra("local");
+        String fck = intent.getStringExtra("fck");
+        if(dataFabLong !=null && dataFabText !=null){
+            log(dataFabText);
+            if(dataFabLong.equals("NI")){
+                check_dataFab.setChecked(true);
+            }else{
+                fabDate = Long.parseLong(dataFabLong);
+
+                button_datefab.setText(dataFabText);
+            }
+        }
+        if(dataLong !=null && dataText !=null){
+            date = Long.parseLong(dataLong);
+            button_date.setText(dataText);
+        }
+        if(local !=null){
+            if(local.equals("NI")){
+                check_local.setChecked(true);
+            }else{
+                edit_local.setText(local);
+            }
+        }
+        if(fck !=null){
+            if(fck.equals("NI")){
+                check_fck.setChecked(true);
+            }else{
+                edit_fck.setText(fck);
+            }
+        }
         defaultlist_dim = new ArrayList<>();
         defaultlist_dim.add(getString(R.string.select_material));
         concre_dim = new ArrayList<>();
@@ -149,6 +188,18 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
                     final Concreteira concreteira = documentSnapshot.toObject(Concreteira.class);
                     if(concreteira.getIsValid()){
                         concreteiras_list.add(concreteira.getNome()+" - "+concreteira.getSigla());
+                        if(Concreteira !=null && !Concreteira.equals("NI")) {
+
+
+                            if(Concreteira.equals(concreteira.getNome()+" - "+concreteira.getSigla())){
+                                log(Concreteira);
+                                positionOfConcreteiraEscolhida = concreteiras_list.size()-1;
+
+
+
+                            }
+                        }
+
                         log(concreteira.getNome()+" - "+concreteira.getSigla());
                         concreteirasIDs.add(documentSnapshot.getId().toString());
                     }
@@ -159,6 +210,15 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
                         spinner_concre.setAdapter(spinnerAdapterCon);
                         spinnerAdapterCon.addAll(concreteiras_list);
                         spinnerAdapterCon.notifyDataSetChanged();
+                        if(Concreteira !=null) {
+                            if (Concreteira.equals("NI")) {
+                                check_concre.setChecked(true);
+                            } else if (Concreteira.equals(getString(R.string.feito_obra))) {
+                                spinner_concre.setSelection(concreteiras_list.size()-1);
+                                }else{
+                                spinner_concre.setSelection(positionOfConcreteiraEscolhida);
+                            }
+                        }
                     }
 
                 }
@@ -207,6 +267,7 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
                     case "Concreto":
                         relative_alvenaria.setVisibility(View.GONE);
                         relative_slump.setVisibility(View.VISIBLE);
+                        relative_nb_slump.setVisibility(View.VISIBLE);
                         spinnerAdapterDim.clear();
                         spinnerAdapterDim.addAll(concre_dim);
                         spinnerAdapterDim.notifyDataSetChanged();
@@ -216,6 +277,7 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
                             relative_alvenaria.setVisibility(View.VISIBLE);
                         }
                         relative_slump.setVisibility(View.GONE);
+                        relative_nb_slump.setVisibility(View.GONE);
                         spinnerAdapterDim.clear();
                         spinnerAdapterDim.addAll(graute_dim);
                         spinnerAdapterDim.notifyDataSetChanged();
@@ -225,12 +287,14 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
                             relative_alvenaria.setVisibility(View.VISIBLE);
                         }
                         relative_slump.setVisibility(View.GONE);
+                        relative_nb_slump.setVisibility(View.GONE);
                         spinnerAdapterDim.clear();
                         spinnerAdapterDim.addAll(argamassa_dim);
                         spinnerAdapterDim.notifyDataSetChanged();
                         break;
                     case "Selecione o material":
                         relative_alvenaria.setVisibility(View.GONE);
+                        relative_nb_slump.setVisibility(View.GONE);
                         relative_slump.setVisibility(View.GONE);
                         spinnerAdapterDim.clear();
                         spinnerAdapterDim.addAll(defaultlist_dim);
@@ -332,7 +396,7 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
         edit_nota = (EditText) findViewById(R.id.nota_edit_text);
         edit_volume = (EditText) findViewById(R.id.volume_edit_text);
         edit_fck = (EditText) findViewById(R.id.fck_edit_text);
-  //      edit_slump = (EditText) findViewById(R.id.slump_edit_text);
+        edit_slump = (EditText) findViewById(R.id.slump_nb_edit_text);
    //     edit_slump_flow = (EditText) findViewById(R.id.slump_flow_edit_text);
         edit_local = (EditText) findViewById(R.id.local_edit_text);
         edit_more = (EditText) findViewById(R.id.more_edit_text);
@@ -357,6 +421,7 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
         if(HomeActivity.Work.getIs24().equals("Sim")){
             relative_hora.setVisibility(View.VISIBLE);
         }
+        relative_nb_slump = (RelativeLayout) findViewById(R.id.slump_nb_relative);
         if(!HomeActivity.Work.getAlvenaria().equals(getString(R.string.nao_possui))){
 
             temAlvenaria = true;
@@ -474,6 +539,9 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
 
             }
 
+            if(!edit_slump.getText().toString().isEmpty() && relative_nb_slump.getVisibility() != View.GONE)
+                newLote.setSlumpNB(Double.parseDouble(edit_slump.getText().toString()));
+
             if(!edit_local.getText().toString().isEmpty() && !check_local.isChecked())
                 newLote.setLocal_concretado(edit_local.getText().toString());
 
@@ -522,8 +590,81 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
                         public void onComplete(@NonNull Task task) {
                             dismissProgress();
                             if(task.isSuccessful()) {
+                                final Dialog dialog = new Dialog(context);
+                                dialog.setContentView(R.layout.dialog_cp_repeat);
+                                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                                lp.copyFrom(dialog.getWindow().getAttributes());
+                                lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                                lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+                                dialog.show();
+                                dialog.getWindow().setAttributes(lp);
+                                final CheckBox dataFab = (CheckBox)dialog.findViewById(R.id.check_dateFab);
+                                final CheckBox data = (CheckBox)dialog.findViewById(R.id.check_date);
+                                final CheckBox Concre = (CheckBox)dialog.findViewById(R.id.check_conc);
+                                Concre.setVisibility(View.VISIBLE);
+                                final CheckBox fck = (CheckBox)dialog.findViewById(R.id.check_fck);
+                                fck.setVisibility(View.VISIBLE);
+                                final CheckBox local = (CheckBox)dialog.findViewById(R.id.check_local);
+                                local.setVisibility(View.VISIBLE);
+                                Button btCancel = (Button) dialog.findViewById(R.id.button_no);
+                                Button btConfrimar = (Button) dialog.findViewById(R.id.button_yes);
+                                btConfrimar.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent i = new Intent(CorpoMoldActivity.this, CorpoMoldActivity.class);
+                                        if (dataFab.isChecked()) {
+                                            if (check_dataFab.isChecked()) {
+                                                i.putExtra("dataFabLong", "NI");
+                                                i.putExtra("dataFabText", "NI");
+                                            } else {
+                                                i.putExtra("dataFabLong", fabDate+"");
+                                                i.putExtra("dataFabText", button_datefab.getText().toString());
+                                            }
+                                        }
+
+                                        if (data.isChecked()) {
+                                            log(button_date.getText().toString());
+                                            i.putExtra("dataLong", date+"");
+                                            i.putExtra("dataText", button_date.getText().toString());
+                                            }
+                                        if (Concre.isChecked()) {
+                                            if (check_concre.isChecked()) {
+                                                i.putExtra("Concreteira", "NI");
+
+                                            } else {
+                                                i.putExtra("Concreteira", String.valueOf(spinner_concre.getSelectedItem()));
+
+                                            }
+                                        }
+                                        if (fck.isChecked()){
+                                            if (check_fck.isChecked()) {
+                                                i.putExtra("fck","NI");
+                                            } else {
+                                                i.putExtra("fck",edit_fck.getText().toString());
+                                            }
+                                        }
+                                        if (local.isChecked()){
+                                            if (check_local.isChecked()) {
+                                                i.putExtra("local","NI");
+                                            } else {
+                                                i.putExtra("local",edit_local.getText().toString());
+                                            }
+                                        }
+
+                                        startActivity(i);
+                                        finish();
+                                        dialog.dismiss();
+                                    }
+                                });
+                                btCancel.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        dialog.dismiss();
+                                        finish();
+                                    }
+                                });
                                 Toast.makeText(context,getString(R.string.lote_create_sucess),Toast.LENGTH_SHORT).show();
-                                finish();
+
                             }else{
                                 Toast.makeText(context,getString(R.string.server_error),Toast.LENGTH_SHORT).show();
                             }
@@ -578,6 +719,10 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
         if(String.valueOf(spinner_material.getSelectedItem()).equals(getString(R.string.concreto))&&
                 String.valueOf(spinner_slump.getSelectedItem()).equals(getString(R.string.slump_prompt))){
             showAlert(getString(R.string.erro),getString(R.string.slump_erro));
+            return false;
+        }
+        if(edit_slump.getText().toString().isEmpty() && relative_nb_slump.getVisibility() !=View.GONE){
+            errorAndRequestFocustoEditText(edit_slump);
             return false;
         }
         if(edit_local.getText().toString().isEmpty() && !check_local.isChecked()){
@@ -651,7 +796,7 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
 
-        if (requestCode == 10) {
+        if (resultCode == 10) {
 
 
 
@@ -686,7 +831,7 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
             });
 
         }
-        if (requestCode == 8) {
+        if (resultCode == 8) {
             Toast.makeText(this,getString(R.string.cancelada),Toast.LENGTH_SHORT);
         }
     }
