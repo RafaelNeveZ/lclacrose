@@ -141,7 +141,7 @@ public class EditRupturaCorpoActivity extends MainActivity {
             newCP.setCarga(Double.parseDouble(edit_carga.getText().toString()));
             newCP.setAltura(editCorpo.getAltura());
             newCP.setLargura(editCorpo.getLargura());
-            newCP.setTipo(String.valueOf(spinner_type.getSelectedItem()));
+            newCP.setType(String.valueOf(spinner_type.getSelectedItem()));
             newCP.setResistencia(Double.parseDouble(edit_res.getText().toString()));
             RupturaCorpoListActivity.CorposList.remove(editCorpo);
             RupturaCorpoListActivity.CorposList.add(newCP);

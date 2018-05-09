@@ -42,8 +42,12 @@ public class EditRupturaPrismaActivity extends MainActivity {
         database = FireBaseUtil.getDatabase();
         code_ET = (TextView) findViewById(R.id.code_edit_text);
         code_ET.setText(editPrisma.getCodigo());
+
         edit_res = (EditText) findViewById(R.id.res_edit_text);
         edit_res.setText(editPrisma.getResistencia()+"");
+        edit_largura = (EditText) findViewById(R.id.largura_edit_text);
+        edit_altura = (EditText) findViewById(R.id.altura_edit_text);
+        edit_comprimento = (EditText) findViewById(R.id.comprimento_edit_text);
         edit_altura.setText(editPrisma.getAltura().toString());
         edit_largura.setText(editPrisma.getLargura().toString());
         edit_comprimento.setText(editPrisma.getComprimento().toString());

@@ -42,15 +42,17 @@ public class RupturaPrismaActivity extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prisma_rulptura);
         database = FireBaseUtil.getDatabase();
-        if(!jaPerguntei){
-            isThisForNow();
-        }
+        isThisForNow();
         code_ET = (TextView) findViewById(R.id.code_edit_text);
         code_ET.setText(CODE);
+
         edit_res = (EditText) findViewById(R.id.res_edit_text);
-        edit_altura.setText(atualLote.getDimenssion().get("altura")+"");
-        edit_largura.setText(atualLote.getDimenssion().get("largura")+"");
-        edit_comprimento.setText(atualLote.getDimenssion().get("comprimento")+"");
+        edit_largura = (EditText) findViewById(R.id.largura_edit_text);
+        edit_altura = (EditText) findViewById(R.id.altura_edit_text);
+        edit_comprimento = (EditText) findViewById(R.id.comprimento_edit_text);
+        edit_altura.setText(atualLote.getDimenssion().get("altura").toString());
+        edit_largura.setText(atualLote.getDimenssion().get("largura").toString());
+        edit_comprimento.setText(atualLote.getDimenssion().get("comprimento").toString());
         edit_carga = (EditText) findViewById(R.id.carga_edit_text);
         edit_comprimento.addTextChangedListener(new TextWatcher() {
             @Override

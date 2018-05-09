@@ -17,6 +17,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,6 +26,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -93,7 +95,7 @@ public class BlocoMoldActivity extends MainActivity implements
     public boolean isFab=true;
     long date, fabDate,hora;
     private FirebaseAuth Auth;
-    ListView lista_corpos;
+    public  static ListView lista_corpos;
     List<String>corpos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,7 +205,6 @@ public class BlocoMoldActivity extends MainActivity implements
         });
 
     }
-
     private void getLoteNumber() {
 
         final List<BlocoLotes> loteList = new ArrayList<>();
@@ -624,12 +625,40 @@ public class BlocoMoldActivity extends MainActivity implements
         if (resultCode == 10) {
                 String result=data.getStringExtra("result");
                 corpos.add(result);
+
                 codigoCorpoAdapter.notifyDataSetChanged();
+                setListViewHeightBasedOnChildren(lista_corpos);
             }
         if (resultCode == 8) {
             Toast.makeText(this,getString(R.string.cancelada),Toast.LENGTH_SHORT);
         }
     }
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        Log.e("Listview Size ", "" + listView.getCount());
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+
+            return;
+        }
+
+        int totalHeight =100;
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
+
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += listItem.getMeasuredHeight();;
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight
+                + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+
+
+    }
+
     //PERMISSIONS===============================================================
     private boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission(getApplicationContext(), CAMERA);

@@ -52,6 +52,7 @@ public class RupturaPavimentoListActivity extends MainActivity {
         database = FireBaseUtil.getFireDatabase();
         ListView rupturaListView = (ListView) findViewById(R.id.ruptura_list);
         rupturaListView.setDivider(null);
+        save = (Button) findViewById(R.id.save_bt);
         pavimentoAdapter = new RupturaPavimentoAdapter(this, R.layout.item_ruptura_pavimento, pavimentoList);
         rupturaListView.setAdapter(pavimentoAdapter);
         pavimentoAdapter.registerDataSetObserver(new DataSetObserver() {
@@ -82,6 +83,7 @@ public class RupturaPavimentoListActivity extends MainActivity {
             btYes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    dialog.dismiss();
                     gravar();
                 }
             });
@@ -106,7 +108,7 @@ public class RupturaPavimentoListActivity extends MainActivity {
         newCorpo.setLoteId(RupturaPavimentoActivity.atualLote.getId());
         newCorpo.setAlertas(testAvisos());
         newCorpo.setTipo(getString(R.string.pavimento_minusculo));
-        if (newCorpo.getDataCreate() == null) {
+        if (corpo.getDataCreate() == null) {
             corpo_ref = database.collection(getString(R.string.corpos_tag));
             corpo_ref.add(newCorpo).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                 @Override
@@ -120,6 +122,7 @@ public class RupturaPavimentoListActivity extends MainActivity {
                                 public void onComplete(@NonNull Task<DocumentReference> task) {
                                     if (task.isSuccessful()) {
                                         if (ListSize >= pavimentoList.size()) {
+                                            gravarLote();
                                             dismissProgress();
                                             Toast.makeText(context, getString(R.string.rupturas_create_sucess), Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(RupturaPavimentoListActivity.this, HomeActivity.class);
@@ -172,6 +175,7 @@ public class RupturaPavimentoListActivity extends MainActivity {
                                             public void onComplete(@NonNull Task<DocumentReference> task) {
                                                 if (task.isSuccessful()) {
                                                     if (ListSize >= pavimentoList.size()) {
+                                                        gravarLote();
                                                         dismissProgress();
                                                         Toast.makeText(context, getString(R.string.rupturas_create_sucess), Toast.LENGTH_SHORT).show();
                                                         Intent intent = new Intent(RupturaPavimentoListActivity.this, HomeActivity.class);
@@ -193,6 +197,10 @@ public class RupturaPavimentoListActivity extends MainActivity {
                     });
 
         }
+    }
+    public void gravarLote(){
+        database.collection(getString(R.string.lote_tag)).document(RupturaPavimentoActivity.atualLote.getId())
+                .update("rompido",true);
     }
     public List<String> testAvisos(){
         List<String> alertas = new ArrayList<>();

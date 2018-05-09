@@ -54,7 +54,7 @@ public class RupturaCorpoAdapter extends ArrayAdapter<CP> {
             TextView tipo = (TextView) view.findViewById(R.id.tv_type);
             TextView data = (TextView) view.findViewById(R.id.tv_data);
             TextView res = (TextView) view.findViewById(R.id.tv_res);
-
+            TextView idade = (TextView) view.findViewById(R.id.tv_idade);
 
             if (code != null) {
                 code.setText(corpos.getCodigo());
@@ -66,7 +66,10 @@ public class RupturaCorpoAdapter extends ArrayAdapter<CP> {
                 res.setText(corpos.getResistencia()+"");
             }
             if (tipo != null) {
-                tipo.setText(corpos.getTipo());
+                tipo.setText(corpos.getType());
+            }
+            if (idade != null) {
+                tipo.setText(corpos.getIdade()+"");
             }
             if (data != null) {
                 SimpleDateFormat fmtOut = new SimpleDateFormat("dd/MM/yyyy");

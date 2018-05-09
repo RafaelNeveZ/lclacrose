@@ -49,10 +49,7 @@ public class RupturaBlocoActivity extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bloco_rulptura);
         database = FireBaseUtil.getFireDatabase();
-
-        if(!jaPerguntei){
-            isThisForNow();
-        }
+        isThisForNow();
         //today = Calendar.getInstance();
         code_ET = (TextView) findViewById(R.id.code_edit_text);
         code_ET.setText(CODE);
@@ -64,9 +61,9 @@ public class RupturaBlocoActivity extends MainActivity {
         edit_espc_long = (EditText) findViewById(R.id.esp_long_edit_text);
         edit_espc_trans = (EditText) findViewById(R.id.esp_trans_edit_text);
         edit_res = (EditText) findViewById(R.id.res_edit_text);
-        edit_altura.setText(atualLote.getDimenssoes().get("altura")+"");
-        edit_largura.setText(atualLote.getDimenssoes().get("largura")+"");
-        edit_comprimento.setText(atualLote.getDimenssoes().get("comprimento")+"");
+        edit_altura.setText(atualLote.getDimenssoes().get("altura").toString());
+        edit_largura.setText(atualLote.getDimenssoes().get("largura").toString());
+        edit_comprimento.setText(atualLote.getDimenssoes().get("comprimento").toString());
         edit_comprimento.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

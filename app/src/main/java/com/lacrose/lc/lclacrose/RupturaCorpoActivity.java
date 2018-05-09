@@ -45,9 +45,7 @@ public class RupturaCorpoActivity extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_corpo_rulptura);
         database = FireBaseUtil.getDatabase();
-        if(!jaPerguntei){
-            isThisForNow();
-        }
+        isThisForNow();
         code_ET = (TextView) findViewById(R.id.code_edit_text);
         code_ET.setText(CODE);
         edit_res = (EditText) findViewById(R.id.res_edit_text);
@@ -86,6 +84,7 @@ public class RupturaCorpoActivity extends MainActivity {
             Date dataMoldagem = new Date(atualLote.getDataFab());
             Date dataRompimentoEsperada = new Date(atualLote.getDataFab());
             int dateSomada = Integer.valueOf(idade);
+            log(dateSomada+"");
             dataRompimentoEsperada.setDate(dataMoldagem.getDate() + dateSomada);
             Date diaSemHora = new Date(today.getTime().getYear(),today.getTime().getMonth(), today.getTime().getDate());
             Date rompSemHora = new Date(dataRompimentoEsperada.getYear(), dataRompimentoEsperada.getMonth(), dataRompimentoEsperada.getDate());
@@ -135,7 +134,8 @@ public class RupturaCorpoActivity extends MainActivity {
             newCP.setCarga(Double.parseDouble(edit_carga.getText().toString()));
             newCP.setAltura(Double.parseDouble(atualLote.getDimenssion().get("altura").toString()));
             newCP.setLargura(Double.parseDouble(atualLote.getDimenssion().get("largura").toString()));
-            newCP.setTipo(String.valueOf(spinner_type.getSelectedItem()));
+            newCP.setType(String.valueOf(spinner_type.getSelectedItem()));
+            newCP.setIdade(Double.parseDouble(idade));
             edit_res.setEnabled(true);
             newCP.setResistencia(Double.parseDouble(edit_res.getText().toString()));
             edit_res.setEnabled(false);

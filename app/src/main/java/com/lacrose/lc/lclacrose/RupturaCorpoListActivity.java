@@ -83,6 +83,7 @@ public class RupturaCorpoListActivity extends MainActivity {
             btYes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    dialog.dismiss();
                     gravar();
                 }
             });
@@ -109,7 +110,7 @@ public class RupturaCorpoListActivity extends MainActivity {
         newCorpo.setLoteId(RupturaCorpoActivity.atualLote.getId());
         newCorpo.setAlertas(testAvisos());
         newCorpo.setTipo(getString(R.string.cp_minusculo));
-        if (newCorpo.getDataCreate() == null) {
+        if (corpo.getDataCreate() == null) {
             corpo_ref = database.collection(getString(R.string.corpos_tag));
             corpo_ref.add(newCorpo).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                 @Override
@@ -123,6 +124,7 @@ public class RupturaCorpoListActivity extends MainActivity {
                                 public void onComplete(@NonNull Task<DocumentReference> task) {
                                     if (task.isSuccessful()) {
                                         if (ListSize >= CorposList.size()) {
+                                            gravarLote();
                                             dismissProgress();
                                             Toast.makeText(context, getString(R.string.rupturas_create_sucess), Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(RupturaCorpoListActivity.this, HomeActivity.class);
@@ -175,6 +177,7 @@ public class RupturaCorpoListActivity extends MainActivity {
                                             public void onComplete(@NonNull Task<DocumentReference> task) {
                                                 if (task.isSuccessful()) {
                                                     if (ListSize >= CorposList.size()) {
+                                                        gravarLote();
                                                         dismissProgress();
                                                         Toast.makeText(context, getString(R.string.rupturas_create_sucess), Toast.LENGTH_SHORT).show();
                                                         Intent intent = new Intent(RupturaCorpoListActivity.this, HomeActivity.class);
@@ -196,6 +199,10 @@ public class RupturaCorpoListActivity extends MainActivity {
                     });
 
         }
+    }
+    public void gravarLote(){
+        database.collection(getString(R.string.lote_tag)).document(RupturaCorpoActivity.atualLote.getId())
+                .update("rompido",true);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

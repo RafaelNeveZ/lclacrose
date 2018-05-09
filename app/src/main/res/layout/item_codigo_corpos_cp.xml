@@ -59,6 +59,7 @@
         <Button
             android:id="@+id/delete_bt"
             android:layout_width="25dp"
+            android:layout_gravity="center"
             android:layout_height="25dp"
             android:layout_weight="0"
             android:backgroundTint="@android:color/holo_red_light"

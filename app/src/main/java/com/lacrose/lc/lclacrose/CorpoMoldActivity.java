@@ -15,6 +15,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +23,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -69,7 +71,7 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
     ArrayList<String> concre_dim, argamassa_dim, graute_dim, defaultlist_dim, slump_list, concreteiras_list,alvenarialist,materialsList;
     RelativeLayout relative_slump,relative_alvenaria;
     RelativeLayout relative_hora,relative_largura,relative_altura,relative_comprimento,relative_nb_slump;
-    ListView lista_corpos;
+    public static ListView lista_corpos;
     List<String>concreteirasIDs;
     List<HashMap<String,String>>corpos;
     CodigoCorpoCPAdapter codigoCorpoAdapter;
@@ -820,6 +822,7 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
                     cp.put("idade",edit_add_idade.getText().toString());
                     corpos.add(cp);
                     codigoCorpoAdapter.notifyDataSetChanged();
+                    setListViewHeightBasedOnChildren(lista_corpos);
                     dialog.dismiss();
                 }
             });
@@ -834,6 +837,31 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
         if (resultCode == 8) {
             Toast.makeText(this,getString(R.string.cancelada),Toast.LENGTH_SHORT);
         }
+    }
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        Log.e("Listview Size ", "" + listView.getCount());
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+
+            return;
+        }
+
+        int totalHeight =100;
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
+
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += listItem.getMeasuredHeight();;
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight
+                + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+
+
     }
     //PERMISSIONS===============================================================
     private boolean checkPermission() {

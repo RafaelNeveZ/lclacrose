@@ -587,28 +587,25 @@
                         android:textSize="14sp"
                         android:textStyle="bold" />
                     <Button
-                        android:layout_width="wrap_content"
+                        android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginTop="15dp"
                         android:layout_alignEnd="@+id/corpo_list"
                         android:layout_centerHorizontal="true"
                         android:onClick="addCorpo"
-                        android:textColor="@android:color/holo_green_light"
-                        android:background="@android:color/transparent"
-                        android:text="@string/add"/>
-                       <!-- android:backgroundTint="@android:color/holo_green_light"
-                        android:background="@drawable/ic_plus_circle_outline_black_18dp"-->
+                        android:backgroundTint="@android:color/holo_green_light"
+                        android:background="@drawable/ic_plus_circle_outline_black_18dp"/>
                     <ListView
                         android:id="@+id/corpo_list"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:layout_centerHorizontal="true"
+
                         android:layout_marginEnd="50dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="10dp"
                         android:layout_below="@+id/corpo_text_view"
                         android:background="@drawable/rounded_full_white_edit_text"
                         android:textColor="@color/colorPrimary"
-
                         android:paddingBottom="10dp"
                         android:paddingLeft="20dp"
                         android:paddingTop="10dp"

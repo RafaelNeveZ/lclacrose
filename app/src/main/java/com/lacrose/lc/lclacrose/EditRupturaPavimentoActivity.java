@@ -44,6 +44,10 @@ public class EditRupturaPavimentoActivity extends MainActivity {
         code_ET.setText(editPavimento.getCodigo());
         edit_res = (EditText) findViewById(R.id.res_edit_text);
         edit_res.setText(editPavimento.getResistencia()+"");
+        edit_largura = (EditText) findViewById(R.id.largura_edit_text);
+        edit_altura = (EditText) findViewById(R.id.altura_edit_text);
+        edit_comprimento = (EditText) findViewById(R.id.comprimento_edit_text);
+
         edit_altura.setText(editPavimento.getAltura().toString());
         edit_largura.setText(editPavimento.getLargura().toString());
         edit_comprimento.setText(editPavimento.getComprimento().toString());

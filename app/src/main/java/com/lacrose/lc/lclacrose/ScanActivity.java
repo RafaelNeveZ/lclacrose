@@ -129,6 +129,10 @@ public class ScanActivity extends MainActivity implements ZBarScannerView.Result
                                 });
                             }
                         }else{
+                            RupturaPavimentoListActivity.corpo = new Corpos();
+                            RupturaPrismasListActivity.corpo = new Corpos();
+                            RupturaBlocoListActivity.corpo = new Corpos();
+                            RupturaCorpoListActivity.corpo = new Corpos();
                             dismissProgress();
                         }
                     }else{

@@ -16,7 +16,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.lacrose.lc.lclacrose.BlocoMoldActivity;
 import com.lacrose.lc.lclacrose.Model.BlocoLotes;
+import com.lacrose.lc.lclacrose.PavimentoMoldActivity;
+import com.lacrose.lc.lclacrose.PrismaMoldActivity;
 import com.lacrose.lc.lclacrose.R;
 import com.lacrose.lc.lclacrose.RupturaBlocoActivity;
 import com.lacrose.lc.lclacrose.RupturaBlocoListActivity;
@@ -58,6 +61,12 @@ public class CodigoCorpoAdapter extends ArrayAdapter<String> {
                 @Override
                 public void onClick(View v) {
                     remove(codigo);
+                    if(BlocoMoldActivity.lista_corpos !=null)
+                    BlocoMoldActivity.setListViewHeightBasedOnChildren(BlocoMoldActivity.lista_corpos);
+                    if(PrismaMoldActivity.lista_corpos !=null)
+                    PrismaMoldActivity.setListViewHeightBasedOnChildren(PrismaMoldActivity.lista_corpos);
+                    if(PavimentoMoldActivity.lista_corpos !=null)
+                    PavimentoMoldActivity.setListViewHeightBasedOnChildren(PavimentoMoldActivity.lista_corpos);
 
                 }
             });

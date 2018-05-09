@@ -54,7 +54,8 @@ public class RupturaPrismasListActivity extends MainActivity {
         database = FireBaseUtil.getFireDatabase();
         ListView rupturaListView = (ListView) findViewById(R.id.ruptura_list);
         rupturaListView.setDivider(null);
-        RupturaPrismaAdapter prismasAdapter = new RupturaPrismaAdapter(this, R.layout.item_ruptura_prisma, prismasList);
+        save = (Button) findViewById(R.id.save_bt);
+        prismasAdapter = new RupturaPrismaAdapter(this, R.layout.item_ruptura_prisma, prismasList);
         rupturaListView.setAdapter(prismasAdapter);
         prismasAdapter.registerDataSetObserver(new DataSetObserver() {
             @Override
@@ -84,6 +85,7 @@ public class RupturaPrismasListActivity extends MainActivity {
             btYes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    dialog.dismiss();
                     gravar();
                 }
             });
@@ -108,7 +110,7 @@ public class RupturaPrismasListActivity extends MainActivity {
         newCorpo.setLoteId(RupturaPrismaActivity.atualLote.getId());
         newCorpo.setAlertas(testAvisos());
         newCorpo.setTipo(getString(R.string.prisma_minusculo));
-        if (newCorpo.getDataCreate() == null) {
+        if (corpo.getDataCreate() == null) {
             corpo_ref = database.collection(getString(R.string.corpos_tag));
             corpo_ref.add(newCorpo).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                 @Override
@@ -122,6 +124,7 @@ public class RupturaPrismasListActivity extends MainActivity {
                                 public void onComplete(@NonNull Task<DocumentReference> task) {
                                     if (task.isSuccessful()) {
                                         if (ListSize >= prismasList.size()) {
+                                            gravarLote();
                                             dismissProgress();
                                             Toast.makeText(context, getString(R.string.rupturas_create_sucess), Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(RupturaPrismasListActivity.this, HomeActivity.class);
@@ -174,6 +177,7 @@ public class RupturaPrismasListActivity extends MainActivity {
                                             public void onComplete(@NonNull Task<DocumentReference> task) {
                                                 if (task.isSuccessful()) {
                                                     if (ListSize >= prismasList.size()) {
+                                                        gravarLote();
                                                         dismissProgress();
                                                         Toast.makeText(context, getString(R.string.rupturas_create_sucess), Toast.LENGTH_SHORT).show();
                                                         Intent intent = new Intent(RupturaPrismasListActivity.this, HomeActivity.class);
@@ -195,6 +199,10 @@ public class RupturaPrismasListActivity extends MainActivity {
                     });
 
         }
+    }
+    public void gravarLote(){
+        database.collection(getString(R.string.lote_tag)).document(RupturaPrismaActivity.atualLote.getId())
+                .update("rompido",true);
     }
     public List<String> testAvisos(){
         List<String> alertas = new ArrayList<>();
@@ -422,6 +430,7 @@ public class RupturaPrismasListActivity extends MainActivity {
         startActivity(intent);
         finish();
     }
+
     public static void voltei(){
         prismasAdapter.notifyDataSetChanged();
 

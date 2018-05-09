@@ -3,6 +3,7 @@ package com.lacrose.lc.lclacrose.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,7 @@ public class PrismaLoteAdapter extends ArrayAdapter<PrismaLotes> {
             if (work_name != null) {
                 work_name.setText(context.getString(R.string.prisma)+": "+ prismaLotes.getCodigo());
             }
+
             work_name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -67,7 +69,7 @@ public class PrismaLoteAdapter extends ArrayAdapter<PrismaLotes> {
                             ScanActivity.ondeEstou = 2;
                             ScanActivity.primeiraVez = true;
                             Intent intent = new Intent(context, ScanActivity.class);
-                            RupturaPrismasListActivity.prismasList = new ArrayList<Prismas>();
+                            RupturaPrismasListActivity.prismasList = new ArrayList<>();
                             context.startActivity(intent);
 
                 }
