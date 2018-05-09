@@ -26,12 +26,11 @@ import java.util.Calendar;
 public class EditRupturaBlocoActivity extends MainActivity {
     public static String CODE;
     public static Blocos editBloco;
-    public static BlocoLotes editLote;
     public TextView code_ET;
     private final Context context = this;
     EditText edit_carga, edit_altura,edit_largura,edit_comprimento,edit_espc_long,edit_espc_trans,edit_res;
     FirebaseDatabase database;
-
+    public static boolean jaPerguntei;
     private FirebaseAuth Auth;
     Calendar today= Calendar.getInstance();
 
@@ -139,7 +138,7 @@ public class EditRupturaBlocoActivity extends MainActivity {
 
     public void cancel(View view) {
         ScanActivity.primeiraVez = false;
-        saveResults(true);
+        onBackPressed();
     }
 
     public void deletar(View view) {

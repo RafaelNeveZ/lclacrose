@@ -2,12 +2,16 @@ package com.lacrose.lc.lclacrose.Adapter;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.lacrose.lc.lclacrose.EditRupturaBlocoActivity;
+import com.lacrose.lc.lclacrose.EditRupturaPavimentoActivity;
 import com.lacrose.lc.lclacrose.Model.Pavimentos;
 import com.lacrose.lc.lclacrose.Model.Prismas;
 import com.lacrose.lc.lclacrose.R;
@@ -46,32 +50,45 @@ public class RupturaPavimentoAdapter extends ArrayAdapter<Pavimentos> {
         final Pavimentos pavimentos = getItem(position);
 
         if (pavimentos != null) {
+            RelativeLayout buttonWok = (RelativeLayout) view.findViewById(R.id.button_work);
             TextView code = (TextView) view.findViewById(R.id.tv_code);
             TextView carga = (TextView) view.findViewById(R.id.tv_carga);
             TextView largura = (TextView) view.findViewById(R.id.tv_largura);
             TextView altura = (TextView) view.findViewById(R.id.tv_altura);
             TextView comprimiento = (TextView) view.findViewById(R.id.tv_comprimento);
+            TextView res = (TextView) view.findViewById(R.id.tv_res);
             TextView data = (TextView) view.findViewById(R.id.tv_data);
 
             if (code != null) {
                 code.setText(pavimentos.getCodigo());
             }
+            if (res != null) {
+                res.setText(pavimentos.getResistencia()+"");
+            }
             if (carga != null) {
                 carga.setText(pavimentos.getCarga()+"");
             }
             if (altura != null) {
-                altura.setText(""+pavimentos.getDim().get("altura"));
+                altura.setText(pavimentos.getAltura()+"");
             }
             if (largura != null) {
-                largura.setText(""+pavimentos.getDim().get("largura"));
+                largura.setText(pavimentos.getLargura()+"");
             }
             if (comprimiento != null) {
-                comprimiento.setText(""+pavimentos.getDim().get("comprimento"));
+                comprimiento.setText(pavimentos.getComprimento() + "");
             }
-            if (data != null) {
+                if (data != null) {
                 SimpleDateFormat fmtOut = new SimpleDateFormat("dd/MM/yyyy");
-                data.setText(fmtOut.format(RupturaPavimentoActivity.Hoje));
+                data.setText(fmtOut.format(pavimentos.getDataCreate()));
             }
+            buttonWok.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    EditRupturaPavimentoActivity.editPavimento = pavimentos;
+                    Intent intent = new Intent(context, EditRupturaPavimentoActivity.class);
+                    context.startActivity(intent);
+                }
+            });
         }
 
         return view;

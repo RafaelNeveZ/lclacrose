@@ -1,44 +1,55 @@
 package com.lacrose.lc.lclacrose.Model;
 
-import com.google.firebase.database.ServerValue;
-
-import java.util.Date;
-import java.util.HashMap;
-
 /**
  * Created by rafae on 13/10/2017.
  */
 
 public class CP {
-    private String codigo;
-    private float carga;
-    private String tipo;
-    private long dataCreate;
-    private String createdBy;
-    private boolean isValid;
+    public String id="";
+    public Double altura=null;
+    public Double carga=null;
+    public String centro_de_custo = "";
+    public String codigo = "";
+    public String type = "";
+    public String createdBy = "";
+    public Long dataCreate = null;
+    public Double largura=null;
+    public Double idade=null;
+    public String loteId = "";
+    public String obraId = "";
+    public Double resistencia=null;
+    public String tipo = "";
 
-    public boolean isValid() {
-        return isValid;
+    public String getId() {
+        return id;
     }
 
-    public void setValid(boolean valid) {
-        isValid = valid;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public long getDataCreate() {
-        return dataCreate;
+    public Double getAltura() {
+        return altura;
     }
 
-    public void setDataCreate(long dataCreate) {
-        this.dataCreate = dataCreate;
+    public void setAltura(Double altura) {
+        this.altura = altura;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
+    public Double getCarga() {
+        return carga;
     }
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
+    public void setCarga(Double carga) {
+        this.carga = carga;
+    }
+
+    public String getCentro_de_custo() {
+        return centro_de_custo;
+    }
+
+    public void setCentro_de_custo(String centro_de_custo) {
+        this.centro_de_custo = centro_de_custo;
     }
 
     public String getCodigo() {
@@ -49,12 +60,68 @@ public class CP {
         this.codigo = codigo;
     }
 
-    public float getCarga() {
-        return carga;
+    public String getType() {
+        return type;
     }
 
-    public void setCarga(float carga) {
-        this.carga = carga;
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Long getDataCreate() {
+        return dataCreate;
+    }
+
+    public void setDataCreate(Long dataCreate) {
+        this.dataCreate = dataCreate;
+    }
+
+    public Double getLargura() {
+        return largura;
+    }
+
+    public void setLargura(Double largura) {
+        this.largura = largura;
+    }
+
+    public Double getIdade() {
+        return idade;
+    }
+
+    public void setIdade(Double idade) {
+        this.idade = idade;
+    }
+
+    public String getLoteId() {
+        return loteId;
+    }
+
+    public void setLoteId(String loteId) {
+        this.loteId = loteId;
+    }
+
+    public String getObraId() {
+        return obraId;
+    }
+
+    public void setObraId(String obraId) {
+        this.obraId = obraId;
+    }
+
+    public Double getResistencia() {
+        return resistencia;
+    }
+
+    public void setResistencia(Double resistencia) {
+        this.resistencia = resistencia;
     }
 
     public String getTipo() {
@@ -64,9 +131,4 @@ public class CP {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-
-    public CP() {
-    }
-
-
 }

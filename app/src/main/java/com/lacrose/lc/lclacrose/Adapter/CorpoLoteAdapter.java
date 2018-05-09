@@ -59,24 +59,14 @@ public class CorpoLoteAdapter extends ArrayAdapter<CorpoLotes> {
                 @Override
                 public void onClick(@NonNull View v) {
 
-                    database.getReference(context.getString(R.string.time_stamp_tag)).setValue(ServerValue.TIMESTAMP);
-                    database.getReference(context.getString(R.string.time_stamp_tag)).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            RupturaCorpoActivity.Hoje = (long) dataSnapshot.getValue();
+
                             RupturaCorpoActivity.atualLote = corpoLotes;
                             ScanActivity.ondeEstou = 0;
                             ScanActivity.primeiraVez = true;
                             Intent intent = new Intent(context, ScanActivity.class);
                             RupturaCorpoListActivity.CorposList = new ArrayList<>();
                             context.startActivity(intent);
-                        }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
 
                 }
             });

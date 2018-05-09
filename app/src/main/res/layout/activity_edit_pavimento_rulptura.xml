@@ -204,6 +204,7 @@
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
                     android:textColor="@android:color/black" />
+
                 <Button
                     android:id="@+id/save_continue_buttom"
                     android:layout_width="wrap_content"
@@ -215,8 +216,8 @@
                     android:layout_marginBottom="15dp"
                     android:layout_marginTop="40dp"
                     android:background="@drawable/selector_orange_button"
-                    android:onClick="saveContinue"
-                    android:text="@string/save_continue"
+                    android:onClick="saveEdit"
+                    android:text="@string/editar"
                     android:textColor="@drawable/selector_white_text_button" />
 
                 <Button
@@ -230,8 +231,22 @@
                     android:layout_marginBottom="15dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/selector_orange_button"
-                    android:onClick="saveFinish"
-                    android:text="@string/save_finish"
+                    android:onClick="cancel"
+                    android:text="@string/cancel"
+                    android:textColor="@drawable/selector_white_text_button" />
+                <Button
+                    android:id="@+id/delete_buttom"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_alignEnd="@+id/save_continue_buttom"
+                    android:layout_alignStart="@+id/save_continue_buttom"
+                    android:layout_below="@+id/save_finish_buttom"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/selector_red_button"
+                    android:onClick="deletar"
+                    android:text="@string/delete"
                     android:textColor="@drawable/selector_white_text_button" />
             </RelativeLayout>
 

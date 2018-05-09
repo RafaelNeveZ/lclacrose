@@ -9,49 +9,50 @@ import java.util.HashMap;
  */
 
 public class Prismas {
-    private String codigo;
-    private float carga;
+    public String id="";
+    public Double altura=null;
+    public Double carga=null;
+    public String centro_de_custo = "";
+    public String codigo = "";
+    public Double comprimento=null;
+    public String createdBy = "";
+    public Long dataCreate = null;
+    public Double largura=null;
+    public String loteId = "";
+    public String obraId = "";
+    public Double resistencia=null;
+    public String tipo = "";
 
-    private long dataCreate;
-    private String createdBy;
-    private boolean isValid;
-
-    private HashMap<String, Float> dimenssions;
-
-    public HashMap<String, Float> getDim() {
-        return dimenssions;
+    public String getId() {
+        return id;
     }
 
-    public void setDim(String Key,Float value) {
-        if(dimenssions == null){
-            dimenssions = new HashMap<>();
-        }
-        this.dimenssions.put(Key,value);
+    public void setId(String id) {
+        this.id = id;
     }
 
-
-    public long getDataCreate() {
-        return dataCreate;
+    public Double getAltura() {
+        return altura;
     }
 
-    public void setDataCreate(long dataCreate) {
-        this.dataCreate = dataCreate;
+    public void setAltura(Double altura) {
+        this.altura = altura;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
+    public Double getCarga() {
+        return carga;
     }
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
+    public void setCarga(Double carga) {
+        this.carga = carga;
     }
 
-    public boolean isValid() {
-        return isValid;
+    public String getCentro_de_custo() {
+        return centro_de_custo;
     }
 
-    public void setValid(boolean valid) {
-        isValid = valid;
+    public void setCentro_de_custo(String centro_de_custo) {
+        this.centro_de_custo = centro_de_custo;
     }
 
     public String getCodigo() {
@@ -62,17 +63,68 @@ public class Prismas {
         this.codigo = codigo;
     }
 
-    public float getCarga() {
-        return carga;
+    public Double getComprimento() {
+        return comprimento;
     }
 
-    public void setCarga(float carga) {
-        this.carga = carga;
+    public void setComprimento(Double comprimento) {
+        this.comprimento = comprimento;
     }
 
+    public String getCreatedBy() {
+        return createdBy;
+    }
 
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
 
-    public Prismas() {
+    public Long getDataCreate() {
+        return dataCreate;
+    }
+
+    public void setDataCreate(Long dataCreate) {
+        this.dataCreate = dataCreate;
+    }
+
+    public Double getLargura() {
+        return largura;
+    }
+
+    public void setLargura(Double largura) {
+        this.largura = largura;
+    }
+
+    public String getLoteId() {
+        return loteId;
+    }
+
+    public void setLoteId(String loteId) {
+        this.loteId = loteId;
+    }
+
+    public String getObraId() {
+        return obraId;
+    }
+
+    public void setObraId(String obraId) {
+        this.obraId = obraId;
+    }
+
+    public Double getResistencia() {
+        return resistencia;
+    }
+
+    public void setResistencia(Double resistencia) {
+        this.resistencia = resistencia;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
 }

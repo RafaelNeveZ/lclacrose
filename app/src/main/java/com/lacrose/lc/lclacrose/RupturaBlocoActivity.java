@@ -49,7 +49,7 @@ public class RupturaBlocoActivity extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bloco_rulptura);
         database = FireBaseUtil.getFireDatabase();
-        testarCodigo();
+
         if(!jaPerguntei){
             isThisForNow();
         }
@@ -84,7 +84,7 @@ public class RupturaBlocoActivity extends MainActivity {
                         && !edit_comprimento.getText().toString().isEmpty() && !edit_altura.getText().toString().isEmpty()){
                     DecimalFormat formatador = new DecimalFormat("0,0");
                     Double res = Double.parseDouble(edit_carga.getText().toString())/(Double.parseDouble(edit_largura.getText().toString())*Double.parseDouble(edit_comprimento.getText().toString()));
-                    edit_res.setText(formatador.format(res));
+                    edit_res.setText(res.toString());
                 }
             }
         });
@@ -105,7 +105,7 @@ public class RupturaBlocoActivity extends MainActivity {
                         && !edit_comprimento.getText().toString().isEmpty() && !edit_altura.getText().toString().isEmpty()){
                     DecimalFormat formatador = new DecimalFormat("0,0");
                     Double res = Double.parseDouble(edit_carga.getText().toString())/(Double.parseDouble(edit_largura.getText().toString())*Double.parseDouble(edit_comprimento.getText().toString()));
-                    edit_res.setText(formatador.format(res));
+                    edit_res.setText(res.toString());
                 }
         }
         });
@@ -126,7 +126,7 @@ public class RupturaBlocoActivity extends MainActivity {
                         && !edit_comprimento.getText().toString().isEmpty() && !edit_altura.getText().toString().isEmpty()){
                     DecimalFormat formatador = new DecimalFormat("0,0");
                     Double res = Double.parseDouble(edit_carga.getText().toString())/(Double.parseDouble(edit_largura.getText().toString())*Double.parseDouble(edit_comprimento.getText().toString()));
-                    edit_res.setText(formatador.format(res));
+                    edit_res.setText(res.toString());
                 }
 
             }
@@ -135,15 +135,12 @@ public class RupturaBlocoActivity extends MainActivity {
 
     }
 
-    private void testarCodigo(){
 
-    }
 
     private void isThisForNow() {
         jaPerguntei = true;
         if(atualLote.getDataFab() !=null) {
-            Double idade = atualLote.getIdade();
-            long criacao = atualLote.getDataFab();
+
 
 
             Date dataMoldagem = new Date(atualLote.getDataFab());

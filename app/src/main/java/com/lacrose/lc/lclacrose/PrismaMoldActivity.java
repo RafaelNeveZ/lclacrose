@@ -390,22 +390,22 @@ public class PrismaMoldActivity extends MainActivity implements DatePickerDialog
         if(validateFields()){
             final CollectionReference ref_lote = database.collection(getString(R.string.lote_tag));
             newLote = new PrismaLotes();
-            HashMap<String, Integer> dimenssionHash = new HashMap<>();
+            HashMap<String, Double> dimenssionHash = new HashMap<>();
             if(!String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.dimenssion_prompt))) {
                 if (String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.d120_390_390))) {
-                    dimenssionHash.put(getString(R.string.largura), 120);
-                    dimenssionHash.put(getString(R.string.altura), 390);
-                    dimenssionHash.put(getString(R.string.comprimento), 390);
+                    dimenssionHash.put(getString(R.string.largura), 120.0);
+                    dimenssionHash.put(getString(R.string.altura), 390.0);
+                    dimenssionHash.put(getString(R.string.comprimento), 390.0);
                     newLote.setDimenssion(dimenssionHash);
                 } else if (String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.d140_390_390))) {
-                    dimenssionHash.put(getString(R.string.largura), 140);
-                    dimenssionHash.put(getString(R.string.altura), 390);
-                    dimenssionHash.put(getString(R.string.comprimento), 390);
+                    dimenssionHash.put(getString(R.string.largura), 140.0);
+                    dimenssionHash.put(getString(R.string.altura), 390.0);
+                    dimenssionHash.put(getString(R.string.comprimento), 390.0);
                     newLote.setDimenssion(dimenssionHash);
                 } else if(String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.outras_dim))){
-                    dimenssionHash.put(getString(R.string.largura), Integer.parseInt(edit_largra.getText().toString()));
-                    dimenssionHash.put(getString(R.string.altura), Integer.parseInt(edit_altura.getText().toString()));
-                    dimenssionHash.put(getString(R.string.comprimento), Integer.parseInt(edit_comprimeto.getText().toString()));
+                    dimenssionHash.put(getString(R.string.largura), Double.parseDouble(edit_largra.getText().toString()));
+                    dimenssionHash.put(getString(R.string.altura), Double.parseDouble(edit_altura.getText().toString()));
+                    dimenssionHash.put(getString(R.string.comprimento), Double.parseDouble(edit_comprimeto.getText().toString()));
                     newLote.setDimenssion(dimenssionHash);
                 }
             }

@@ -63,25 +63,12 @@ public class PrismaLoteAdapter extends ArrayAdapter<PrismaLotes> {
             work_name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    database.getReference(context.getString(R.string.time_stamp_tag)).setValue(ServerValue.TIMESTAMP);
-                    database.getReference(context.getString(R.string.time_stamp_tag)).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            RupturaPrismaActivity.Hoje = (long) dataSnapshot.getValue();
                             RupturaPrismaActivity.atualLote = prismaLotes;
                             ScanActivity.ondeEstou = 2;
                             ScanActivity.primeiraVez = true;
                             Intent intent = new Intent(context, ScanActivity.class);
                             RupturaPrismasListActivity.prismasList = new ArrayList<Prismas>();
                             context.startActivity(intent);
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
 
                 }
             });

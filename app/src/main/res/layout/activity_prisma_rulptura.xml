@@ -52,6 +52,72 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/carga_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/carga_edit_text"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/carga_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/carga_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/carga_text_view"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_gray_edit_text"
+                    android:inputType="number"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@android:color/black" />
+
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/res_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/res_edit_text"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/res_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/res_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:enabled="false"
+                    android:layout_below="@+id/res_text_view"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_gray_edit_text"
+                    android:inputType="number"
+                    android:text=""
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@android:color/black" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
                     android:id="@+id/largura_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -138,44 +204,13 @@
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
                     android:textColor="@android:color/black" />
-
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/carga_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignStart="@+id/carga_edit_text"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/carga_text"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/carga_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_below="@+id/carga_text_view"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginEnd="50dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/rounded_gray_edit_text"
-                    android:inputType="number"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:textColor="@android:color/black" />
                 <Button
                     android:id="@+id/save_continue_buttom"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:layout_alignEnd="@+id/carga_edit_text"
-                    android:layout_alignStart="@+id/carga_edit_text"
-                    android:layout_below="@+id/carga_edit_text"
+                    android:layout_alignEnd="@+id/comprimento_edit_text"
+                    android:layout_alignStart="@+id/comprimento_edit_text"
+                    android:layout_below="@+id/comprimento_edit_text"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="15dp"
                     android:layout_marginTop="40dp"
@@ -198,8 +233,8 @@
                     android:onClick="saveFinish"
                     android:text="@string/save_finish"
                     android:textColor="@drawable/selector_white_text_button" />
-
             </RelativeLayout>
+
         </LinearLayout>
     </ScrollView>
 

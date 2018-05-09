@@ -6,17 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
-
-
 import com.lacrose.lc.lclacrose.Model.PavimentoLotes;
 import com.lacrose.lc.lclacrose.Model.Pavimentos;
 import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
@@ -26,9 +22,10 @@ import java.sql.Date;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 
-public class RupturaPavimentoActivity extends MainActivity {
+public class EditRupturaPavimentoActivity extends MainActivity {
     public static String CODE;
-    public static PavimentoLotes atualLote;
+    public static Pavimentos editPavimento;
+
     public TextView code_ET;
     private final Context context = this;
     EditText edit_carga, edit_altura,edit_largura,edit_comprimento,edit_res;
@@ -41,18 +38,17 @@ public class RupturaPavimentoActivity extends MainActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pavimento_rulptura);
+        setContentView(R.layout.activity_edit_pavimento_rulptura);
         database = FireBaseUtil.getDatabase();
-        if(!jaPerguntei){
-            isThisForNow();
-        }
         code_ET = (TextView) findViewById(R.id.code_edit_text);
-        code_ET.setText(CODE);
+        code_ET.setText(editPavimento.getCodigo());
         edit_res = (EditText) findViewById(R.id.res_edit_text);
-        edit_altura.setText(atualLote.getDimenssion().get("altura")+"");
-        edit_largura.setText(atualLote.getDimenssion().get("largura")+"");
-        edit_comprimento.setText(atualLote.getDimenssion().get("comprimento")+"");
+        edit_res.setText(editPavimento.getResistencia()+"");
+        edit_altura.setText(editPavimento.getAltura().toString());
+        edit_largura.setText(editPavimento.getLargura().toString());
+        edit_comprimento.setText(editPavimento.getComprimento().toString());
         edit_carga = (EditText) findViewById(R.id.carga_edit_text);
+        edit_carga.setText(editPavimento.getCarga()+"");
         edit_comprimento.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -120,75 +116,58 @@ public class RupturaPavimentoActivity extends MainActivity {
         Auth = FirebaseAuth.getInstance();
     }
 
-    private void isThisForNow() {
-        jaPerguntei = true;
-        if(atualLote.getDataFab() !=null) {
 
-
-            Date dataMoldagem = new Date(atualLote.getDataFab());
-            Date dataRompimentoEsperada = new Date(atualLote.getDataFab());
-            int dateSomada = Integer.valueOf(atualLote.getIdade().intValue());
-
-            dataRompimentoEsperada.setDate(dataMoldagem.getDate() + dateSomada);
-            Date diaSemHora = new Date(today.getTime().getYear(),today.getTime().getMonth(), today.getTime().getDate());
-            Date rompSemHora = new Date(dataRompimentoEsperada.getYear(), dataRompimentoEsperada.getMonth(), dataRompimentoEsperada.getDate());
-            if (rompSemHora.getTime() > diaSemHora.getTime()) {
-                final Dialog dialog = new Dialog(context);
-                dialog.setContentView(R.layout.dialog_two_choice);
-                dialog.setTitle(getString(R.string.dialog_before_age));
-                dialog.show();
-                TextView title = (TextView) dialog.findViewById(R.id.dialog_title);
-                title.setText(getString(R.string.dialog_before_age));
-                Button btCancel = (Button) dialog.findViewById(R.id.button_no);
-                Button btYes = (Button) dialog.findViewById(R.id.button_yes);
-                btYes.setText(getString(R.string.yes));
-                btYes.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-                btCancel.setText(getString(R.string.no));
-                btCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        exit();
-                    }
-                });
-            }
-        }
-    }
-
-    public void saveFinish(View view) {
+    public void saveEdit(View view) {
     saveResults(false);
     }
 
-    public void saveContinue(View view) {
+    public void cancel(View view) {
         ScanActivity.primeiraVez = false;
-        saveResults(true);
+        onBackPressed();
+    }
+
+    public void deletar(View view) {
+        final Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.dialog_two_choice);
+        TextView tv = (TextView) dialog.findViewById(R.id.dialog_title);
+        tv.setText(getString(R.string.delete_rompimento_title));
+        dialog.show();
+        Button nao = (Button) dialog.findViewById(R.id.button_no);
+        Button sim = (Button) dialog.findViewById(R.id.button_yes);
+        sim.setText(getString(R.string.delete_bt));
+        nao.setText(getString(R.string.no));
+        sim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RupturaPavimentoListActivity.pavimentoList.remove(editPavimento);
+                RupturaPavimentoListActivity.voltei();
+                finish();
+            }
+        });
+        nao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
     }
 
     public void saveResults(final boolean Continue){
         showProgress(getString(R.string.create_body));
         if(validateFields()){
             Pavimentos newPavimento = new Pavimentos();
+            newPavimento = editPavimento;
             newPavimento.setCodigo(code_ET.getText().toString());
             newPavimento.setCarga(Double.parseDouble(edit_carga.getText().toString()));
             newPavimento.setAltura(Double.parseDouble(edit_altura.getText().toString()));
             newPavimento.setLargura(Double.parseDouble(edit_largura.getText().toString()));
             newPavimento.setComprimento(Double.parseDouble(edit_comprimento.getText().toString()));
-            edit_res.setEnabled(true);
             newPavimento.setResistencia(Double.parseDouble(edit_res.getText().toString()));
-            edit_res.setEnabled(false);
-            newPavimento.setCreatedBy(Auth.getUid());
-            newPavimento.setDataCreate(today.getTime().getTime());
-            newPavimento.setCentro_de_custo(HomeActivity.Work.getCentro_de_custo());
-            newPavimento.setObraId(HomeActivity.WorkId);
-            newPavimento.setLoteId(atualLote.getId());
+            RupturaPavimentoListActivity.pavimentoList.remove(editPavimento);
             RupturaPavimentoListActivity.pavimentoList.add(newPavimento);
+            RupturaPavimentoListActivity.voltei();
             dismissProgress();
-            Intent intent = new Intent(RupturaPavimentoActivity.this, Continue ? ScanActivity.class : RupturaPavimentoListActivity.class);
-            startActivity(intent);
             finish();
         }else{
             dismissProgress();
@@ -222,19 +201,8 @@ public class RupturaPavimentoActivity extends MainActivity {
 
     @Override
     public void onBackPressed() {
-        exit();
+        super.onBackPressed();
     }
 
-    public void exit(){
-        if(RupturaPavimentoListActivity.pavimentoList.size()>0){
-            Intent intent = new Intent(context, RupturaPavimentoListActivity.class);
-            startActivity(intent);
-            finish();
-        }else{
-            Intent intent = new Intent(context, HomeActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
 
 }

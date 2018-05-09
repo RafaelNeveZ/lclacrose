@@ -215,7 +215,7 @@
     <string name="blocoTIpo">BLOCO</string>
     <string name="cpTipo">CP</string>
     <string name="classe_text">Classe do bloco</string>
-    <string name="classe_prompt">Selecione a classe</string>
+    <string name="classe_prompt">Selecione a type</string>
     <string name="quantidade_text">Quantidade de corpos de provas</string>
     <string name="outras_dim">Outras dimenssões</string>
     <string name="tipo">tipo</string>
@@ -277,6 +277,7 @@
     <string name="corpo_ja_rompido">Corpo já rompido.</string>
     <string name="aviso">AVISO!</string>
     <string name="corpo_nao_reg">Corpo não registrado!</string>
+    <string name="dialog_quant_errada">A quantidade rompida é menor do que a esperada, é isso mesmo que deseja?</string>
 
     <string-array name="type_arrays">
         <item>Selecione o tipo</item>

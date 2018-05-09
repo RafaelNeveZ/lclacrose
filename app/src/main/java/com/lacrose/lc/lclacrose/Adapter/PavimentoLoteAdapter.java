@@ -62,24 +62,14 @@ public class PavimentoLoteAdapter extends ArrayAdapter<PavimentoLotes> {
                 @Override
                 public void onClick(View v) {
 
-                    database.getReference(context.getString(R.string.time_stamp_tag)).setValue(ServerValue.TIMESTAMP);
-                    database.getReference(context.getString(R.string.time_stamp_tag)).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            RupturaPavimentoActivity.Hoje = (long) dataSnapshot.getValue();
                             RupturaPavimentoActivity.atualLote = pavimentoLotes;
                             ScanActivity.ondeEstou = 3;
                             ScanActivity.primeiraVez = true;
                             Intent intent = new Intent(context, ScanActivity.class);
-                            RupturaPavimentoListActivity.pavimentoList = new ArrayList<Pavimentos>();
+                            RupturaPavimentoListActivity.pavimentoList = new ArrayList<>();
                             context.startActivity(intent);
-                        }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
 
-                        }
-                    });
 
                 }
             });

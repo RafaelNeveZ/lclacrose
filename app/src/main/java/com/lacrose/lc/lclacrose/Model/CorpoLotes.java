@@ -20,7 +20,7 @@ public  class CorpoLotes {
     public Long data = null;
     public Long dataCreate = null;
     public Long dataFab = null;
-    public HashMap<String, Integer> dimenssion;
+    public HashMap<String, Double> dimenssion;
     public Double fck = null;
     public Long hora = null;
     public String is24 = "";
@@ -125,11 +125,11 @@ public  class CorpoLotes {
         this.dataFab = dataFab;
     }
 
-    public HashMap<String, Integer> getDimenssion() {
+    public HashMap<String, Double> getDimenssion() {
         return dimenssion;
     }
 
-    public void setDimenssion(HashMap<String, Integer> dimenssion) {
+    public void setDimenssion(HashMap<String, Double> dimenssion) {
         this.dimenssion = dimenssion;
     }
 

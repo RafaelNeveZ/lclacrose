@@ -74,6 +74,24 @@
             android:parentActivityName=".RupturaBlocoListActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
+            android:name=".EditRupturaCorpoActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/ruptura"
+            android:parentActivityName=".RupturaCorpoListActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".EditRupturaPavimentoActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/ruptura"
+            android:parentActivityName=".RupturaPavimentoListActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".EditRupturaPrismaActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/ruptura"
+            android:parentActivityName=".RupturaPrismasListActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
             android:name=".RupturaPrismaActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/ruptura"
@@ -93,8 +111,7 @@
         <activity
             android:name=".RupturaCorpoListActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/list_ruptura_label"
-            android:parentActivityName=".HomeActivity" />
+            android:label="@string/list_ruptura_label" />
         <activity
             android:name=".RupturaBlocoListActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
@@ -102,13 +119,11 @@
         <activity
             android:name=".RupturaPrismasListActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/list_prismas_label"
-            android:parentActivityName=".HomeActivity" />
+            android:label="@string/list_prismas_label" />
         <activity
             android:name=".RupturaPavimentoListActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/list_pavimento_label"
-            android:parentActivityName=".HomeActivity" />
+            android:label="@string/list_pavimento_label" />
         <activity
             android:name=".BlocoMoldActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"

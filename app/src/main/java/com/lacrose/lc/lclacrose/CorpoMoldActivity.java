@@ -484,23 +484,23 @@ public class CorpoMoldActivity extends MainActivity implements DatePickerDialog.
             newLote.setMaterial(String.valueOf(spinner_material.getSelectedItem()));
 
 
-            HashMap<String, Integer> dimenssionHash = new HashMap<>();
+            HashMap<String, Double> dimenssionHash = new HashMap<>();
             if(!String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.dimenssion_prompt))) {
                 if (String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.d100_200))) {
-                    dimenssionHash.put(getString(R.string.largura), 100);
-                    dimenssionHash.put(getString(R.string.altura), 200);
+                    dimenssionHash.put(getString(R.string.largura), 100.0);
+                    dimenssionHash.put(getString(R.string.altura), 200.0);
                     newLote.setDimenssion(dimenssionHash);
                 } else if (String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.d50_100))) {
-                    dimenssionHash.put(getString(R.string.largura), 50);
-                    dimenssionHash.put(getString(R.string.altura), 100);
+                    dimenssionHash.put(getString(R.string.largura), 50.0);
+                    dimenssionHash.put(getString(R.string.altura), 100.0);
                     newLote.setDimenssion(dimenssionHash);
                 } else if (String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.d40_40))) {
-                    dimenssionHash.put(getString(R.string.largura), 40);
-                    dimenssionHash.put(getString(R.string.altura), 40);
+                    dimenssionHash.put(getString(R.string.largura), 40.0);
+                    dimenssionHash.put(getString(R.string.altura), 40.0);
                     newLote.setDimenssion(dimenssionHash);
                 } else if(String.valueOf(spinner_dimenssion.getSelectedItem()).equals(getString(R.string.outras_dim))){
-                    dimenssionHash.put(getString(R.string.largura), Integer.parseInt(edit_largra.getText().toString()));
-                    dimenssionHash.put(getString(R.string.altura), Integer.parseInt(edit_altura.getText().toString()));
+                    dimenssionHash.put(getString(R.string.largura), Double.parseDouble(edit_largra.getText().toString()));
+                    dimenssionHash.put(getString(R.string.altura), Double.parseDouble(edit_altura.getText().toString()));
                     newLote.setDimenssion(dimenssionHash);
                 }
             }

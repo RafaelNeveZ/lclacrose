@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center|top"
     android:background="@color/back_gray_almost_white"
-    tools:context="com.lacrose.lc.lclacrose.RupturaPavimentoActivity">
+    tools:context="com.lacrose.lc.lclacrose.RupturaCorpoActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -47,6 +47,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -77,8 +78,8 @@
                     android:paddingRight="20dp"
                     android:textColor="@android:color/black" />
 
-
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -115,125 +116,102 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
 
                 <TextView
-                    android:id="@+id/largura_text_view"
+                    android:id="@+id/type_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:layout_alignStart="@+id/largura_edit_text"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/largura_text"
+                    android:layout_alignStart="@+id/type_spinner_relative"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="25dp"
+                    android:text="@string/type_text"
                     android:textColor="@color/colorPrimary"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/largura_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_below="@+id/largura_text_view"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginEnd="50dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/rounded_gray_edit_text"
-                    android:inputType="number"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:textColor="@android:color/black" />
-
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/altura_text_view"
+                <RelativeLayout
+                    android:id="@+id/type_spinner_relative"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignStart="@+id/altura_edit_text"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/altura_text"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:layout_below="@+id/type_text_view"
+                    android:layout_centerHorizontal="true">
 
-                <EditText
-                    android:id="@+id/altura_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_below="@+id/altura_text_view"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginEnd="50dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/rounded_gray_edit_text"
-                    android:inputType="number"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:textColor="@android:color/black" />
+                    <Spinner
+                        android:id="@+id/type_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginEnd="50dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/rounded_gray_edit_text"
+                        android:entries="@array/type_arrays"
+                        android:prompt="@string/type_prompt"
+                        android:text="@string/type_prompt"
+                        android:paddingLeft="20dp"
+                        android:textColor="@android:color/black" />
+
+                    <ImageView
+                        android:id="@+id/ic_dropdown"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="11dp"
+                        android:paddingTop="8dp"
+                        android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+                        android:layout_alignTop="@+id/type_spinner"
+                        android:layout_alignEnd="@+id/type_spinner" />
+
+                    <Button
+                        android:id="@+id/save_continue_buttom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_alignEnd="@+id/type_spinner"
+                        android:layout_alignStart="@+id/type_spinner"
+                        android:layout_below="@+id/type_spinner"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="40dp"
+                        android:background="@drawable/selector_orange_button"
+                        android:onClick="saveEdit"
+                        android:text="@string/editar"
+                        android:textColor="@drawable/selector_white_text_button" />
+
+                    <Button
+                        android:id="@+id/save_finish_buttom"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_alignEnd="@+id/save_continue_buttom"
+                        android:layout_alignStart="@+id/save_continue_buttom"
+                        android:layout_below="@+id/save_continue_buttom"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/selector_orange_button"
+                        android:onClick="cancel"
+                        android:text="@string/cancel"
+                        android:textColor="@drawable/selector_white_text_button" />
+                    <Button
+                        android:id="@+id/delete_buttom"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_alignEnd="@+id/save_continue_buttom"
+                        android:layout_alignStart="@+id/save_continue_buttom"
+                        android:layout_below="@+id/save_finish_buttom"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/selector_red_button"
+                        android:onClick="deletar"
+                        android:text="@string/delete"
+                        android:textColor="@drawable/selector_white_text_button" />
+                </RelativeLayout>
+
 
             </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/comprimento_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignStart="@+id/comprimento_edit_text"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/comprimento_text"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/comprimento_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_below="@+id/comprimento_text_view"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginEnd="50dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/rounded_gray_edit_text"
-                    android:inputType="number"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:textColor="@android:color/black" />
-                <Button
-                    android:id="@+id/save_continue_buttom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_alignEnd="@+id/comprimento_edit_text"
-                    android:layout_alignStart="@+id/comprimento_edit_text"
-                    android:layout_below="@+id/comprimento_edit_text"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginTop="40dp"
-                    android:background="@drawable/selector_orange_button"
-                    android:onClick="saveContinue"
-                    android:text="@string/save_continue"
-                    android:textColor="@drawable/selector_white_text_button" />
-
-                <Button
-                    android:id="@+id/save_finish_buttom"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_alignEnd="@+id/save_continue_buttom"
-                    android:layout_alignStart="@+id/save_continue_buttom"
-                    android:layout_below="@+id/save_continue_buttom"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/selector_orange_button"
-                    android:onClick="saveFinish"
-                    android:text="@string/save_finish"
-                    android:textColor="@drawable/selector_white_text_button" />
-            </RelativeLayout>
 
         </LinearLayout>
     </ScrollView>

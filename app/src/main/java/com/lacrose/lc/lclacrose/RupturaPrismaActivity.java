@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +21,7 @@ import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
 import com.lacrose.lc.lclacrose.Util.MainActivity;
 
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.util.Calendar;
 
 
@@ -27,11 +30,12 @@ public class RupturaPrismaActivity extends MainActivity {
     public static PrismaLotes atualLote;
     public TextView code_ET;
     private final Context context = this;
-    EditText edit_carga, edit_altura,edit_largura,edit_comprimento;
+    EditText edit_carga, edit_altura,edit_largura,edit_comprimento,edit_res;
     FirebaseDatabase database;
     public static long Hoje;
     private FirebaseAuth Auth;
     public static boolean jaPerguntei;
+    Calendar today= Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,20 +47,81 @@ public class RupturaPrismaActivity extends MainActivity {
         }
         code_ET = (TextView) findViewById(R.id.code_edit_text);
         code_ET.setText(CODE);
-        edit_largura = (EditText) findViewById(R.id.largura_edit_text);
-        edit_altura = (EditText) findViewById(R.id.altura_edit_text);
-        edit_comprimento = (EditText) findViewById(R.id.comprimento_edit_text);
+        edit_res = (EditText) findViewById(R.id.res_edit_text);
+        edit_altura.setText(atualLote.getDimenssion().get("altura")+"");
+        edit_largura.setText(atualLote.getDimenssion().get("largura")+"");
+        edit_comprimento.setText(atualLote.getDimenssion().get("comprimento")+"");
         edit_carga = (EditText) findViewById(R.id.carga_edit_text);
+        edit_comprimento.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(!edit_carga.getText().toString().isEmpty() && !edit_largura.getText().toString().isEmpty()
+                        && !edit_comprimento.getText().toString().isEmpty() && !edit_altura.getText().toString().isEmpty()){
+                    DecimalFormat formatador = new DecimalFormat("0,0");
+                    Double res = Double.parseDouble(edit_carga.getText().toString())/(Double.parseDouble(edit_largura.getText().toString())*Double.parseDouble(edit_comprimento.getText().toString()));
+                    edit_res.setText(res.toString());
+                }
+            }
+        });
+        edit_largura.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(!edit_carga.getText().toString().isEmpty() && !edit_largura.getText().toString().isEmpty()
+                        && !edit_comprimento.getText().toString().isEmpty() && !edit_altura.getText().toString().isEmpty()){
+                    DecimalFormat formatador = new DecimalFormat("0,0");
+                    Double res = Double.parseDouble(edit_carga.getText().toString())/(Double.parseDouble(edit_largura.getText().toString())*Double.parseDouble(edit_comprimento.getText().toString()));
+                    edit_res.setText(res.toString());
+                }
+            }
+        });
+        edit_carga.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(!edit_carga.getText().toString().isEmpty() && !edit_largura.getText().toString().isEmpty()
+                        && !edit_comprimento.getText().toString().isEmpty() && !edit_altura.getText().toString().isEmpty()){
+                    DecimalFormat formatador = new DecimalFormat("0,0");
+                    Double res = Double.parseDouble(edit_carga.getText().toString())/(Double.parseDouble(edit_largura.getText().toString())*Double.parseDouble(edit_comprimento.getText().toString()));
+                    edit_res.setText(res.toString());
+                }
+
+            }
+        });
         Auth = FirebaseAuth.getInstance();
     }
 
     private void isThisForNow() {
         jaPerguntei = true;
         if(atualLote.getDataFab() !=null) {
-            Double idade = atualLote.getIdade();
-            long criacao = atualLote.getDataFab();
-            long tempoHoje = getDateWithoutHoursAndMinutes(Hoje);
-            Calendar today = Calendar.getInstance();
             Date dataMoldagem = new Date(atualLote.getDataFab());
             Date dataRompimentoEsperada = new Date(atualLote.getDataFab());
             int dateSomada = Integer.valueOf(atualLote.getIdade().intValue());
@@ -64,8 +129,6 @@ public class RupturaPrismaActivity extends MainActivity {
             dataRompimentoEsperada.setDate(dataMoldagem.getDate() + dateSomada);
             Date diaSemHora = new Date(today.getTime().getYear(),today.getTime().getMonth(), today.getTime().getDate());
             Date rompSemHora = new Date(dataRompimentoEsperada.getYear(), dataRompimentoEsperada.getMonth(), dataRompimentoEsperada.getDate());
-            log(diaSemHora.getTime()+"");
-            log(rompSemHora.getTime()+"");
             if (rompSemHora.getTime() > diaSemHora.getTime()) {
                 final Dialog dialog = new Dialog(context);
                 dialog.setContentView(R.layout.dialog_two_choice);
@@ -86,15 +149,12 @@ public class RupturaPrismaActivity extends MainActivity {
                 btCancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(context, HomeActivity.class);
-                        startActivity(intent);
-                        finish();
+                        exit();
                     }
                 });
             }
         }
     }
-
 
     public void saveFinish(View view) {
     saveResults(false);
@@ -110,21 +170,24 @@ public class RupturaPrismaActivity extends MainActivity {
         showProgress(getString(R.string.create_body));
         if(validateFields()){
             Prismas newPrisma = new Prismas();
-            newPrisma .setCodigo(code_ET.getText().toString());
-            newPrisma .setDim("largura",Float.parseFloat(edit_largura.getText().toString()));
-            newPrisma .setDim("altura",Float.parseFloat(edit_altura.getText().toString()));
-            newPrisma .setDim("comprimento",Float.parseFloat(edit_comprimento.getText().toString()));
-            newPrisma .setCreatedBy(Auth.getCurrentUser().getUid());
-
-            newPrisma .setCarga(Float.parseFloat(edit_carga.getText().toString()));
-            newPrisma .setDataCreate(Calendar.getInstance().getTime().getTime());
-            newPrisma .setValid(true);
+            newPrisma.setCodigo(code_ET.getText().toString());
+            newPrisma.setCarga(Double.parseDouble(edit_carga.getText().toString()));
+            newPrisma.setAltura(Double.parseDouble(edit_altura.getText().toString()));
+            newPrisma.setLargura(Double.parseDouble(edit_largura.getText().toString()));
+            newPrisma.setComprimento(Double.parseDouble(edit_comprimento.getText().toString()));
+            edit_res.setEnabled(true);
+            newPrisma.setResistencia(Double.parseDouble(edit_res.getText().toString()));
+            edit_res.setEnabled(false);
+            newPrisma.setCreatedBy(Auth.getUid());
+            newPrisma.setDataCreate(today.getTime().getTime());
+            newPrisma.setCentro_de_custo(HomeActivity.Work.getCentro_de_custo());
+            newPrisma.setObraId(HomeActivity.WorkId);
+            newPrisma.setLoteId(atualLote.getId());
             RupturaPrismasListActivity.prismasList.add(newPrisma);
             dismissProgress();
             Intent intent = new Intent(RupturaPrismaActivity.this, Continue ? ScanActivity.class : RupturaPrismasListActivity.class);
             startActivity(intent);
             finish();
-
         }else{
             dismissProgress();
         }
@@ -148,33 +211,28 @@ public class RupturaPrismaActivity extends MainActivity {
             errorAndRequestFocustoEditText(edit_carga);
             return false;
         }
+        if(edit_res.getText().toString().isEmpty()){
+            errorAndRequestFocustoEditText(edit_res);
+            return false;
+        }
         return true;
     }
+
     @Override
     public void onBackPressed() {
-        final Dialog dialog = new Dialog(context);
-        dialog.setContentView(R.layout.dialog_two_choice);
-        dialog.setTitle(getString(R.string.dialog_cancel_ruptura));
-        dialog.show();
-        TextView title = (TextView) dialog.findViewById(R.id.dialog_title);
-        title.setText(getString(R.string.dialog_cancel_ruptura));
-        Button btCancel = (Button) dialog.findViewById(R.id.button_no);
-        Button btYes = (Button) dialog.findViewById(R.id.button_yes);
-        btYes.setText(getString(R.string.yes));
-        btYes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, HomeActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-        btCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
+        exit();
+    }
+
+    public void exit(){
+        if(RupturaPavimentoListActivity.pavimentoList.size()>0){
+            Intent intent = new Intent(context, RupturaPavimentoListActivity.class);
+            startActivity(intent);
+            finish();
+        }else{
+            Intent intent = new Intent(context, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
 }

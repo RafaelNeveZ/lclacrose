@@ -72,6 +72,35 @@ public class RupturaBlocoListActivity extends MainActivity {
     }
 
     public void saveRuptura(View view) {
+        if(RupturaBlocoActivity.atualLote.getQuantidade()>BlocosList.size()){
+        final Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.dialog_two_choice);
+        dialog.setTitle(getString(R.string.dialog_cancel_ruptura));
+        dialog.show();
+        TextView title = (TextView) dialog.findViewById(R.id.dialog_title);
+        title.setText(getString(R.string.dialog_quant_errada));
+        Button btCancel = (Button) dialog.findViewById(R.id.button_no);
+        Button btYes = (Button) dialog.findViewById(R.id.button_yes);
+        btCancel.setText(getString(R.string.no));
+        btYes.setText(getString(R.string.yes));
+        btYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gravar();
+            }
+        });
+        btCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        }else{
+            gravar();
+        }
+    }
+
+    public void gravar(){
         showProgress(getString(R.string.saving));
         Corpos newCorpo = new Corpos();
         newCorpo.setCentro_de_custo(HomeActivity.Work.getCentro_de_custo());
@@ -83,97 +112,94 @@ public class RupturaBlocoListActivity extends MainActivity {
         newCorpo.setAlertas(testAvisos());
         newCorpo.setTipo(getString(R.string.bloco_minusculo));
         if (newCorpo.getDataCreate() == null) {
-        corpo_ref = database.collection(getString(R.string.corpos_tag));
-        corpo_ref.add(newCorpo).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentReference> task) {
-                if (task.isSuccessful()) {
-                    CollectionReference corpoCriadoRef = database.collection(getString(R.string.corpos_tag) + "/" + task.getResult().getId() + "/" + getString(R.string.rompimentos_tag));
-                    for (Blocos blocos : BlocosList) {
-                        ListSize++;
-                        corpoCriadoRef.add(blocos).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentReference> task) {
-                                if (task.isSuccessful()) {
-                                    if (ListSize >= BlocosList.size()) {
-                                        dismissProgress();
-                                        Toast.makeText(context, getString(R.string.rupturas_create_sucess), Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(RupturaBlocoListActivity.this, HomeActivity.class);
-                                        startActivity(intent);
-                                        finish();
-                                    } else {
-                                        dismissProgress();
-                                    }
-                                } else {
-                                    dismissProgress();
-                                }
-                            }
-                        });
-                    }
-                } else {
-                    showAlert(getString(R.string.erro), getString(R.string.erro_salve));
-                }
-            }
-        });
-
-    }else{
-            log(getString(R.string.corpos_tag) + "/" + corpo.getId());
-        database.collection(getString(R.string.corpos_tag)).document(corpo.getId())
-                .update("alertas",newCorpo.getAlertas(),
-                        "centro_de_custo",newCorpo.getCentro_de_custo(),
-                        "createdBy",newCorpo.getCreatedBy(),
-                        "dataCreate",newCorpo.getDataCreate(),
-                        "isValid",true,
-                        "loteId",newCorpo.getLoteId(),
-                        "obraId",newCorpo.getObraId(),
-                        "tipo",newCorpo.getTipo())
-        .addOnCompleteListener(new OnCompleteListener<Void>() {
+            corpo_ref = database.collection(getString(R.string.corpos_tag));
+            corpo_ref.add(newCorpo).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                 @Override
-                public void onComplete(@NonNull Task<Void> task1) {
-                    database.collection(getString(R.string.corpos_tag) + "/" + corpo.getId() + "/" + getString(R.string.rompimentos_tag)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task2) {
-                            for (DocumentChange change2 :
-                                    task2.getResult().getDocumentChanges()){
-                                database.document(getString(R.string.corpos_tag) + "/" + corpo.getId() + "/" + getString(R.string.rompimentos_tag)+"/"+change2.getDocument().getId()).delete();
-
-                            }
-
-                            for (Blocos bloco:
-                                 BlocosList) {
-                                ListSize++;
-                                database.collection(getString(R.string.corpos_tag) + "/" + corpo.getId() + "/" + getString(R.string.rompimentos_tag))
-                                        .add(bloco).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<DocumentReference> task) {
-                                        if (task.isSuccessful()) {
-                                            if (ListSize >= BlocosList.size()) {
-                                                dismissProgress();
-                                                Toast.makeText(context, getString(R.string.rupturas_create_sucess), Toast.LENGTH_SHORT).show();
-                                                Intent intent = new Intent(RupturaBlocoListActivity.this, HomeActivity.class);
-                                                startActivity(intent);
-                                                finish();
-                                            } else {
-                                                dismissProgress();
-                                            }
+                public void onComplete(@NonNull Task<DocumentReference> task) {
+                    if (task.isSuccessful()) {
+                        CollectionReference corpoCriadoRef = database.collection(getString(R.string.corpos_tag) + "/" + task.getResult().getId() + "/" + getString(R.string.rompimentos_tag));
+                        for (Blocos blocos : BlocosList) {
+                            ListSize++;
+                            corpoCriadoRef.add(blocos).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentReference> task) {
+                                    if (task.isSuccessful()) {
+                                        if (ListSize >= BlocosList.size()) {
+                                            dismissProgress();
+                                            Toast.makeText(context, getString(R.string.rupturas_create_sucess), Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(RupturaBlocoListActivity.this, HomeActivity.class);
+                                            startActivity(intent);
+                                            finish();
                                         } else {
                                             dismissProgress();
                                         }
+                                    } else {
+                                        dismissProgress();
                                     }
-                                });
-                            }
-
+                                }
+                            });
                         }
-                    });
+                    } else {
+                        showAlert(getString(R.string.erro), getString(R.string.erro_salve));
+                    }
                 }
             });
 
+        }else{
+            log(getString(R.string.corpos_tag) + "/" + corpo.getId());
+            database.collection(getString(R.string.corpos_tag)).document(corpo.getId())
+                    .update("alertas",newCorpo.getAlertas(),
+                            "centro_de_custo",newCorpo.getCentro_de_custo(),
+                            "createdBy",newCorpo.getCreatedBy(),
+                            "dataCreate",newCorpo.getDataCreate(),
+                            "isValid",true,
+                            "loteId",newCorpo.getLoteId(),
+                            "obraId",newCorpo.getObraId(),
+                            "tipo",newCorpo.getTipo())
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task1) {
+                            database.collection(getString(R.string.corpos_tag) + "/" + corpo.getId() + "/" + getString(R.string.rompimentos_tag)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task2) {
+                                    for (DocumentChange change2 :
+                                            task2.getResult().getDocumentChanges()){
+                                        database.document(getString(R.string.corpos_tag) + "/" + corpo.getId() + "/" + getString(R.string.rompimentos_tag)+"/"+change2.getDocument().getId()).delete();
+
+                                    }
+
+                                    for (Blocos bloco:
+                                            BlocosList) {
+                                        ListSize++;
+                                        database.collection(getString(R.string.corpos_tag) + "/" + corpo.getId() + "/" + getString(R.string.rompimentos_tag))
+                                                .add(bloco).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentReference> task) {
+                                                if (task.isSuccessful()) {
+                                                    if (ListSize >= BlocosList.size()) {
+                                                        dismissProgress();
+                                                        Toast.makeText(context, getString(R.string.rupturas_create_sucess), Toast.LENGTH_SHORT).show();
+                                                        Intent intent = new Intent(RupturaBlocoListActivity.this, HomeActivity.class);
+                                                        startActivity(intent);
+                                                        finish();
+                                                    } else {
+                                                        dismissProgress();
+                                                    }
+                                                } else {
+                                                    dismissProgress();
+                                                }
+                                            }
+                                        });
+                                    }
+
+                                }
+                            });
+                        }
+                    });
+
         }
 
-
-}
-
-
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.corpos_list_menu, menu);
@@ -248,7 +274,7 @@ public class RupturaBlocoListActivity extends MainActivity {
         devPad = Math.sqrt(variancia);
 
         if (devPad > 0.5) {
-            alertas.add("A5: Desvio padrão maior que 0,5.");
+            alertas.add("A4: Desvio padrão maior que 0,5.");
         }
 
         if (n < 6) {
@@ -358,9 +384,9 @@ public class RupturaBlocoListActivity extends MainActivity {
             if (fbk_est < lote.fbk) {
                 alertas.add("A2: O fbk, est foi menor que o fbk de projeto.");
             }
-            if (fbk_est > (lote.fbk + (lote.fbk * 40 / 100))) {
-                alertas.add("A3: O fbk, est foi maior que 40% que o fbk de projeto.");
-            }
+           /* if (fbk_est > (lote.fbk + (lote.fbk * 40 / 100))) {
+                alertas.add("A: O fbk, est foi maior que 40% que o fbk de projeto.");
+            }*/
         }
         return alertas;
     }
