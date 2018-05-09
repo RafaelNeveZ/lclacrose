@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -11,9 +12,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.lacrose.lc.lclacrose.Model.BlocoLotes;
 import com.lacrose.lc.lclacrose.Model.Blocos;
 import com.lacrose.lc.lclacrose.Util.FireBaseUtil;
@@ -22,6 +29,7 @@ import com.lacrose.lc.lclacrose.Util.MainActivity;
 import java.sql.Date;
 import java.text.DecimalFormat;
 import java.util.Calendar;
+import java.util.List;
 
 
 public class RupturaBlocoActivity extends MainActivity {
@@ -31,7 +39,7 @@ public class RupturaBlocoActivity extends MainActivity {
     public TextView code_ET;
     private final Context context = this;
     EditText edit_carga, edit_altura,edit_largura,edit_comprimento,edit_espc_long,edit_espc_trans,edit_res;
-    FirebaseDatabase database;
+    FirebaseFirestore database;
 
     private FirebaseAuth Auth;
     Calendar today= Calendar.getInstance();
@@ -40,7 +48,8 @@ public class RupturaBlocoActivity extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bloco_rulptura);
-        database = FireBaseUtil.getDatabase();
+        database = FireBaseUtil.getFireDatabase();
+        testarCodigo();
         if(!jaPerguntei){
             isThisForNow();
         }
@@ -123,6 +132,10 @@ public class RupturaBlocoActivity extends MainActivity {
             }
         });
         Auth = FirebaseAuth.getInstance();
+
+    }
+
+    private void testarCodigo(){
 
     }
 

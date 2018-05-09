@@ -20,8 +20,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.lacrose.lc.lclacrose.Adapter.BlocoLoteAdapter;
 import com.lacrose.lc.lclacrose.Adapter.RupturaBlocoAdapter;
 import com.lacrose.lc.lclacrose.Model.BlocoLotes;
@@ -38,6 +40,8 @@ import java.util.List;
 
 public class RupturaBlocoListActivity extends MainActivity {
     public static List<Blocos> BlocosList;
+    public static Corpos corpo;
+    public static Blocos antigoCorpos;
     private final Context context = this;
     CollectionReference corpo_ref;
     FirebaseFirestore database;
@@ -69,21 +73,22 @@ public class RupturaBlocoListActivity extends MainActivity {
 
     public void saveRuptura(View view) {
         showProgress(getString(R.string.saving));
-        Corpos corpo = new Corpos();
-        corpo.setCentro_de_custo(HomeActivity.Work.getCentro_de_custo());
-        corpo.setCreatedBy(FirebaseAuth.getInstance().getUid());
-        corpo.setDataCreate(Calendar.getInstance().getTime().getTime());
-        corpo.setIsValid(true);
-        corpo.setObraId(HomeActivity.WorkId);
-        corpo.setLoteId(RupturaBlocoActivity.atualLote.getId());
-        corpo.setAlertas(testAvisos());
-        corpo.setTipo(getString(R.string.bloco_minusculo));
-        corpo_ref = database.collection( getString(R.string.corpos_tag));
-        corpo_ref.add(corpo).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+        Corpos newCorpo = new Corpos();
+        newCorpo.setCentro_de_custo(HomeActivity.Work.getCentro_de_custo());
+        newCorpo.setCreatedBy(FirebaseAuth.getInstance().getUid());
+        newCorpo.setDataCreate(Calendar.getInstance().getTime().getTime());
+        newCorpo.setIsValid(true);
+        newCorpo.setObraId(HomeActivity.WorkId);
+        newCorpo.setLoteId(RupturaBlocoActivity.atualLote.getId());
+        newCorpo.setAlertas(testAvisos());
+        newCorpo.setTipo(getString(R.string.bloco_minusculo));
+        if (newCorpo.getDataCreate() == null) {
+        corpo_ref = database.collection(getString(R.string.corpos_tag));
+        corpo_ref.add(newCorpo).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
-                if(task.isSuccessful()){
-                    CollectionReference corpoCriadoRef = database.collection(getString(R.string.corpos_tag)+"/"+task.getResult().getId()+"/"+getString(R.string.rompimentos_tag));
+                if (task.isSuccessful()) {
+                    CollectionReference corpoCriadoRef = database.collection(getString(R.string.corpos_tag) + "/" + task.getResult().getId() + "/" + getString(R.string.rompimentos_tag));
                     for (Blocos blocos : BlocosList) {
                         ListSize++;
                         corpoCriadoRef.add(blocos).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
@@ -105,13 +110,65 @@ public class RupturaBlocoListActivity extends MainActivity {
                             }
                         });
                     }
-                }else{
-                    showAlert(getString(R.string.erro),getString(R.string.erro_salve));
+                } else {
+                    showAlert(getString(R.string.erro), getString(R.string.erro_salve));
                 }
             }
         });
 
+    }else{
+            log(getString(R.string.corpos_tag) + "/" + corpo.getId());
+        database.collection(getString(R.string.corpos_tag)).document(corpo.getId())
+                .update("alertas",newCorpo.getAlertas(),
+                        "centro_de_custo",newCorpo.getCentro_de_custo(),
+                        "createdBy",newCorpo.getCreatedBy(),
+                        "dataCreate",newCorpo.getDataCreate(),
+                        "isValid",true,
+                        "loteId",newCorpo.getLoteId(),
+                        "obraId",newCorpo.getObraId(),
+                        "tipo",newCorpo.getTipo())
+        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task1) {
+                    database.collection(getString(R.string.corpos_tag) + "/" + corpo.getId() + "/" + getString(R.string.rompimentos_tag)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task2) {
+                            for (DocumentChange change2 :
+                                    task2.getResult().getDocumentChanges()){
+                                database.document(getString(R.string.corpos_tag) + "/" + corpo.getId() + "/" + getString(R.string.rompimentos_tag)+"/"+change2.getDocument().getId()).delete();
 
+                            }
+
+                            for (Blocos bloco:
+                                 BlocosList) {
+                                ListSize++;
+                                database.collection(getString(R.string.corpos_tag) + "/" + corpo.getId() + "/" + getString(R.string.rompimentos_tag))
+                                        .add(bloco).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                                        if (task.isSuccessful()) {
+                                            if (ListSize >= BlocosList.size()) {
+                                                dismissProgress();
+                                                Toast.makeText(context, getString(R.string.rupturas_create_sucess), Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(RupturaBlocoListActivity.this, HomeActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            } else {
+                                                dismissProgress();
+                                            }
+                                        } else {
+                                            dismissProgress();
+                                        }
+                                    }
+                                });
+                            }
+
+                        }
+                    });
+                }
+            });
+
+        }
 
 
 }

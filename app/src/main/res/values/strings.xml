@@ -268,6 +268,15 @@
     <string name="delete">EXCLUIR ROMPIMENTO</string>
     <string name="delete_rompimento_title">Tem certeza que deseja apagar o rompimento?</string>
     <string name="delete_bt">EXCLUIR</string>
+    <string name="loteId">loteId</string>
+    <string name="ocorreu_erro">Ocorreu um erro!</string>
+    <string name="loading">Carregando...</string>
+    <string name="codigo_minusculo">codigo</string>
+    <string name="ja_possui_title">AVISO!</string>
+    <string name="ja_possui_text">Já foi registrado um corpo de prova com este código.</string>
+    <string name="corpo_ja_rompido">Corpo já rompido.</string>
+    <string name="aviso">AVISO!</string>
+    <string name="corpo_nao_reg">Corpo não registrado!</string>
 
     <string-array name="type_arrays">
         <item>Selecione o tipo</item>
