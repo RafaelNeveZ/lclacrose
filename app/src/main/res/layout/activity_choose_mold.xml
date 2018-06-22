@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/back_gray_almost_white"
-    tools:context="com.lacrose.lc.lclacrose.ChooseMoldActivity">
+    tools:context="com.lacrose.lc.lacrose.ChooseMoldActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

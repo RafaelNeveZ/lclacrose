@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.lacrose.lc.lclacrose">
+    package="com.lacrose.lc.lacrose">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -15,9 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Util.MainActivity" />
+        <activity android:name="com.lacrose.lc.lacrose.Util.MainActivity" />
         <activity
-            android:name=".LoginActivity"
+            android:name="com.lacrose.lc.lacrose.LoginActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:theme="@style/AppThemeFullscreen"
             android:windowSoftInputMode="stateHidden">
@@ -28,126 +28,126 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ScanActivity"
+            android:name="com.lacrose.lc.lacrose.ScanActivity"
             android:theme="@style/AppThemeFullscreen" />
         <activity
-            android:name=".ScanAddCorpoActivity"
+            android:name="com.lacrose.lc.lacrose.ScanAddCorpoActivity"
             android:theme="@style/AppThemeFullscreen" />
         <activity
-            android:name=".AboutActivity"
+            android:name="com.lacrose.lc.lacrose.AboutActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/about_title"
-            android:parentActivityName=".LoginActivity" />
+            android:parentActivityName="com.lacrose.lc.lacrose.LoginActivity" />
         <activity
-            android:name=".TermsActivity"
+            android:name="com.lacrose.lc.lacrose.TermsActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/terms_of_user_title"
-            android:parentActivityName=".LoginActivity" />
+            android:parentActivityName="com.lacrose.lc.lacrose.LoginActivity" />
         <activity
-            android:name=".WorkActivity"
+            android:name="com.lacrose.lc.lacrose.WorkActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/works" />
         <activity
-            android:name=".HomeActivity"
+            android:name="com.lacrose.lc.lacrose.HomeActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:parentActivityName=".WorkActivity" />
+            android:parentActivityName="com.lacrose.lc.lacrose.WorkActivity" />
         <activity
-            android:name=".CorpoMoldActivity"
+            android:name="com.lacrose.lc.lacrose.CorpoMoldActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/mold"
-            android:parentActivityName=".ChooseMoldActivity"
+            android:parentActivityName="com.lacrose.lc.lacrose.ChooseMoldActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".RupturaCorpoActivity"
+            android:name="com.lacrose.lc.lacrose.RupturaCorpoActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/ruptura"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".RupturaBlocoActivity"
+            android:name="com.lacrose.lc.lacrose.RupturaBlocoActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/ruptura"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".EditRupturaBlocoActivity"
+            android:name="com.lacrose.lc.lacrose.EditRupturaBlocoActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/ruptura"
-            android:parentActivityName=".RupturaBlocoListActivity"
+            android:parentActivityName="com.lacrose.lc.lacrose.RupturaBlocoListActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".EditRupturaCorpoActivity"
+            android:name="com.lacrose.lc.lacrose.EditRupturaCorpoActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/ruptura"
-            android:parentActivityName=".RupturaCorpoListActivity"
+            android:parentActivityName="com.lacrose.lc.lacrose.RupturaCorpoListActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".EditRupturaPavimentoActivity"
+            android:name="com.lacrose.lc.lacrose.EditRupturaPavimentoActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/ruptura"
-            android:parentActivityName=".RupturaPavimentoListActivity"
+            android:parentActivityName="com.lacrose.lc.lacrose.RupturaPavimentoListActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".EditRupturaPrismaActivity"
+            android:name="com.lacrose.lc.lacrose.EditRupturaPrismaActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/ruptura"
-            android:parentActivityName=".RupturaPrismasListActivity"
+            android:parentActivityName="com.lacrose.lc.lacrose.RupturaPrismasListActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".RupturaPrismaActivity"
+            android:name="com.lacrose.lc.lacrose.RupturaPrismaActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/ruptura"
-            android:parentActivityName=".LotesActivity"
+            android:parentActivityName="com.lacrose.lc.lacrose.LotesActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".RupturaPavimentoActivity"
+            android:name="com.lacrose.lc.lacrose.RupturaPavimentoActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/ruptura"
-            android:parentActivityName=".LotesActivity"
+            android:parentActivityName="com.lacrose.lc.lacrose.LotesActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".LotesActivity"
+            android:name="com.lacrose.lc.lacrose.LotesActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/lote_label"
-            android:parentActivityName=".HomeActivity" />
+            android:parentActivityName="com.lacrose.lc.lacrose.HomeActivity" />
         <activity
-            android:name=".RupturaCorpoListActivity"
+            android:name="com.lacrose.lc.lacrose.RupturaCorpoListActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/list_ruptura_label" />
         <activity
-            android:name=".RupturaBlocoListActivity"
+            android:name="com.lacrose.lc.lacrose.RupturaBlocoListActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/list_bloco_label" />
         <activity
-            android:name=".RupturaPrismasListActivity"
+            android:name="com.lacrose.lc.lacrose.RupturaPrismasListActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/list_prismas_label" />
         <activity
-            android:name=".RupturaPavimentoListActivity"
+            android:name="com.lacrose.lc.lacrose.RupturaPavimentoListActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/list_pavimento_label" />
         <activity
-            android:name=".BlocoMoldActivity"
+            android:name="com.lacrose.lc.lacrose.BlocoMoldActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/moldagem_bloco_label"
             android:windowSoftInputMode="stateHidden"
-            android:parentActivityName=".ChooseMoldActivity"/>
+            android:parentActivityName="com.lacrose.lc.lacrose.ChooseMoldActivity"/>
         <activity
-            android:name=".PrismaMoldActivity"
+            android:name="com.lacrose.lc.lacrose.PrismaMoldActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/moldagem_prisma_label"
             android:windowSoftInputMode="stateHidden"
-            android:parentActivityName=".ChooseMoldActivity"/>
+            android:parentActivityName="com.lacrose.lc.lacrose.ChooseMoldActivity"/>
         <activity
-            android:name=".PavimentoMoldActivity"
+            android:name="com.lacrose.lc.lacrose.PavimentoMoldActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/moldagem_pavimento_label"
             android:windowSoftInputMode="stateHidden"
-            android:parentActivityName=".ChooseMoldActivity"/>
+            android:parentActivityName="com.lacrose.lc.lacrose.ChooseMoldActivity"/>
         <activity
-            android:name=".ChooseMoldActivity"
+            android:name="com.lacrose.lc.lacrose.ChooseMoldActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/moldagem_type_label"
             android:windowSoftInputMode="stateHidden"
-            android:parentActivityName=".ChooseMoldActivity" />
+            android:parentActivityName="com.lacrose.lc.lacrose.ChooseMoldActivity" />
     </application>
 
 </manifest>

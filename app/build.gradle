@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "26.0.1"
     defaultConfig {
-        applicationId "com.lacrose.lc.lclacrose"
+        applicationId "com.lacrose.lc.lacrose"
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 1

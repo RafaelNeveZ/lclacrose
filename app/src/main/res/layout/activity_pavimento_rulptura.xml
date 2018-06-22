@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center|top"
     android:background="@color/back_gray_almost_white"
-    tools:context="com.lacrose.lc.lclacrose.RupturaPavimentoActivity">
+    tools:context="com.lacrose.lc.lacrose.RupturaPavimentoActivity">
 
     <ScrollView
         android:layout_width="match_parent"

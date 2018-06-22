@@ -8,6 +8,37 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:1065174956410:android:6208e8bd180fdde3",
+        "android_client_info": {
+          "package_name": "com.lacrose.lc.lacrose"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1065174956410-p2pnmcqjr9q3sieurgno0dfna9gnnrha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2oJzKIGRbH9ZJmbSp4udQCSxCZSonFMo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:1065174956410:android:bc0dac4b94616ddf",
         "android_client_info": {
           "package_name": "com.lacrose.lc.lclacrose"

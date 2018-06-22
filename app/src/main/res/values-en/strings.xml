@@ -108,6 +108,8 @@
     <string name="nota_text">Nota fiscal</string>
     <string name="volume_text">Volume (m³)</string>
     <string name="fck_text">FCK de projeto</string>
+    <string name="d80_100_200">80x100x200</string>
+    <string name="nao_possui">Não possui</string>
     <string name="slump_text">Slump</string>
     <string name="slump_flow_text">Slump flow</string>
     <string name="data_text">Data de recebimento</string>

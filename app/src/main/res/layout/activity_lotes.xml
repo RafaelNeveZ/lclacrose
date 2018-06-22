@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.lacrose.lc.lclacrose.LotesActivity">
+    tools:context="com.lacrose.lc.lacrose.LotesActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
